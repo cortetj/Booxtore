@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.booxtore.business;
+package com.booxtore.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
