@@ -7,15 +7,20 @@
 package com.booxtore.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,7 +36,6 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o"),
     @NamedQuery(name = "Orders.findByOrderId", query = "SELECT o FROM Orders o WHERE o.orderId = :orderId"),
-    @NamedQuery(name = "Orders.findByUserId", query = "SELECT o FROM Orders o WHERE o.userId = :userId"),
     @NamedQuery(name = "Orders.findByOrderDate", query = "SELECT o FROM Orders o WHERE o.orderDate = :orderDate"),
     @NamedQuery(name = "Orders.findByOrderState", query = "SELECT o FROM Orders o WHERE o.orderState = :orderState"),
     @NamedQuery(name = "Orders.findByOrderDateState", query = "SELECT o FROM Orders o WHERE o.orderDateState = :orderDateState"),
@@ -43,10 +47,6 @@ public class Orders implements Serializable {
     @Basic(optional = false)
     @Column(name = "order_id")
     private Integer orderId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "user_id")
-    private int userId;
     @Basic(optional = false)
     @NotNull
     @Column(name = "order_date")
@@ -64,6 +64,11 @@ public class Orders implements Serializable {
     @Size(min = 1, max = 4)
     @Column(name = "order_credit_card")
     private String orderCreditCard;
+    @JoinColumn(name = "user_user_id", referencedColumnName = "user_id")
+    @ManyToOne(optional = false)
+    private User userUserId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderOrderId")
+    private Collection<OrderRow> orderRowCollection;
 
     public Orders() {
     }
@@ -72,9 +77,8 @@ public class Orders implements Serializable {
         this.orderId = orderId;
     }
 
-    public Orders(Integer orderId, int userId, Date orderDate, short orderState, String orderCreditCard) {
+    public Orders(Integer orderId, Date orderDate, short orderState, String orderCreditCard) {
         this.orderId = orderId;
-        this.userId = userId;
         this.orderDate = orderDate;
         this.orderState = orderState;
         this.orderCreditCard = orderCreditCard;
@@ -86,14 +90,6 @@ public class Orders implements Serializable {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public Date getOrderDate() {
@@ -128,6 +124,22 @@ public class Orders implements Serializable {
         this.orderCreditCard = orderCreditCard;
     }
 
+    public User getUserUserId() {
+        return userUserId;
+    }
+
+    public void setUserUserId(User userUserId) {
+        this.userUserId = userUserId;
+    }
+
+    public Collection<OrderRow> getOrderRowCollection() {
+        return orderRowCollection;
+    }
+
+    public void setOrderRowCollection(Collection<OrderRow> orderRowCollection) {
+        this.orderRowCollection = orderRowCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -150,7 +162,7 @@ public class Orders implements Serializable {
 
     @Override
     public String toString() {
-        return "com.booxtore.business.Orders[ orderId=" + orderId + " ]";
+        return "com.booxtore.entity.Orders[ orderId=" + orderId + " ]";
     }
     
 }

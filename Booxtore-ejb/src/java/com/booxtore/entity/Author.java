@@ -7,12 +7,14 @@
 package com.booxtore.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -47,6 +49,8 @@ public class Author implements Serializable {
     @Size(min = 1, max = 1024)
     @Column(name = "author_summary")
     private String authorSummary;
+    @ManyToMany(mappedBy = "authorCollection")
+    private Collection<Book> bookCollection;
 
     public Author() {
     }
@@ -85,6 +89,14 @@ public class Author implements Serializable {
         this.authorSummary = authorSummary;
     }
 
+    public Collection<Book> getBookCollection() {
+        return bookCollection;
+    }
+
+    public void setBookCollection(Collection<Book> bookCollection) {
+        this.bookCollection = bookCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -107,7 +119,7 @@ public class Author implements Serializable {
 
     @Override
     public String toString() {
-        return "com.booxtore.business.Author[ authorId=" + authorId + " ]";
+        return "com.booxtore.entity.Author[ authorId=" + authorId + " ]";
     }
     
 }

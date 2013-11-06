@@ -7,7 +7,9 @@
 package com.booxtore.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -88,6 +91,8 @@ public class User implements Serializable {
     @NotNull
     @Column(name = "user_state")
     private short userState;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userUserId")
+    private Collection<Orders> ordersCollection;
 
     public User() {
     }
@@ -189,6 +194,14 @@ public class User implements Serializable {
         this.userState = userState;
     }
 
+    public Collection<Orders> getOrdersCollection() {
+        return ordersCollection;
+    }
+
+    public void setOrdersCollection(Collection<Orders> ordersCollection) {
+        this.ordersCollection = ordersCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -211,7 +224,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.booxtore.business.User[ userId=" + userId + " ]";
+        return "com.booxtore.entity.User[ userId=" + userId + " ]";
     }
     
 }
