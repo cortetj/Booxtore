@@ -32,6 +32,6 @@ public class testManagedBean {
     }
     
     public List<Book> getBooks() {
-        return bookAccessor.getBooksByCategory(2, 1);
+        return bookAccessor.getBooksByCategory(1, 1);
     }   
 }

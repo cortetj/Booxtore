@@ -11,15 +11,15 @@
         <h:dataTable value="#{testManagedBean.books}" var="b">
             <h:column>
                 <f:facet name="header">Nom</f:facet>
-                <h:outputLabel value="#{b.bookName}" />
+                <h:outputLabel value="#{b.bookName}"/>
             </h:column>
             <h:column>
                 <f:facet name="header">Prix</f:facet>
-                <h:outputLabel value="#{b.bookPrice}" />
+                <h:outputLabel value="#{b.bookPrice}"/>
             </h:column>
             <h:column>
                 <f:facet name="header">Auteurs</f:facet>
-                <ui:repeat value="#{b.authorCollection}" var="a"><h:outputLabel value="${a.authorName}" />,</ui:repeat>
+                <ui:repeat value="#{b.authorCollection}" var="a"><h:outputLabel value="${a.authorName}"/>, </ui:repeat>
             </h:column>
         </h:dataTable>
     </h:body>
