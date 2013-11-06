@@ -68,9 +68,12 @@ public class BookAccessor implements BookAccessorLocal {
     public Book getBook(int id) {
         // Création de l'e.m.
         EntityManager em = emf.createEntityManager();
-        return  (Book) em.createNamedQuery("Book.findByBookId")
+        Book b = new Book();
+        b = (Book)em.createNamedQuery("Book.findByBookId")
                   .setParameter("bookId", id)
                   .getSingleResult();
+        System.out.println("PRINT BIG");
+        return  b;
     }
     
     

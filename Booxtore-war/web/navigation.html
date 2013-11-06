@@ -17,19 +17,18 @@
                             <li id="nav-home"><a href="index.html">Accueil</a></li>
                             <li id="nav-books" class="dropdown"><a href="books.html" class="dropdown-toggle" >Livres</a>
                                 <ul class="dropdown-menu unstyled">
-                                    <c:forEach items="#{testManagedBean.categories}" var="c">
+                                    <c:forEach items="#{testManagedBean.listCategories()}" var="c">
                                         <li><a href="#"> ${c.categoryName} </a></li>
                                     </c:forEach>
                                 </ul>
                             </li>
                             <li id="nav-about"><a href="about.html">A propos</a></li>
                             <li id="nav-contact"><a href="contact.html">Contact</a></li>
+                            <li id="nav-login"><a href="#" id="login">Connect</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-    <script>
 
-    </script>
 </ui:composition>

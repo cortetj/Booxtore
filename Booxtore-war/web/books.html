@@ -31,7 +31,7 @@
     <div class="container">
         <ul>
             <li class="active"><a href="#"><span class="lft"></span><span class="mid">Tous</span><span class="rt"></span></a></li>
-            <c:forEach items="#{testManagedBean.categories}" var="c">
+            <c:forEach items="#{testManagedBean.listCategories()}" var="c">
                 <li data-filter="${c.categoryName}"><a href="#"><span class="lft"></span><span class="mid">${c.categoryName}</span><span class="rt"></span></a></li>
             </c:forEach>
         </ul>
@@ -42,236 +42,39 @@
     <div class="container">
 
         <ul class="thumbnails withHover" id="portfolios1">
-            <li class="span3" data-id="1" data-filter="filter-3">
-                <a href="06bwork-project-slider.html" class="thumbnail corner">
-                    <span class="topCorner"></span>
-                    <img src="img/testbook.jpg" alt=""/>
+            <c:forEach items="#{testManagedBean.listBooks()}" var="b">
+                <li class="span3" data-id="#{b.bookId}" data-filter="#{b.categoryCategoryId.categoryName}">
+                    <a href="read.html?id=#{b.bookId}" class="thumbnail corner">
+                        <span class="topCorner"></span>
+                        <img src="img/books_thmb/#{b.bookId}.jpg" alt=""/>
 
-                    <div class="contenthover"></div>
-                    <span class="bottomCorner"></span>
-                </a>
+                        <div class="contenthover"></div>
+                        <span class="bottomCorner"></span>
+                    </a>
 
-                <div class="caption">
-                    <h3><a href="06bwork-project-slider.html">Project with Slider</a></h3>
+                    <div class="caption">
+                        <h3 class="floleft"><a href="read.html?id=#{b.bookId}">#{b.bookName}</a></h3>
+                        <h3 class="floright">#{b.bookPrice} €</h3>
+                        <h4><c:forEach items="#{b.authorCollection}" var="a">#{a.authorName} </c:forEach></h4>
+                        <h4 style="font-weight: normal;"><i>#{b.categoryCategoryId.categoryName}</i></h4>
+                        
 
-                    <p>Nulla eu dui id odio sollicitudin suscipit sed eu odio. Sed rutrum eleifend.</p>
-                </div>
-            </li>
-            <li class="span3" data-id="2" data-filter="filter-3 filter-1">
-                <a href="img/content/slider-temp1.jpg" class="thumbnail corner colorUp">
-                    <span class="topCorner"></span>
-                    <img src="img/testbook2.jpg" alt=""/>
-
-                    <div class="contenthover"></div>
-                    <span class="bottomCorner"></span>
-                </a>
-
-                <div class="caption">
-                    <h3><a class="colorUp" href="img/content/slider-temp1.jpg">Project with Colorbox</a></h3>
-
-                    <p>Nulla eu dui id odio sollicitudin suscipit sed eu odio. Sed rutrum eleifend.</p>
-                </div>
-            </li>
-            <li class="span3" data-id="3" data-filter="filter-3">
-                <a href="06work-project.html" class="thumbnail corner">
-                    <span class="topCorner"></span>
-                    <img src="http://dummyimage.com/210x150" alt=""/>
-
-                    <div class="contenthover"></div>
-                    <span class="bottomCorner"></span>
-                </a>
-
-                <div class="caption">
-                    <h3><a href="06work-project.html">Project name</a></h3>
-
-                    <p>Nulla eu dui id odio sollicitudin suscipit sed eu odio. Sed rutrum eleifend.</p>
-                </div>
-            </li>
-            <li class="span3" data-id="4" data-filter="filter-3 filter-2">
-                <a href="06work-project.html" class="thumbnail corner">
-                    <span class="topCorner"></span>
-                    <img src="http://dummyimage.com/210x150" alt=""/>
-
-                    <div class="contenthover"></div>
-                    <span class="bottomCorner"></span>
-                </a>
-
-                <div class="caption">
-                    <h3><a href="06work-project.html">Project name</a></h3>
-
-                    <p>Nulla eu dui id odio sollicitudin suscipit sed eu odio. Sed rutrum eleifend.</p>
-                </div>
-            </li>
-            <li class="span3" data-id="5" data-filter="filter-2">
-                <a href="06work-project.html" class="thumbnail corner">
-                    <span class="topCorner"></span>
-                    <img src="http://dummyimage.com/210x150" alt=""/>
-
-                    <div class="contenthover"></div>
-                    <span class="bottomCorner"></span>
-                </a>
-
-                <div class="caption">
-                    <h3><a href="06work-project.html">Project name</a></h3>
-
-                    <p>Nulla eu dui id odio sollicitudin suscipit sed eu odio. Sed rutrum eleifend.</p>
-                </div>
-            </li>
-            <li class="span3" data-id="6" data-filter="filter-2">
-                <a href="06work-project.html" class="thumbnail corner">
-                    <span class="topCorner"></span>
-                    <img src="http://dummyimage.com/210x150" alt=""/>
-
-                    <div class="contenthover"></div>
-                    <span class="bottomCorner"></span>
-                </a>
-
-                <div class="caption">
-                    <h3><a href="06work-project.html">Project name</a></h3>
-
-                    <p>Nulla eu dui id odio sollicitudin suscipit sed eu odio. Sed rutrum eleifend.</p>
-                </div>
-            </li>
-            <li class="span3" data-id="7" data-filter="filter-1 filter-2">
-                <a href="06work-project.html" class="thumbnail corner">
-                    <span class="topCorner"></span>
-                    <img src="http://dummyimage.com/210x150" alt=""/>
-
-                    <div class="contenthover"></div>
-                    <span class="bottomCorner"></span>
-                </a>
-
-                <div class="caption">
-                    <h3><a href="06work-project.html">Project name</a></h3>
-
-                    <p>Nulla eu dui id odio sollicitudin suscipit sed eu odio. Sed rutrum eleifend.</p>
-                </div>
-            </li>
-            <li class="span3" data-id="8" data-filter="filter-3 filter-1">
-                <a href="06work-project.html" class="thumbnail corner">
-                    <span class="topCorner"></span>
-                    <img src="http://dummyimage.com/210x150" alt=""/>
-
-                    <div class="contenthover"></div>
-                    <span class="bottomCorner"></span>
-                </a>
-
-                <div class="caption">
-                    <h3><a href="06work-project.html">Project name</a></h3>
-
-                    <p>Nulla eu dui id odio sollicitudin suscipit sed eu odio. Sed rutrum eleifend.</p>
-                </div>
-            </li>
-            <li class="span3" data-id="9" data-filter="filter-1">
-                <a href="06work-project.html" class="thumbnail corner">
-                    <span class="topCorner"></span>
-                    <img src="http://dummyimage.com/210x150" alt=""/>
-
-                    <div class="contenthover"></div>
-                    <span class="bottomCorner"></span>
-                </a>
-
-                <div class="caption">
-                    <h3><a href="06work-project.html">Project name</a></h3>
-
-                    <p>Nulla eu dui id odio sollicitudin suscipit sed eu odio. Sed rutrum eleifend.</p>
-                </div>
-            </li>
-            <li class="span3" data-id="10" data-filter="filter-3 filter-1">
-                <a href="06work-project.html" class="thumbnail corner">
-                    <span class="topCorner"></span>
-                    <img src="http://dummyimage.com/210x150" alt=""/>
-
-                    <div class="contenthover"></div>
-                    <span class="bottomCorner"></span>
-                </a>
-
-                <div class="caption">
-                    <h3><a href="06work-project.html">Project name</a></h3>
-
-                    <p>Nulla eu dui id odio sollicitudin suscipit sed eu odio. Sed rutrum eleifend.</p>
-                </div>
-            </li>
+                        <p>#{b.bookSummary}</p>
+                    </div>
+                </li>
+            </c:forEach>
             
         </ul>
     </div>
 </div>
 
 
-<div id="contactUsRow" class="green-row">
-    <div class="container">
-        <div class="row">
-            <div class="span3">
-                <h4>Contact us</h4>
-                <address>
-                    <strong>Address:</strong> 221 Baker Street,<br/>
-                    London, United Kingdom<br/>
-                    <strong>Tel:</strong> +12 346-678-90<br/>
-                    <strong>Fax:</strong> +12 346-678-93<br/>
-                    <strong>Email:</strong> <a href="#">hello@quartum.com</a>
-                </address>
 
-            </div>
-            <div class="span3">
-
-                <ul class="thumbnails">
-                    <li>
-                        <a href="#" class="thumbnail"><img src="http://dummyimage.com/190x130" alt=""/></a>
-                    </li>
-                </ul>
-
-            </div>
-            <div class="span3">
-                <p>Would you like to talk about your next project?</p>
-                <a href="#" class="btn red-btn">request a quote</a>
-            </div>
-            <div class="span3">
-                <div id="getInTouch">
-                    <h4>Get in touch</h4>
-
-                    <ul class="social">
-                      <li><a href="#" class="facebook" data-toggle="tooltip" title="Facebook"></a></li>
-                      <li><a href="#" class="twitter" data-toggle="tooltip" title="Twitter"></a></li>
-                      <li><a href="#" class="googleplus" data-toggle="tooltip" title="Google+"></a></li>
-                      <li><a href="#" class="linkedin" data-toggle="tooltip" title="LinkedIn"></a></li>
-                      <li><a href="#" class="pinterest" data-toggle="tooltip" title="Pinterest"></a></li>
-                    </ul>
-
-                </div>
-                <div id="newsletter">
-                    <h4>Newsletter</h4>
-
-                    <form class="form-search">
-                        <div class="input-append">
-                            <input type="text" class="span2 search-query" placeholder="Enter your email"/>
-                            <button type="submit" class="btn newsletterSubmit"></button>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-        <!-- Start Footer -->
-        <div id="footText">
-            <div class="container">
-                <div class="row">
-                    <div class="span4">
-                        <a href="#" class="toTop pull-left">HAUT DE PAGE</a>
-                    </div>
-                    <div class="span8">
-                        <p class="pull-right"> 2012 Booxtore.</p>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-        <!-- End Footer -->
 
 
 <script src="js/jquery.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
+<ui:include src="footer.html" />
 <script src="js/jquery.contenthover.min.js"></script>
 <script src="js/jquery.quicksand.js"></script>
 <script src="js/jquery.easing.js"></script>
