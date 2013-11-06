@@ -20,4 +20,6 @@ public interface BookAccessorLocal {
     List<Book> getBooksByCategory(int category, int index);
 
     List<Category> getCategories();
+
+    Book getBook(int id);
 }

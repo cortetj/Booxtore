@@ -16,7 +16,7 @@ import javax.persistence.Persistence;
 
 /**
  *
- * @author netbean
+ * @author Matthieu P.
  */
 @Stateless
 public class BookAccessor implements BookAccessorLocal {
@@ -45,6 +45,11 @@ public class BookAccessor implements BookAccessorLocal {
                                    .getResultList();
     }
 
+    /**
+     * Renvoie une liste de catégories
+     * 
+     * @return Liste de catégories
+     */
     @Override
     public List<Category> getCategories() {
         // Création de l'e.m.
@@ -52,7 +57,19 @@ public class BookAccessor implements BookAccessorLocal {
         return  em.createNamedQuery("Category.findAll")
                                    .getResultList();
     }
-    
-    
-    
+
+    /**
+     * Renvoie un livre  selon son id
+     * 
+     * @param id int id du livre à récupérer
+     * @return Livre
+     */
+    @Override
+    public Book getBook(int id) {
+        // Création de l'e.m.
+        EntityManager em = emf.createEntityManager();
+        return  (Book) em.createNamedQuery("Book.findByBookId")
+                  .setParameter("bookId", id)
+                  .getSingleResult();
+    }
 }
