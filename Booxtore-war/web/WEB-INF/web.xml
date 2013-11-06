@@ -50,8 +50,8 @@
         <auth-method>FORM</auth-method>
         <realm-name>booxtoreSecurityRealm</realm-name>
         <form-login-config>
-            <form-login-page/>
-            <form-error-page/>
+            <form-login-page>/login.html</form-login-page>
+            <form-error-page>/error_login.html</form-error-page>
         </form-login-config>
     </login-config>
     <security-role>
