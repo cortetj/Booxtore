@@ -8,6 +8,7 @@ package com.booxtore.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -94,7 +95,11 @@ public class Book implements Serializable {
     @NotNull
     @Column(name = "book_price")
     private BigDecimal bookPrice;
-
+    
+    private Category category;
+    private ArrayList<Author> author;
+    private Editor editor;
+    
     public Book() {
     }
 
@@ -202,6 +207,30 @@ public class Book implements Serializable {
 
     public void setBookPrice(BigDecimal bookPrice) {
         this.bookPrice = bookPrice;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public ArrayList<Author> getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(ArrayList<Author> author) {
+        this.author = author;
+    }
+
+    public Editor getEditor() {
+        return editor;
+    }
+
+    public void setEditor(Editor editor) {
+        this.editor = editor;
     }
 
     @Override
