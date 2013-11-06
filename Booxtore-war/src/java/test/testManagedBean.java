@@ -33,6 +33,5 @@ public class testManagedBean {
     
     public List<Book> getBooks() {
         return bookAccessor.getBooksByCategory(2, 1);
-    }
-    
+    }   
 }

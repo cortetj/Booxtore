@@ -19,8 +19,7 @@ import javax.persistence.Persistence;
  */
 @Stateless
 public class BookAccessor implements BookAccessorLocal {
-    
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Booxtore-ejbPU");
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("Booxtore-ejbPU");
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
@@ -37,11 +36,11 @@ public class BookAccessor implements BookAccessorLocal {
         int number_books_displayed = 10;
         // Création de l'e.m.
         EntityManager em = emf.createEntityManager();
-        
         return em.createNamedQuery("Book.findByCategoryId")
                                    .setParameter("categoryId", category)
                                    .setFirstResult( ((index-1) * number_books_displayed) + 1 )
                                    .setMaxResults(number_books_displayed)
                                    .getResultList();   
     }
+    
 }
