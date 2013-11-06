@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <ui:param name="book" value="#{testManagedBean.bookWithId(param.id)}" />
+        <title>Booxtore</title>
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+        <link href="css/style.css" rel="stylesheet" />
+
+        <!-- fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,900,900italic,400italic' rel='stylesheet' type='text/css'/>
+    </head>
+    <body>
+        <!-- Start Main Menu and Logo-->
+        <ui:include src="navigation.html" />
+        <!-- End Main Menu and Logo -->
+        <div id="titleRow">
+            <div class="container">
+                <h1>
+                    <span class="lft"></span><span class="mid">Lire </span><span class="rt"></span>
+
+                </h1>
+            </div>
+        </div>
+
+        <div class="projectNavig">
+            <div class="container">
+                <h2>
+                    <a href="#" class="lft"></a><span class="mid">#{book.bookName}</span><a href="#" class="rt"></a>
+                </h2>
+            </div>
+        </div>
+
+
+        <div class="singleProject">
+            <div class="container">
+                <div class="row">
+                    <div class="span8">
+
+                        <!-- work slider -->
+                        <div class="work-slider">
+                            <div class="flexslider">
+                                <ul class="slides">
+                                    <li>
+                                        <div class="thumbnail nolink">
+                                            <img src="img/books_thmb/hd#{book.bookId}-1.jpg" alt=""/>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="thumbnail nolink">
+                                            <img src="img/books_thmb/hd#{book.bookId}-2.jpg" alt=""/>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- / work slider -->
+
+                    </div>
+                    <div class="span4">
+                        <div class="projDescription">
+                            <span>Client<br/>
+                                <strong>Themeforest.net</strong>
+                            </span><br/>
+
+                            <span>Services<br/>
+                                <strong>Design<br/>Development</strong>
+                            </span><br/>
+
+                            <span>Year<br/>
+                                <strong>2012</strong>
+                            </span><br/><br/>
+
+                            <p>Nulla nisl est, gravida vel iaculis vel, porttitor a eros. Sed laoreet sagittis nisi ut eleifend. Sed aliquet rutrum mi a molestie. Proin convallis posuere aliquet. Donec sagittis, sapien
+                                sed tincidunt tristique, justo mauris imperdiet turpis, at facilisis purus nulla id dui. Maecenas non lacus sit amet diam fermentum pellentesque nec non ligula. Sed eleifend tristique
+                                neque quis congue. Cras in ligula at eros fringilla elementum a sed per arcu.</p>
+
+
+                            <br/><br/>
+
+                            <a href="06work-project.html" class="btn red-btn">Launch Project</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="recentWorksRow">
+            <div class="container">
+                <h2>
+                    <span class="lft"></span><span class="mid">Other Projects</span><span class="rt"></span>
+                </h2>
+                <ul class="thumbnails withHover">
+                    <li class="span3">
+                        <a href="06work-project.html" class="thumbnail corner">
+                            <span class="topCorner"></span>
+                            <img src="http://dummyimage.com/210x150" alt=""/>
+
+                            <div class="contenthover"></div>
+                            <span class="bottomCorner"></span>
+                        </a>
+
+                        <div class="caption">
+                            <h3><a href="06work-project.html">Project name</a></h3>
+
+                            <p>Nulla eu dui id odio sollicitudin suscipit sed eu odio. Sed rutrum eleifend.</p>
+                        </div>
+                    </li>
+                    <li class="span3">
+                        <a href="06work-project.html" class="thumbnail corner">
+                            <span class="topCorner"></span>
+                            <img src="http://dummyimage.com/210x150" alt=""/>
+
+                            <div class="contenthover"></div>
+                            <span class="bottomCorner"></span>
+                        </a>
+
+                        <div class="caption">
+                            <h3><a href="06work-project.html">Project name</a></h3>
+
+                            <p>Nulla eu dui id odio sollicitudin suscipit sed eu odio. Sed rutrum eleifend.</p>
+                        </div>
+                    </li>
+                    <li class="span3">
+                        <a href="06work-project.html" class="thumbnail corner">
+                            <span class="topCorner"></span>
+                            <img src="http://dummyimage.com/210x150" alt=""/>
+
+                            <div class="contenthover"></div>
+                            <span class="bottomCorner"></span>
+                        </a>
+
+                        <div class="caption">
+                            <h3><a href="06work-project.html">Project name</a></h3>
+
+                            <p>Nulla eu dui id odio sollicitudin suscipit sed eu odio. Sed rutrum eleifend.</p>
+                        </div>
+                    </li>
+                    <li class="span3">
+                        <a href="06work-project.html" class="thumbnail corner">
+                            <span class="topCorner"></span>
+                            <img src="http://dummyimage.com/210x150" alt=""/>
+
+                            <div class="contenthover"></div>
+                            <span class="bottomCorner"></span>
+                        </a>
+
+                        <div class="caption">
+                            <h3><a href="06work-project.html">Project name</a></h3>
+
+                            <p>Nulla eu dui id odio sollicitudin suscipit sed eu odio. Sed rutrum eleifend.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        
+        
+        <script src="js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/jquery.contenthover.min.js"></script>
+        <ui:include src="footer.html" />
+        <script src="js/jquery.easing.min.js"></script>
+        <script src="js/jquery.flexslider-min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#nav-books").addClass("active");
+            });
+            $(window).load(function() {
+                /***  jQuery ContentHover Plugin ***/
+                $('ul.withHover img').contenthover({
+                    overlay_opacity: 0.5
+                });
+
+                /***  Footer Back to Top link ***/
+                $('a.toTop').click(function() {
+                    $('html, body').animate({scrollTop: '0px'}, 300);
+                    return false;
+                });
+            });
+
+
+            /*  slider init */
+            jQuery(window).load(function() {
+                jQuery('.flexslider').flexslider({
+                    animation: "slide", //String: Select your animation type, "fade" or "slide"
+                    easing: "swing", //{NEW} String: Determines the easing method used in jQuery transitions. jQuery easing plugin is supported!
+                    // easing types :
+                    // swing, easeInQuad, easeOutQuad, easeInOutQuad, easeInCubic, easeOutCubic,
+                    // easeInOutCubic, easeInQuart, easeOutQuart, easeInOutQuart, easeInQuint,
+                    // easeOutQuint, easeInOutQuint, easeInSine, easeOutSine, easeInOutSine,
+                    // easeInExpo, easeOutExpo, easeInOutExpo, easeInCirc, easeOutCirc,
+                    // easeInOutCirc, easeInElastic, easeOutElastic, easeInOutElastic, easeInBack,
+                    // easeOutBack, easeInOutBack, easeInBounce, easeOutBounce, easeInOutBounce
+                    direction: "horizontal", //String: Select the sliding direction, "horizontal" or "vertical"
+                    reverse: false, //{NEW} Boolean: Reverse the animation direction
+                    animationLoop: true, //Boolean: Should the animation loop? If false, directionNav will received "disable" classes at either end
+                    smoothHeight: false, //{NEW} Boolean: Allow height of the slider to animate smoothly in horizontal mode
+                    startAt: 0, //Integer: The slide that the slider should start on. Array notation (0 = first slide)
+                    slideshow: true, //Boolean: Animate slider automatically
+                    slideshowSpeed: 7000, //Integer: Set the speed of the slideshow cycling, in milliseconds
+                    animationSpeed: 800, //Integer: Set the speed of animations, in milliseconds
+                    initDelay: 0, //{NEW} Integer: Set an initialization delay, in milliseconds
+                    randomize: false, //Boolean: Randomize slide order
+
+                    // Primary Controls
+                    controlNav: true, //Boolean: Create navigation for paging control of each clide? Note: Leave true for manualControls usage
+                    directionNav: true, //Boolean: Create navigation for previous/next navigation? (true/false)
+
+                    // Usability features
+                    pauseOnAction: true, //Boolean: Pause the slideshow when interacting with control elements, highly recommended.
+                    pauseOnHover: true, //Boolean: Pause the slideshow when hovering over slider, then resume when no longer hovering
+                    touch: true, //{NEW} Boolean: Allow touch swipe navigation of the slider on touch-enabled devices
+                    video: true, //{NEW} Boolean: If using video in the slider, will prevent CSS3 3D Transforms to avoid graphical glitches
+                    useCSS: false, //{NEW} Boolean: Slider will use CSS3 transitions if available
+
+
+                    // Secondary Navigation
+                    keyboard: true, //Boolean: Allow slider navigating via keyboard left/right keys
+                    multipleKeyboard: false, //{NEW} Boolean: Allow keyboard navigation to affect multiple sliders. Default behavior cuts out keyboard navigation with more than one slider present.
+                    mousewheel: false              //{UPDATED} Boolean: Requires jquery.mousewheel.js (https://github.com/brandonaaron/jquery-mousewheel) - Allows slider navigating via mousewheel
+
+                });
+            });
+
+
+        </script>
+
+    </body>
+</html>

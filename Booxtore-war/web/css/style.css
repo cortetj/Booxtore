@@ -18,12 +18,14 @@ body {
 input, button, select, textarea {font-family: 'Lato', sans-serif;}
 
 input.search-query {border:0; height:24px; box-shadow:none; border-radius:50px; }
-input.search-query[type=text]:focus {border:none; box-shadow:none;}
+input.search-query[type=text]:focus {}
 .form-search .input-append .search-query {border-bottom-left-radius:50px; border-top-left-radius:50px;}
 
 textarea {border-radius:20px; border:0; width:97%; padding-left:15px; box-shadow:none; resize: none;}
 textarea:focus {box-shadow:none;}
 
+.floright {float: right;}
+.floleft {float: left;}
 
 /** social icons **/
 
@@ -342,7 +344,7 @@ html[xmlns] .slides{ display: block; }
 
 
 
-.work-slider {}
+.work-slider img {min-width: 610px;}
 
 .work-slider {max-width:620px; margin-bottom:80px;} /* photo 610 + 2 x 5px borders */
 
@@ -558,6 +560,7 @@ html[xmlns] .slides{ display: block; }
 #workGallery h3 a:hover {color:#c8584c;}
 #workGallery p {text-align: center; font-size: 12px; line-height:17px;}
 #workGallery .thumbnails > li {margin-bottom:50px;}
+#workGallery .thumbnails > li h4 {clear: both; font-size: 11px; margin: 0; text-align: left;}
 /**  PAGE 6 - Project Work **/
 
 .projectNavig h2 {background: transparent url(../img/proj-nav-bg2.png) repeat-x 0 50%; color: #fff; font-weight: 900; font-size: 18px; color: #93b2a0; margin:10px 0 35px 0; }
@@ -920,3 +923,6 @@ span.dividers {color:#d7d4c7;}
 
 	.singleProject .projDescription {padding-left:0;}
 }
+
+.login-form {height: 122px;}
+.login-form.control-group.success input {border: 2px solid #BCD2C5;}
