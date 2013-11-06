@@ -8,6 +8,7 @@ package test;
 
 import com.booxtore.business.BookAccessorLocal;
 import com.booxtore.entity.Book;
+import com.booxtore.entity.Category;
 import java.util.List;
 import javax.ejb.EJB;
 
@@ -31,7 +32,11 @@ public class testManagedBean {
     public testManagedBean() {
     }
     
+    public List<Category> getCategories(){
+        return bookAccessor.getCategories();
+    }
+    
     public List<Book> getBooks() {
         return bookAccessor.getBooksByCategory(1, 1);
-    }   
+    }
 }
