@@ -7,17 +7,22 @@
 package com.booxtore.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,14 +38,10 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b"),
     @NamedQuery(name = "Book.findByBookId", query = "SELECT b FROM Book b WHERE b.bookId = :bookId"),
-    @NamedQuery(name = "Book.findByCategoryId", query = "SELECT b FROM Book b WHERE b.categoryId = :categoryId"),
-    @NamedQuery(name = "Book.findByAuthorId", query = "SELECT b FROM Book b WHERE b.authorId = :authorId"),
-    @NamedQuery(name = "Book.findByEditorId", query = "SELECT b FROM Book b WHERE b.editorId = :editorId"),
     @NamedQuery(name = "Book.findByBookName", query = "SELECT b FROM Book b WHERE b.bookName = :bookName"),
     @NamedQuery(name = "Book.findByBookSummary", query = "SELECT b FROM Book b WHERE b.bookSummary = :bookSummary"),
     @NamedQuery(name = "Book.findByBookReleaseDate", query = "SELECT b FROM Book b WHERE b.bookReleaseDate = :bookReleaseDate"),
     @NamedQuery(name = "Book.findByBookQuantity", query = "SELECT b FROM Book b WHERE b.bookQuantity = :bookQuantity"),
-    @NamedQuery(name = "Book.findByBookThreshold", query = "SELECT b FROM Book b WHERE b.bookThreshold = :bookThreshold"),
     @NamedQuery(name = "Book.findByBookState", query = "SELECT b FROM Book b WHERE b.bookState = :bookState"),
     @NamedQuery(name = "Book.findByBookPrice", query = "SELECT b FROM Book b WHERE b.bookPrice = :bookPrice")})
 public class Book implements Serializable {
@@ -50,19 +51,6 @@ public class Book implements Serializable {
     @Basic(optional = false)
     @Column(name = "book_id")
     private Integer bookId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "category_id")
-    private int categoryId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "author_id")
-    private String authorId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "editor_id")
-    private int editorId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 125)
@@ -84,22 +72,26 @@ public class Book implements Serializable {
     private int bookQuantity;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "book_threshold")
-    private int bookThreshold;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "book_state")
     private short bookState;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "book_price")
-    private BigDecimal bookPrice;
-    
-    private Category category;
-    private ArrayList<Author> author;
-    private Editor editor;
-    
+    private int bookPrice;
+    @JoinTable(name = "book_has_author", joinColumns = {
+        @JoinColumn(name = "book_book_id", referencedColumnName = "book_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "author_author_id", referencedColumnName = "author_id")})
+    @ManyToMany
+    private Collection<Author> authorCollection;
+    @JoinColumn(name = "editor_editor_id", referencedColumnName = "editor_id")
+    @ManyToOne(optional = false)
+    private Editor editorEditorId;
+    @JoinColumn(name = "category_category_id", referencedColumnName = "category_id")
+    @ManyToOne(optional = false)
+    private Category categoryCategoryId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookBookId")
+    private Collection<OrderRow> orderRowCollection;
+
     public Book() {
     }
 
@@ -107,16 +99,12 @@ public class Book implements Serializable {
         this.bookId = bookId;
     }
 
-    public Book(Integer bookId, int categoryId, String authorId, int editorId, String bookName, String bookSummary, Date bookReleaseDate, int bookQuantity, int bookThreshold, short bookState, BigDecimal bookPrice) {
+    public Book(Integer bookId, String bookName, String bookSummary, Date bookReleaseDate, int bookQuantity, short bookState, int bookPrice) {
         this.bookId = bookId;
-        this.categoryId = categoryId;
-        this.authorId = authorId;
-        this.editorId = editorId;
         this.bookName = bookName;
         this.bookSummary = bookSummary;
         this.bookReleaseDate = bookReleaseDate;
         this.bookQuantity = bookQuantity;
-        this.bookThreshold = bookThreshold;
         this.bookState = bookState;
         this.bookPrice = bookPrice;
     }
@@ -127,30 +115,6 @@ public class Book implements Serializable {
 
     public void setBookId(Integer bookId) {
         this.bookId = bookId;
-    }
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
-    }
-
-    public int getEditorId() {
-        return editorId;
-    }
-
-    public void setEditorId(int editorId) {
-        this.editorId = editorId;
     }
 
     public String getBookName() {
@@ -185,14 +149,6 @@ public class Book implements Serializable {
         this.bookQuantity = bookQuantity;
     }
 
-    public int getBookThreshold() {
-        return bookThreshold;
-    }
-
-    public void setBookThreshold(int bookThreshold) {
-        this.bookThreshold = bookThreshold;
-    }
-
     public short getBookState() {
         return bookState;
     }
@@ -201,36 +157,44 @@ public class Book implements Serializable {
         this.bookState = bookState;
     }
 
-    public BigDecimal getBookPrice() {
+    public int getBookPrice() {
         return bookPrice;
     }
 
-    public void setBookPrice(BigDecimal bookPrice) {
+    public void setBookPrice(int bookPrice) {
         this.bookPrice = bookPrice;
     }
 
-    public Category getCategory() {
-        return category;
+    public Collection<Author> getAuthorCollection() {
+        return authorCollection;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setAuthorCollection(Collection<Author> authorCollection) {
+        this.authorCollection = authorCollection;
     }
 
-    public ArrayList<Author> getAuthor() {
-        return author;
+    public Editor getEditorEditorId() {
+        return editorEditorId;
     }
 
-    public void addAuthor(Author author) {
-        this.author.add(author);
+    public void setEditorEditorId(Editor editorEditorId) {
+        this.editorEditorId = editorEditorId;
     }
 
-    public Editor getEditor() {
-        return editor;
+    public Category getCategoryCategoryId() {
+        return categoryCategoryId;
     }
 
-    public void setEditor(Editor editor) {
-        this.editor = editor;
+    public void setCategoryCategoryId(Category categoryCategoryId) {
+        this.categoryCategoryId = categoryCategoryId;
+    }
+
+    public Collection<OrderRow> getOrderRowCollection() {
+        return orderRowCollection;
+    }
+
+    public void setOrderRowCollection(Collection<OrderRow> orderRowCollection) {
+        this.orderRowCollection = orderRowCollection;
     }
 
     @Override
@@ -255,7 +219,7 @@ public class Book implements Serializable {
 
     @Override
     public String toString() {
-        return "com.booxtore.business.Book[ bookId=" + bookId + " ]";
+        return "com.booxtore.entity.Book[ bookId=" + bookId + " ]";
     }
     
 }

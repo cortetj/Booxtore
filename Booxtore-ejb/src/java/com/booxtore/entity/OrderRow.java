@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -27,8 +29,6 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name = "OrderRow.findAll", query = "SELECT o FROM OrderRow o"),
     @NamedQuery(name = "OrderRow.findByOrderRowId", query = "SELECT o FROM OrderRow o WHERE o.orderRowId = :orderRowId"),
-    @NamedQuery(name = "OrderRow.findByOrderId", query = "SELECT o FROM OrderRow o WHERE o.orderId = :orderId"),
-    @NamedQuery(name = "OrderRow.findByBookId", query = "SELECT o FROM OrderRow o WHERE o.bookId = :bookId"),
     @NamedQuery(name = "OrderRow.findByOrderRowQuantity", query = "SELECT o FROM OrderRow o WHERE o.orderRowQuantity = :orderRowQuantity")})
 public class OrderRow implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -39,16 +39,14 @@ public class OrderRow implements Serializable {
     private Integer orderRowId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "order_id")
-    private int orderId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "book_id")
-    private int bookId;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "order_row_quantity")
     private int orderRowQuantity;
+    @JoinColumn(name = "book_book_id", referencedColumnName = "book_id")
+    @ManyToOne(optional = false)
+    private Book bookBookId;
+    @JoinColumn(name = "order_order_id", referencedColumnName = "order_id")
+    @ManyToOne(optional = false)
+    private Orders orderOrderId;
 
     public OrderRow() {
     }
@@ -57,10 +55,8 @@ public class OrderRow implements Serializable {
         this.orderRowId = orderRowId;
     }
 
-    public OrderRow(Integer orderRowId, int orderId, int bookId, int orderRowQuantity) {
+    public OrderRow(Integer orderRowId, int orderRowQuantity) {
         this.orderRowId = orderRowId;
-        this.orderId = orderId;
-        this.bookId = bookId;
         this.orderRowQuantity = orderRowQuantity;
     }
 
@@ -72,28 +68,28 @@ public class OrderRow implements Serializable {
         this.orderRowId = orderRowId;
     }
 
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public int getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
     public int getOrderRowQuantity() {
         return orderRowQuantity;
     }
 
     public void setOrderRowQuantity(int orderRowQuantity) {
         this.orderRowQuantity = orderRowQuantity;
+    }
+
+    public Book getBookBookId() {
+        return bookBookId;
+    }
+
+    public void setBookBookId(Book bookBookId) {
+        this.bookBookId = bookBookId;
+    }
+
+    public Orders getOrderOrderId() {
+        return orderOrderId;
+    }
+
+    public void setOrderOrderId(Orders orderOrderId) {
+        this.orderOrderId = orderOrderId;
     }
 
     @Override
@@ -118,7 +114,7 @@ public class OrderRow implements Serializable {
 
     @Override
     public String toString() {
-        return "com.booxtore.business.OrderRow[ orderRowId=" + orderRowId + " ]";
+        return "com.booxtore.entity.OrderRow[ orderRowId=" + orderRowId + " ]";
     }
     
 }
