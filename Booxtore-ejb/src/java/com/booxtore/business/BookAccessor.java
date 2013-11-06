@@ -19,7 +19,7 @@ import javax.persistence.Persistence;
  */
 @Stateless
 public class BookAccessor implements BookAccessorLocal {
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("Booxtore-ejbPU");
+    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Booxtore-ejbPU");
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
@@ -34,13 +34,14 @@ public class BookAccessor implements BookAccessorLocal {
     public List<Book> getBooksByCategory(int category, int index) {
         //TODO: remplacer par get from xml !
         int number_books_displayed = 10;
+        
         // Création de l'e.m.
         EntityManager em = emf.createEntityManager();
-        return em.createNamedQuery("Book.findByCategoryId")
+        return  em.createNamedQuery("Book.findByCategoryId")
                                    .setParameter("categoryId", category)
                                    .setFirstResult( ((index-1) * number_books_displayed) + 1 )
                                    .setMaxResults(number_books_displayed)
-                                   .getResultList();   
+                                   .getResultList();
     }
     
 }
