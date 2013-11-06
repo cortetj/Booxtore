@@ -78,7 +78,7 @@ public class Book implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "book_price")
-    private int bookPrice;
+    private float bookPrice;
     @JoinTable(name = "book_has_author", joinColumns = {
         @JoinColumn(name = "book_book_id", referencedColumnName = "book_id")}, inverseJoinColumns = {
         @JoinColumn(name = "author_author_id", referencedColumnName = "author_id")})
@@ -100,7 +100,7 @@ public class Book implements Serializable {
         this.bookId = bookId;
     }
 
-    public Book(Integer bookId, String bookName, String bookSummary, Date bookReleaseDate, int bookQuantity, short bookState, int bookPrice) {
+    public Book(Integer bookId, String bookName, String bookSummary, Date bookReleaseDate, int bookQuantity, short bookState, float bookPrice) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.bookSummary = bookSummary;
@@ -158,11 +158,11 @@ public class Book implements Serializable {
         this.bookState = bookState;
     }
 
-    public int getBookPrice() {
+    public float getBookPrice() {
         return bookPrice;
     }
 
-    public void setBookPrice(int bookPrice) {
+    public void setBookPrice(float bookPrice) {
         this.bookPrice = bookPrice;
     }
 
