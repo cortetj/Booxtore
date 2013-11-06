@@ -32,11 +32,16 @@ public class testManagedBean {
     public testManagedBean() {
     }
     
-    public List<Category> getCategories(){
+    public List<Category> listCategories(){
+        System.out.println(bookAccessor.getCategories());
         return bookAccessor.getCategories();
     }
     
-    public List<Book> getBooks() {
+    public List<Book> listBooks() {
         return bookAccessor.getBooksByCategory(1, 1);
+    }
+    
+    public List<Book> listBooksByKeywords(){
+        return bookAccessor.getBooksByKeywords("author4");
     }
 }

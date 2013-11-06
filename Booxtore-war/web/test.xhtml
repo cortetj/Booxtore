@@ -9,9 +9,10 @@
     </h:head>
     <h:body>
         <ul>
-            <ui:repeat value="#{testManagedBean.categories}" var="c"><li><h:outputLabel value="${c.categoryName}"/></li></ui:repeat>
+            <ui:repeat value="#{testManagedBean.listCategories()}" var="c"><li><h:outputLabel value="${c.categoryName}"/></li></ui:repeat>
         </ul>
-        <h:dataTable value="#{testManagedBean.books}" var="b">
+        
+        <h:dataTable value="#{testManagedBean.listBooks()}" var="b">
             <h:column>
                 <f:facet name="header">Nom</f:facet>
                 <h:outputLabel value="#{b.bookName}"/>

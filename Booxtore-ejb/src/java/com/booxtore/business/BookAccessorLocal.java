@@ -22,4 +22,6 @@ public interface BookAccessorLocal {
     List<Category> getCategories();
 
     Book getBook(int id);
+
+    List<Book> getBooksByKeywords(String keywords);
 }

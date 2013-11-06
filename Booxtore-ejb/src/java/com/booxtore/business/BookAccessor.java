@@ -40,7 +40,7 @@ public class BookAccessor implements BookAccessorLocal {
         EntityManager em = emf.createEntityManager();
         return  em.createNamedQuery("Book.findByCategoryId")
                                    .setParameter("categoryId", category)
-                                   .setFirstResult( ((index-1) * number_books_displayed) + 1 )
+                                   .setFirstResult( ((index-1) * number_books_displayed))
                                    .setMaxResults(number_books_displayed)
                                    .getResultList();
     }
@@ -71,5 +71,29 @@ public class BookAccessor implements BookAccessorLocal {
         return  (Book) em.createNamedQuery("Book.findByBookId")
                   .setParameter("bookId", id)
                   .getSingleResult();
+    }
+    
+    
+    /**
+     * Renvoie une liste de livre  selon des mots-clés
+     * 
+     * @param keywords String keyword des livre à récupérer
+     * @return Liste Livre
+     */
+    @Override
+    public List<Book> getBooksByKeywords(String keywords) {
+        // Création de l'e.m.
+        EntityManager em = emf.createEntityManager();
+        return em.createQuery("SELECT b FROM Book b WHERE b.categoryCategoryId.categoryName LIKE '%:keywords%'"
+                + " OR b.categoryCategoryId.categoryKeywords LIKE '%:keywords%'"
+                + " OR b.categoryCategoryId.categorySummary LIKE '%:keywords%'"
+                + " OR b.authorCollection.authorName LIKE '%:keywords%'"
+                + " OR b.authorCollection.authorSummary LIKE '%:keywords%'"
+                + " OR b.editorEditorId.editorName LIKE '%:keywords%'"
+                + " OR b.editorEditorId.editorSummary LIKE '%:keywords%'"
+                + " OR b.bookName LIKE '%:keywords%'"
+                + " OR b.bookSummary LIKE '%:keywords%'")
+                .setParameter("keywords", keywords)
+                .getResultList();
     }
 }
