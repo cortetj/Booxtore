@@ -9,6 +9,7 @@ package test;
 import com.booxtore.business.BookAccessorLocal;
 import com.booxtore.entity.Book;
 import com.booxtore.entity.Category;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 
@@ -20,9 +21,9 @@ import javax.faces.bean.RequestScoped;
  *
  * @author netbean
  */
-@ManagedBean
+@ManagedBean(name = "testManagedBean")
 @RequestScoped
-public class testManagedBean {
+public class testManagedBean implements Serializable {
     @EJB
     private BookAccessorLocal bookAccessor;
     

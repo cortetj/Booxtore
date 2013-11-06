@@ -6,6 +6,7 @@
 
 package com.booxtore.business;
 
+import com.booxtore.entity.User;
 import javax.ejb.Local;
 
 /**
@@ -14,5 +15,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface AccountManagerLocal {
+
+    User getUserByLogin(String login);
     
 }
