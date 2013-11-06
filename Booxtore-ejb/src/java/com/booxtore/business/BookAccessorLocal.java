@@ -7,6 +7,7 @@
 package com.booxtore.business;
 
 import com.booxtore.entity.Book;
+import com.booxtore.entity.Category;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -17,4 +18,6 @@ import javax.ejb.Local;
 @Local
 public interface BookAccessorLocal {
     List<Book> getBooksByCategory(int category, int index);
+
+    List<Category> getCategories();
 }

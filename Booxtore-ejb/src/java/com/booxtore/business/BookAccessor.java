@@ -7,6 +7,7 @@
 package com.booxtore.business;
 
 import com.booxtore.entity.Book;
+import com.booxtore.entity.Category;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -43,5 +44,15 @@ public class BookAccessor implements BookAccessorLocal {
                                    .setMaxResults(number_books_displayed)
                                    .getResultList();
     }
+
+    @Override
+    public List<Category> getCategories() {
+        // Création de l'e.m.
+        EntityManager em = emf.createEntityManager();
+        return  em.createNamedQuery("Category.findAll")
+                                   .getResultList();
+    }
+    
+    
     
 }
