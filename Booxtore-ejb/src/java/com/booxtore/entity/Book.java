@@ -221,8 +221,8 @@ public class Book implements Serializable {
         return author;
     }
 
-    public void setAuthor(ArrayList<Author> author) {
-        this.author = author;
+    public void addAuthor(Author author) {
+        this.author.add(author);
     }
 
     public Editor getEditor() {
