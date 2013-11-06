@@ -6,15 +6,15 @@
 
 package com.booxtore.business;
 
-import javax.ejb.Stateless;
+import com.booxtore.entity.Book;
+import java.util.List;
+import javax.ejb.Local;
 
 /**
  *
  * @author netbean
  */
-@Stateless
-public class OrderAccessor implements OrderAccessorRemote {
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+@Local
+public interface BookAccessorLocal {
+    List<Book> getBooksByCategory(int category, int index);
 }

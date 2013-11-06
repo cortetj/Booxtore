@@ -6,6 +6,7 @@
 
 package com.booxtore.business;
 
+import java.util.ArrayList;
 import javax.ejb.Remote;
 
 /**
@@ -14,5 +15,6 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface BookAccessorRemote {
+    ArrayList getBooksByCategory(int category, int index);
     
 }
