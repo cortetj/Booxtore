@@ -39,7 +39,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Orders.findByOrderDate", query = "SELECT o FROM Orders o WHERE o.orderDate = :orderDate"),
     @NamedQuery(name = "Orders.findByOrderState", query = "SELECT o FROM Orders o WHERE o.orderState = :orderState"),
     @NamedQuery(name = "Orders.findByOrderDateState", query = "SELECT o FROM Orders o WHERE o.orderDateState = :orderDateState"),
-    @NamedQuery(name = "Orders.findByOrderCreditCard", query = "SELECT o FROM Orders o WHERE o.orderCreditCard = :orderCreditCard")})
+    @NamedQuery(name = "Orders.findByOrderCreditCard", query = "SELECT o FROM Orders o WHERE o.orderCreditCard = :orderCreditCard"),
+    @NamedQuery(name = "Orders.findByUserId", query = "SELECT o FROM Orders o WHERE o.userUserId = :userUserId")})
 public class Orders implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

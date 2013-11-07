@@ -15,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -41,6 +43,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "User.findByUserPassword", query = "SELECT u FROM User u WHERE u.userPassword = :userPassword"),
     @NamedQuery(name = "User.findByUserState", query = "SELECT u FROM User u WHERE u.userState = :userState")})
 public class User implements Serializable {
+    @JoinColumn(name = "user_group_user_group_id", referencedColumnName = "user_group_id")
+    @ManyToOne(optional = false)
+    private UserGroup userGroupUserGroupId;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -225,6 +230,14 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.booxtore.entity.User[ userId=" + userId + " ]";
+    }
+
+    public UserGroup getUserGroupUserGroupId() {
+        return userGroupUserGroupId;
+    }
+
+    public void setUserGroupUserGroupId(UserGroup userGroupUserGroupId) {
+        this.userGroupUserGroupId = userGroupUserGroupId;
     }
     
 }
