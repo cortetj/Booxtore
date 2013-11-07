@@ -75,6 +75,11 @@ public class Auth implements Serializable {
         return user;
     }
     
+    
+    /**
+     * Tente la connexion de l'utilisateur 
+     * @return url de redirection
+     */
     public String  login() {
         user = null;
         MessageDigest mDigest;
