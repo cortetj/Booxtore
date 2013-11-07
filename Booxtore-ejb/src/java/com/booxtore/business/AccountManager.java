@@ -45,5 +45,24 @@ public class AccountManager implements AccountManagerLocal {
         }
         return false;
     }
+
+    @Override
+    public User createUser(String userFirstName, String userLastName, String userMail, String userAddress, String userCity, String userCityNumber, String userLogin, String userPassword) {
+         User user = new User();
+         user.setUserFirstname(userFirstName);
+         user.setUserLastname(userLastName);
+         user.setUserMail(userMail);
+         user.setUserAddress(userAddress);
+         user.setUserCity(userCity);
+         user.setUserCityNumber(userCityNumber);
+         user.setUserLogin(userLogin);
+         user.setUserPassword(userPassword);
+         
+         em.persist(user);
+        
+        return user;
+    }
+    
+    
     
 }

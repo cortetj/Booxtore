@@ -30,7 +30,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Author.findAll", query = "SELECT a FROM Author a"),
     @NamedQuery(name = "Author.findByAuthorId", query = "SELECT a FROM Author a WHERE a.authorId = :authorId"),
-    @NamedQuery(name = "Author.findByAuthorName", query = "SELECT a FROM Author a WHERE a.authorName = :authorName"),
+    @NamedQuery(name = "Author.findByAuthorName", query = "SELECT a FROM Author a WHERE a.authorName LIKE :authorName"),
     @NamedQuery(name = "Author.findByAuthorSummary", query = "SELECT a FROM Author a WHERE a.authorSummary = :authorSummary")})
 public class Author implements Serializable {
     private static final long serialVersionUID = 1L;
