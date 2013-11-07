@@ -20,7 +20,7 @@
             <div class="navbar-inner">
                 <div class="container">
                     <!-- Start Logo -->
-                    <a href="index.html" class="brand active"><img src="img/logo.png" alt="Booxtore!"/>Booxtore</a>
+                    <a href="index.html" class="brand active"><img src="img/logo.png" alt="Booxtore!"/>Booxtore + <h:outputLabel rendered="#{auth.isConnected()}" value="Bonjour, #{auth.user.userFirstname} #{auth.user.userLastname}"/></a>
                     <!-- End Logo -->
 
                     <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">menu <span class="caret"></span></a>

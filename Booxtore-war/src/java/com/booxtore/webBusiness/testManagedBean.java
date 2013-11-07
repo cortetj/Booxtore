@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package test;
+package com.booxtore.webBusiness;
 
 import com.booxtore.business.BookAccessorLocal;
 import com.booxtore.entity.Book;
@@ -34,7 +34,6 @@ public class testManagedBean implements Serializable {
     }
     
     public List<Category> listCategories(){
-        System.out.println(bookAccessor.getCategories());
         return bookAccessor.getCategories();
     }
     
