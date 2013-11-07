@@ -21,11 +21,6 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
-    
-    <listener>
-        <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
-    </listener>
-    
     <filter>
         <filter-name>clientFilter</filter-name>
         <filter-class>com.booxtore.webBusiness.ClientFilter</filter-class>

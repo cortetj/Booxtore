@@ -94,11 +94,11 @@ public class Auth implements Serializable {
                 //TODO: link vers page compte / un message d'accueil / etc.
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.getExternalContext().getSessionMap().put("user", user);
-                return "test";
+                return "login";
             }
             ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();
             try {
-                context.redirect(context.getRequestContextPath()+"/test.html?failed=true");
+                context.redirect(context.getRequestContextPath()+"/login.html?failed=true");
             } catch (IOException ex) {
                 Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -106,20 +106,24 @@ public class Auth implements Serializable {
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-         
-        
-        return "/test?failed=true";
+        return "/login?failed=true";
     }
     
     public String logout(){
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         user = null;
-        return "test";
+        return "login";
     }
     
     public boolean isConnected(){
         return (user != null);
+    }
+    
+    public boolean isAdministrator() {
+        if( isConnected() ) {
+            return true;
+        }
+        return  false;
     }
     
     public void checkError() {
