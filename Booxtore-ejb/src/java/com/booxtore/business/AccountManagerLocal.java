@@ -19,5 +19,7 @@ public interface AccountManagerLocal {
     User getUserByLogin(String login);
 
     boolean isUser(String name, String password);
+
+    User createUser(String userFirstName, String userLastName, String userMail, String userAddress, String userCity, String userCityNumber, String userLogin, String userPassword);
     
 }

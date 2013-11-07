@@ -31,7 +31,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
     @NamedQuery(name = "Category.findByCategoryId", query = "SELECT c FROM Category c WHERE c.categoryId = :categoryId"),
-    @NamedQuery(name = "Category.findByCategoryName", query = "SELECT c FROM Category c WHERE c.categoryName = :categoryName"),
+    @NamedQuery(name = "Category.findByCategoryName", query = "SELECT c FROM Category c WHERE c.categoryName LIKE :categoryName"),
     @NamedQuery(name = "Category.findByCategorySummary", query = "SELECT c FROM Category c WHERE c.categorySummary = :categorySummary"),
     @NamedQuery(name = "Category.findByCategoryKeywords", query = "SELECT c FROM Category c WHERE c.categoryKeywords = :categoryKeywords")})
 public class Category implements Serializable {
