@@ -99,4 +99,11 @@ public class BookAccessor implements BookAccessorLocal {
                 .setParameter("keywords", keywords)
                 .getResultList();
     }
+    
+    @Override
+    public List<Book> getBooks() {
+        EntityManager em = emf.createEntityManager();
+        return  em.createNamedQuery("Book.findAll")
+                                   .getResultList();
+    }
 }
