@@ -24,7 +24,7 @@ public interface BookManagerLocal {
 
     Category addCategory(String name);
 
-    boolean updateCategorie(int categoryId, String name);
+    boolean updateCategory(int categoryId, String name);
 
     Author getAuthor(String authorName);
 

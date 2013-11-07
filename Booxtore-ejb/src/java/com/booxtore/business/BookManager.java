@@ -176,7 +176,7 @@ public class BookManager implements BookManagerLocal {
      * @return un boolean selon le résultat de la requète
      */
     @Override
-    public boolean updateCategorie(int categoryId, String name) {
+    public boolean updateCategory(int categoryId, String name) {
         int query = em.createQuery ("UPDATE Category c SET c.categoryName = :name WHERE c.categoryId = :categoryId")
                 .setParameter("name", name)
                 .executeUpdate ();
