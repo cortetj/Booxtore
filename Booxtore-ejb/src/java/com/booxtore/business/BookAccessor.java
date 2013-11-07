@@ -44,6 +44,8 @@ public class BookAccessor implements BookAccessorLocal {
                                    .setMaxResults(number_books_displayed)
                                    .getResultList();
     }
+    
+    
 
     /**
      * Renvoie une liste de catégories
@@ -98,5 +100,12 @@ public class BookAccessor implements BookAccessorLocal {
                 + " OR b.bookSummary LIKE '%:keywords%'")
                 .setParameter("keywords", keywords)
                 .getResultList();
+    }
+
+    @Override
+    public List<Book> getBooks() {
+        EntityManager em = emf.createEntityManager();
+        return  em.createNamedQuery("Book.findAll")
+                                   .getResultList();
     }
 }

@@ -39,7 +39,7 @@ public class testManagedBean implements Serializable {
     }
     
     public List<Book> listBooks() {
-        return bookAccessor.getBooksByCategory(1, 1);
+        return bookAccessor.getBooks();
     }
     
     public List<Book> listBooksByKeywords(){
