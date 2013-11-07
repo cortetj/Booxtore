@@ -4,21 +4,29 @@
  * and open the template in the editor.
  */
 
-package com.booxtore.business;
+package com.booxtore.model;
 
 import com.booxtore.entity.Book;
-import java.util.List;
+import java.util.ArrayList;
 import javax.ejb.Local;
 
 /**
  *
- * @author netbean
+ * @author J-Baptiste L.
  */
 @Local
 public interface CartLocal {
-    public void initialize(String person);
     public void addBook(Book book);
-    public void removeBook(Book book);
-    public List<Book> getContents();
-    public void remove();
+    void updateBook(Book book, String quantity);
+    ArrayList<CartItem> getItems();
+
+    int getNumbersOfItems();
+
+    double getSubtotal();
+
+    void calculateTotal(String surcharge);
+
+    double getTotal();
+
+    void clear();
 }
