@@ -15,7 +15,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -94,7 +93,7 @@ public class Auth implements Serializable {
                 //TODO: link vers page compte / un message d'accueil / etc.
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.getExternalContext().getSessionMap().put("user", user);
-                return "login";
+                return "/index?faces-redirect=true";
             }
             ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();
             try {
@@ -121,7 +120,7 @@ public class Auth implements Serializable {
     
     public boolean isAdministrator() {
         if( isConnected() ) {
-            return true;
+            return "libraire".equals(user.getUserGroupUserGroupId().getUserGroupName());
         }
         return  false;
     }

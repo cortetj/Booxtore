@@ -37,14 +37,11 @@ public class LibraireFilter implements Filter {
             FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) request).getSession(false);
         Auth user = (session != null) ? (Auth) session.getAttribute("auth") : null;
-        System.out.println("Test 1 1 1 1 1");
         if( user != null) {
             System.out.println(user.isConnected());
             if( user.isConnected() && user.isAdministrator() ) {
-                System.out.println("Test 2 2 2 2 2");
                 chain.doFilter(request, response);
             } else if ( user.isConnected() ) {
-                System.out.println("Test 3 3 3 3 3");
                 //default handling - do nothing and forward request to filter chain
                 HttpServletResponse res = (HttpServletResponse)response;
                 res.sendRedirect(fc.getServletContext().getContextPath()+"/index.html");
