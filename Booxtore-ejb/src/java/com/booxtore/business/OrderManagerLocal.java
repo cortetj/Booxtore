@@ -9,6 +9,7 @@ package com.booxtore.business;
 import com.booxtore.entity.Book;
 import com.booxtore.entity.Orders;
 import com.booxtore.entity.User;
+import com.booxtore.model.Cart;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
@@ -20,10 +21,14 @@ import javax.ejb.Local;
 @Local
 public interface OrderManagerLocal {
 
-    List<Orders> getListOrder(User user);
+    void addOrder(User user, Cart shoppingCart,String credit_card);
 
-    void addOrder(Date date, short state, Date date_state, String credit_card, User user);
+    List<Orders> getOrdersByUser(User user);
 
-    void addOrderRows(int quantity, Book book, Orders order);
+    List<Orders> getOrdersByState(int state);
+
+    Orders getOrderById(int id);
+
+    void updateOrderById(int id, int state);
     
 }

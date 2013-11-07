@@ -59,6 +59,11 @@ public class OrderRow implements Serializable {
         this.orderRowId = orderRowId;
         this.orderRowQuantity = orderRowQuantity;
     }
+    
+    public OrderRow(Book book, int quantity) {
+        this.bookBookId = book;
+        this.orderRowQuantity = quantity;
+    }
 
     public Integer getOrderRowId() {
         return orderRowId;

@@ -8,14 +8,12 @@ package com.booxtore.model;
 
 import com.booxtore.entity.Book;
 import java.util.ArrayList;
-import javax.ejb.Stateless;
 
 /**
  *
  * @author J-Baptiste L.
  */
-@Stateless
-public class Cart implements CartLocal {
+public class Cart {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
@@ -28,7 +26,7 @@ public class Cart implements CartLocal {
         this.contents = new ArrayList<CartItem>();
     }
     
-    @Override
+    
     public void addBook(Book book) {
         boolean newItem = true;
         
@@ -45,7 +43,7 @@ public class Cart implements CartLocal {
         }
     }
     
-    @Override
+    
     public void updateBook(Book book, String quantity) {
         int qty = -1;
         
@@ -71,12 +69,12 @@ public class Cart implements CartLocal {
         }
     }
 
-    @Override
+    
     public ArrayList<CartItem> getItems() {
-        return null;
+        return contents;
     }
 
-    @Override
+    
     public int getNumbersOfItems() {
         numbersOfItems = 0;
         
@@ -87,7 +85,7 @@ public class Cart implements CartLocal {
         return numbersOfItems;
     }
 
-    @Override
+    
     public double getSubtotal() {
         
         double amount = 0;
@@ -99,8 +97,8 @@ public class Cart implements CartLocal {
         
         return amount;
     }
-
-    @Override
+    
+    
     public void calculateTotal(String surcharge) {
         double amount = 0;
         
@@ -112,12 +110,12 @@ public class Cart implements CartLocal {
         total = amount;
     }
 
-    @Override
+    
     public double getTotal() {
         return total;
     }
 
-    @Override
+    
     public void clear() {
         contents.clear();
         numbersOfItems = 0;

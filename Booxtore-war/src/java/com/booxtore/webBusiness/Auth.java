@@ -88,7 +88,6 @@ public class Auth implements Serializable {
             if( accountManager.isUser(username, sb.toString()) ) {
                 this.user = accountManager.getUserByLogin(username);
                 // Password est inutile, donc supprimé
-                this.user.setUserPassword(null);
                 password = null;
                 //TODO: link vers page compte / un message d'accueil / etc.
                 FacesContext context = FacesContext.getCurrentInstance();
