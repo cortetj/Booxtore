@@ -1,0 +1,4 @@
+
+Options +FollowSymlinks
+RewriteEngine On
+#RewriteRule ^books$ faces/books.html [L] 

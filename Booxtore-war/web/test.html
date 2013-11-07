@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -7,24 +6,18 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <body>
-        <ul>
-            <ui:repeat value="#{testManagedBean.categories}" var="c"><li><h:outputLabel value="${c.categoryName}"/></li></ui:repeat>
-        </ul>
-        <h:dataTable value="#{testManagedBean.books}" var="b">
-            <h:column>
-                <f:facet name="header">Nom</f:facet>
-                <h:outputLabel value="#{b.bookName}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Prix</f:facet>
-                <h:outputLabel value="#{b.bookPrice}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Auteurs</f:facet>
-                <ui:repeat value="#{b.authorCollection}" var="a"><h:outputLabel value="${a.authorName}"/>, </ui:repeat>
-            </h:column>
-        </h:dataTable>
-    </body>
+    <h:body>
+        <h:form method="POST">
+            <f:event listener="#{auth.checkError()}" type="preRenderView"/>
+            <h:outputLabel value="#{auth.error}"/><br />
+            <label for="login">Login </label>
+            <h:inputText name="login" value="#{auth.username}"/><br />
+            <label for="password">Mot de passe </label> 
+            <h:inputSecret type="password" name="password" value="#{auth.password}"/><br />
+            <h:commandButton action="#{auth.login()}" value="Se connecter"/>
+            <h:commandButton action="#{auth.logout()}" value="Se déconnecter"/>
+        </h:form>
+        
+    </h:body>
 </html>
 

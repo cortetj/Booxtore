@@ -17,5 +17,7 @@ import javax.ejb.Local;
 public interface AccountManagerLocal {
 
     User getUserByLogin(String login);
+
+    boolean isUser(String name, String password);
     
 }

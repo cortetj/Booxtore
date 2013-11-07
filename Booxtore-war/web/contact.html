@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Booxtore</title>
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+        <link href="css/style.css" rel="stylesheet" />
+
+        <!-- fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,900,900italic,400italic' rel='stylesheet' type='text/css'/>
+    </head>
+    <body>
+        <!-- Start Main Menu and Logo-->
+        <ui:include src="navigation.html" />
+<div id="titleRow">
+    <div class="container">
+        <h1 class="work">
+            <span class="lft"></span><span class="mid">Contactez nous</span><span class="rt"></span>
+        </h1>
+    </div>
+</div>
+
+<div id="contactInfo">
+    <div class="container">
+        <div class="row">
+            <div class="span8">
+                <ul class="thumbnails">
+                    <li>
+                        <a href="#" class="thumbnail corner">
+                            <span class="topCorner"></span>
+                                <div style="width: 650px; height: 250px;" id="map-canvas"></div>
+                            <span class="bottomCorner"></span>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="span4">
+                <address>
+                    <span>Address</span><br/>
+                    221 Baker Street<br/>
+                    London<br/>
+                    United Kingdom<br/><br/>
+
+                    <span>Phone Number</span><br/>
+                    +12 346-678-90<br/><br/>
+
+                    <span>Email</span><br/>
+                    <a href="mailto:">hello@booxtore.com</a>
+
+                </address>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div id="request" class="green-row">
+    <div class="container">
+        <h2>
+            <span class="lft"></span><span class="mid">Envoyez nous un méssage</span><span class="rt"></span>
+        </h2>
+
+        <form class="form-search">
+            <div class="row">
+                <div class="span4">
+                    <input type="text" class="search-query" placeholder="Nom"/>
+                    <input type="text" class="search-query" data-type="email" placeholder="Email"/>
+                    <input type="text" class="search-query" placeholder="Telephone"/>
+
+
+                </div>
+                <div class="span8">
+                    <textarea rows="8" placeholder="Tell us about yout project"></textarea>
+
+                    <button type="submit" class="btn red-btn pull-right">Envoyer</button>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+        <!-- Start Footer -->
+        <div id="footText">
+            <div class="container">
+                <div class="row">
+                    <div class="span4">
+                        <a href="#" class="toTop pull-left">HAUT DE PAGE</a>
+                    </div>
+                    <div class="span8">
+                        <p class="pull-right"> 2012 Booxtore.</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <!-- End Footer -->
+
+
+        <script src="js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/jquery.contenthover.min.js"></script>
+        <script src="js/jquery.tweet.js"></script>
+
+        <script type="text/javascript">
+            $(window).load(function() {
+                /***  jQuery ContentHover Plugin ***/
+                $('ul.withHover img').contenthover({
+                    overlay_opacity: 0.5
+                });
+
+                /***  Footer Back to Top link ***/
+                $('a.toTop').click(function() {
+                    $('html, body').animate({scrollTop: '0px'}, 300);
+                    return false;
+                });
+
+                /*** Carousel Bootstrap slider ***/
+                $('#quartumCarousel').carousel({
+                    interval: 7000,
+                    pause: "hover"
+                })
+
+            });
+
+
+
+
+
+            jQuery(document).ready(function() {
+
+                /* tooltip init */
+                jQuery("[data-toggle='tooltip']").tooltip();
+
+                $("#nav-contact").addClass("active");
+
+            });
+
+
+        </script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <script>
+var map;
+function initialize() {
+  var mapOptions = {
+    zoom: 8,
+    center: new google.maps.LatLng(-34.397, 150.644),
+    disableDefaultUI: true,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+
+    </body>
+</html>

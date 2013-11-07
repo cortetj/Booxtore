@@ -19,56 +19,37 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
+        <url-pattern>*.html</url-pattern>
     </servlet-mapping>
     
+    <listener>
+        <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+    </listener>
+    
+    <filter>
+        <filter-name>clientFilter</filter-name>
+        <filter-class>com.booxtore.webBusiness.ClientFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>clientFilter</filter-name>
+        <url-pattern>/secured_area/*</url-pattern>
+    </filter-mapping>
+    
+    
+    <filter>    
+        <filter-name>libraireFilter</filter-name>
+        <filter-class>com.booxtore.webBusiness.LibraireFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>libraireFilter</filter-name>
+        <url-pattern>/admin_area/*</url-pattern>
+    </filter-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.html</welcome-file>
+        <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-    <security-constraint>
-        <display-name>connected_area</display-name>
-        <web-resource-collection>
-            <web-resource-name>secured_area</web-resource-name>
-            <description>espace necessitant compte client minimum</description>
-            <url-pattern>/secured_area/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <description/>
-            <role-name>client</role-name>
-            <role-name>libraire</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <security-constraint>
-        <display-name>administration_area</display-name>
-        <web-resource-collection>
-            <web-resource-name>admin_area</web-resource-name>
-            <description>espace administration</description>
-            <url-pattern>/admin_area/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <description/>
-            <role-name>libraire</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <login-config>
-        <auth-method>FORM</auth-method>
-        <realm-name>booxtoreSecurityRealm</realm-name>
-        <form-login-config>
-            <form-login-page>/WEB-INF/login.html</form-login-page>
-            <form-error-page>/WEB-INF/error_login.html</form-error-page>
-        </form-login-config>
-    </login-config>
-    <security-role>
-        <description>utilisateur lambda</description>
-        <role-name>client</role-name>
-    </security-role>
-    <security-role>
-        <description>admin</description>
-        <role-name>libraire</role-name>
-    </security-role>
 </web-app>

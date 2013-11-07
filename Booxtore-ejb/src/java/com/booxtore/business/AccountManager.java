@@ -9,6 +9,7 @@ package com.booxtore.business;
 import com.booxtore.entity.User;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -20,8 +21,6 @@ public class AccountManager implements AccountManagerLocal {
     @PersistenceContext(unitName = "Booxtore-ejbPU")
     private EntityManager em;
     
-    
-    
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
@@ -29,4 +28,22 @@ public class AccountManager implements AccountManagerLocal {
     public User getUserByLogin(String login) {
         return (User)em.createNamedQuery("User.findByUserLogin").setParameter("userLogin", login).getSingleResult();
     }
+
+    @Override
+    public boolean isUser(String login, String password) {
+        try {
+            User usr = (User) em.createQuery("SELECT u FROM User u WHERE (u.userLogin = :userLogin OR u.userMail = :userMail) AND u.userPassword = :userPassword")
+                               .setParameter("userLogin", login)
+                               .setParameter("userMail", login)
+                               .setParameter("userPassword", password)
+                               .getSingleResult();
+            if( usr != null ) {
+                return true;
+            }
+        } catch ( NoResultException noneFound) {
+            return false;
+        }
+        return false;
+    }
+    
 }
