@@ -98,7 +98,7 @@ public class Auth implements Serializable {
             }
             ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();
             try {
-                context.redirect(context.getRequestContextPath()+"/faces/test.html?failed=true");
+                context.redirect(context.getRequestContextPath()+"/test.html?failed=true");
             } catch (IOException ex) {
                 Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);
             }

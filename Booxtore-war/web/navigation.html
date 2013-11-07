@@ -1,0 +1,35 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Start Logo -->
+                    <a href="index.html" class="brand active"><img src="img/logo.png" alt="Booxtore!"/>Booxtore</a>
+                    <!-- End Logo -->
+
+                    <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">menu <span class="caret"></span></a>
+                    <div class="nav-collapse">
+                        <ul class="nav pull-right">
+                            <li id="nav-home"><a href="index.html">Accueil</a></li>
+                            <li id="nav-books" class="dropdown"><a href="books.html" class="dropdown-toggle" >Livres</a>
+                                <ul class="dropdown-menu unstyled">
+                                    <c:forEach items="#{testManagedBean.listCategories()}" var="c">
+                                        <li><a href="#"> ${c.categoryName} </a></li>
+                                    </c:forEach>
+                                </ul>
+                            </li>
+                            <li id="nav-about"><a href="about.html">A propos</a></li>
+                            <li id="nav-contact"><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script>
+
+    </script>
+</ui:composition>

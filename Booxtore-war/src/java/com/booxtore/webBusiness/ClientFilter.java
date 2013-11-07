@@ -42,26 +42,12 @@ public class ClientFilter implements Filter {
             FilterChain chain) throws IOException, ServletException {
         System.out.println("kloflz eogf osh");
         if(isConnected) {
-            if(request instanceof HttpServletRequest) {
-                    HttpServletRequest httpReq = (HttpServletRequest) request;
-                    String uri = httpReq.getRequestURI();
-                    // vérification des bonnes urls
-                    if(uri != null && uri.equals("/secured_area/test2.html")) {
-                            RequestDispatcher rd = filterConfig.
-                                      getServletContext().
-                                      getRequestDispatcher("/secured_area/test2.html");
-                            if(rd != null) {
-                                    rd.forward(request, response);
-                                    return;
-                            }
-                    }
-
-            }
+            chain.doFilter(request, response);
         }
 	//default handling - do nothing and forward reqeust to filter chain
         //default handling - do nothing and forward reqeust to filter chain
         HttpServletResponse res = (HttpServletResponse)response;
-        res.sendRedirect("/faces/test.html");
+        res.sendRedirect("test.html");
         
     }
     
