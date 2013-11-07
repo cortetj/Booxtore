@@ -26,29 +26,23 @@ public class Cart {
         this.contents = new ArrayList<CartItem>();
     }
     
-    
-    public void addBook(Book book) {
+    public void addBook(Book book, int quantity) {
         boolean newItem = true;
         
         for(CartItem item : contents){
             if(item.getBook().getBookId() == book.getBookId()){
                 newItem = false;
-                item.incrementQuantity();
+                item.setQuantity( item.quantity + quantity );
             }
         }
-        
         if(newItem){
-            CartItem item = new CartItem(book);
+            CartItem item = new CartItem(book, quantity);
             contents.add(item);
         }
     }
     
     
-    public void updateBook(Book book, String quantity) {
-        int qty = -1;
-        
-        qty = Integer.parseInt(quantity);
-        
+    public void updateBook(Book book, int qty) {
         if(qty >= 0){
             CartItem item = null;
             
@@ -62,7 +56,6 @@ public class Cart {
                     }
                 }
             }
-            
             if(item != null){
                 contents.remove(item);
             }

@@ -22,19 +22,25 @@ import javax.persistence.Persistence;
 public class BookAccessor implements BookAccessorLocal {
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Booxtore-ejbPU");
     
+    //TODO: remplacer par get from xml !
+    private int number_books_displayed = 10;
+    
+    public BookAccessor() {
+        
+    }
+    
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     
     /**
      * Renvoie une liste de livres selon une catégorie
+     * 
      * @param category id de la catégorie de livres // Entier de 1 à n
      * @param index numéro de la page de résultats à récupérer // Entier de 1 à n
      * @return Liste de livre selon la catégorie et l'index précisé
      */
     @Override
     public List<Book> getBooksByCategory(int category, int index) {
-        //TODO: remplacer par get from xml !
-        int number_books_displayed = 10;
         
         // Création de l'e.m.
         EntityManager em = emf.createEntityManager();
@@ -78,10 +84,11 @@ public class BookAccessor implements BookAccessorLocal {
      * Renvoie une liste de livre  selon des mots-clés
      * 
      * @param keywords String keyword des livre à récupérer
+     * @param index numéro de la page de résultats à récupérer // Entier de 1 à n
      * @return Liste Livre
      */
     @Override
-    public List<Book> getBooksByKeywords(String keywords) {
+    public List<Book> getBooksByKeywords(String keywords, int index) {
         // Création de l'e.m.
         EntityManager em = emf.createEntityManager();
         return em.createQuery("SELECT b FROM Book b WHERE b.categoryCategoryId.categoryName LIKE '%:keywords%'"
@@ -94,13 +101,23 @@ public class BookAccessor implements BookAccessorLocal {
                 + " OR b.bookName LIKE '%:keywords%'"
                 + " OR b.bookSummary LIKE '%:keywords%'")
                 .setParameter("keywords", keywords)
+                .setFirstResult( ((index-1) * number_books_displayed))
+                .setMaxResults(number_books_displayed)
                 .getResultList();
     }
     
+    /**
+     * Renvoie une liste de livres
+     * 
+     * @param index numéro de la page de résultats à récupérer // Entier de 1 à n
+     * @return 
+     */
     @Override
-    public List<Book> getBooks() {
+    public List<Book> getBooks(int index) {
         EntityManager em = emf.createEntityManager();
         return  em.createNamedQuery("Book.findAll")
-                                   .getResultList();
+                  .setFirstResult( ((index-1) * number_books_displayed))
+                  .setMaxResults(number_books_displayed)
+                  .getResultList();
     }
 }

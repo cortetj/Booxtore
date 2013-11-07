@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.booxtore.webBusiness;
+package com.booxtore.webBusiness.managedBeans;
 
 import com.booxtore.business.AccountManagerLocal;
 import com.booxtore.entity.User;

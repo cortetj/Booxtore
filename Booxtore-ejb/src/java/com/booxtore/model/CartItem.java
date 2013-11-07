@@ -16,9 +16,9 @@ public class CartItem {
     Book book;
     int quantity;
     
-    public CartItem(Book book){
+    public CartItem(Book book, int quantity){
         this.book = book;
-        quantity = 1;
+        this.quantity = quantity;
     }
     
     public Book getBook(){
