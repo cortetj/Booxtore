@@ -84,7 +84,7 @@
                         <a href="#" class="toTop pull-left">HAUT DE PAGE</a>
                     </div>
                     <div class="span8">
-                        <p class="pull-right"> 2012 Booxtore.</p>
+                        <p class="pull-right"> 2013 Booxtore©.</p>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -93,25 +93,27 @@
         <!-- End Footer -->
         
         <div id="login-content" class="hide">
-            <h3>#{auth.isConnected()}</h3>
-            <h:form method="POST" action="#{auth.login()}" class="form-horizontal login-form control-group success">
+            <h:form method="POST" class="form-horizontal login-form control-group success">
                     <f:event listener="#{auth.checkError()}" type="preRenderView"/>
                     <h:inputText name="login" value="#{auth.username}" type="text" placeholder="Nom d'utilisateur"/>
                     <h:inputSecret name="password" value="#{auth.password}" type="password" placeholder="Mot de passe"/>
-                    <button class="btn btn-danger btn-small pull-left">Créer un compte</button>
-                    <button onclick="$('#subform').click();" type="submit" class="btn btn-success btn-small pull-right">Se connecter</button>
-                    <h:commandButton id="subform" action="#{auth.login()}" class="btn btn-success btn-small pull-right" value="Se connecter"/>
+                    <a class="btn btn-danger btn-small pull-left">Créer un compte</a>
+                    <a class="btn btn-success btn-small pull-right" onclick="$('.subform').click();">Se connecter</a>
+                    <h:commandButton action="#{auth.login()}" class="hide subform" value="Se connecter"/>
+                    <h:commandButton action="#{auth.logout()}" class="hide subdeco" value="Se déconnecter"/>
+                    
             </h:form>
-
         </div>
         
         <script>
         $("#login").popover({
                 html : true, 
                 content: function() {
-                  return $('#login-content').html();
+                    var html = $('#login-content').html();
+                    $('#login-content').remove();
+                  return html;
                 },
                 title: "Espace utilisateur",
-                placement: "bottom"});     
+                placement: "bottom"});    
         </script>
 </ui:composition>

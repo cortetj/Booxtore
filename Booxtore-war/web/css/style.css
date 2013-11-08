@@ -132,7 +132,7 @@ a.twitterBtn:hover {background-position: -1px -1px; background-color: transparen
 .navbar .pull-right > li > .dropdown-menu::before, .navbar .nav > li > .dropdown-menu.pull-right::before {border:none;}
 .navbar .pull-right > li > .dropdown-menu, .navbar .nav > li > .dropdown-menu.pull-right {left:-36px; right:auto;}
 .navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner {box-shadow:none;}
-.navbar .navbar-inner .container .nav li a {padding: 0 10px; font-size: 14px; color: #bcd2c5; text-shadow: none; font-weight: 900; text-transform: uppercase;}
+.navbar .navbar-inner .container .nav li a:not(.btn) {padding: 0 10px; font-size: 14px; color: #bcd2c5; text-shadow: none; font-weight: 900; text-transform: uppercase;}
 .navbar .navbar-inner .container .nav li.active > a {background: transparent url(../img/tip-active-menu.png) no-repeat center bottom; box-shadow:none; color:#fff;}
 .navbar .nav li.dropdown > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle {color: #bcd2c5;}
 .navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle {background:transparent; color:#fff; }
