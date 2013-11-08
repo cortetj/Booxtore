@@ -63,7 +63,7 @@ public class BookAccessor implements BookAccessorLocal {
     public List<Category> getCategories() {
         // Création de l'e.m.
         EntityManager em = emf.createEntityManager();
-        return  em.createNamedQuery("Category.findAll")
+        return  em.createQuery("SELECT c FROM Category c WHERE c.bookCollection IS NOT NULL")
                                    .getResultList();
     }
 
