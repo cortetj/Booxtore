@@ -106,14 +106,31 @@
         </div>
         
         <script>
-        $("#login").popover({
-                html : true, 
-                content: function() {
-                    var html = $('#login-content').html();
-                    $('#login-content').remove();
-                  return html;
-                },
-                title: "Espace utilisateur",
-                placement: "bottom"});    
+            $(document).ready(function () {
+                $("#login").popover({
+                        html : true, 
+                        content: function() {
+                            var html = $('#login-content').html();
+                            $('#login-content').remove();
+                          return html;
+                        },
+                        title: "Espace utilisateur",
+                        placement: "bottom"});    
+
+                $('html').click(function() {
+                    console.log("az")
+                  $(".cart-list").hide();
+                });
+                
+                $('.cart').click(function(event){
+                    console.log("ef")
+                    $(".cart-list").show();
+                });
+                
+                $('.cart-list, .cart').click(function(event){
+                    event.stopPropagation();
+                }); 
+            })
+        
         </script>
 </ui:composition>

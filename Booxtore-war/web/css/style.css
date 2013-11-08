@@ -137,9 +137,24 @@ a.twitterBtn:hover {background-position: -1px -1px; background-color: transparen
 .navbar .nav li.dropdown > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle {color: #bcd2c5;}
 .navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle {background:transparent; color:#fff; }
 .navbar .navbar-inner .container .nav li a:hover {color: #fff;}
+.navbar .nav-collapse {position: relative;}
+.navbar .nav-collapse .cart {position: absolute; right: 0; top: -11px; width: 93px; z-index: 100;}
+.navbar .nav-collapse .cart a {cursor: pointer;}
+.navbar .nav-collapse .cart img.cart-img {} 
+.navbar .nav-collapse .cart-list {z-index: 10; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset; border: 1px solid #BCD2C5; background: white; position: absolute; right: 0; top: 50px; width: 370px;}
+.navbar .nav-collapse .cart-list li {list-style: none; padding: 8px;}
+.navbar .nav-collapse .cart-list li:hover {background-color: #FAFAFA;}
+.navbar .nav-collapse .cart-list li a:not(.btn):hover { color: #93B2A0;}
+.cl-img {display: inline-block;}
+.cl-book {display: inline-block; vertical-align: top; width: 75%; margin-left: 8px;}
+.cl-book h4 {margin: 4px 0;}
+.cl-book h5 {margin: 2px 0;}
+.cl-book h6 {margin: 2px 0;}
+    
+.navbar .nav-collapse .cart-list li img {max-height: 90px;}
 .navbar .nav-collapse.collapse {background: url(../img/navbarBg.jpg) repeat 0 0; border-radius: 0 0 5px 5px; text-align:left; }
 .navbar .nav-collapse.collapse li a:hover { background: transparent; filter:none;}
-.navbar .nav-collapse .nav.pull-right {padding-bottom:10px;}
+.navbar .nav-collapse .nav.pull-right {padding-bottom:10px; margin-right: 100px;}
 .navbar .btn-navbar {background: transparent; padding: 0; box-shadow: none; border: none; text-shadow: none; text-transform: uppercase; line-height: 50px; margin: 0; color: #BCD2C5; font-weight:900;}
 .navbar .btn-navbar:hover {background: transparent; color: #fff;}
 .navbar .btn-navbar .caret {margin: 24px 0 0 5px; border-top:4px solid #bcd2c5;}
