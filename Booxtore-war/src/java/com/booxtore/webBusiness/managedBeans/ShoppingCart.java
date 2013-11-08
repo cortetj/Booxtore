@@ -8,6 +8,8 @@ package com.booxtore.webBusiness.managedBeans;
 
 import com.booxtore.business.BookAccessorLocal;
 import com.booxtore.model.Cart;
+import com.booxtore.model.CartItem;
+import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -31,6 +33,13 @@ public class ShoppingCart {
         shoppingCart = new Cart();
     }
     
+    public int countCartItem(){
+        return shoppingCart.getNumbersOfItems();
+    }
+    
+    public ArrayList<CartItem> listCartBook(){
+        return shoppingCart.getItems();
+    }
     
     public String addBook(int id, int quantity) {
         shoppingCart.addBook(bookAccessor.getBook(id), quantity);
@@ -42,6 +51,10 @@ public class ShoppingCart {
         return null;
     }
     
+    public float priceCart(){
+        return shoppingCart.getSubtotal();
+    }
+    
     public String clearCart() {
         shoppingCart.clear();
         return null;
@@ -51,7 +64,7 @@ public class ShoppingCart {
      * Effectue les calculs des totaux & cie.
      * @return total du panier 
      */
-    public Double updateCartinfos() {
+    public float updateCartinfos() {
         return shoppingCart.getSubtotal();
     }
 }

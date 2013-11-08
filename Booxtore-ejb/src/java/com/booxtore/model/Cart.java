@@ -6,8 +6,10 @@
 
 package com.booxtore.model;
 
+import com.booxtore.business.BookAccessorLocal;
 import com.booxtore.entity.Book;
 import java.util.ArrayList;
+import javax.ejb.EJB;
 
 /**
  *
@@ -15,12 +17,14 @@ import java.util.ArrayList;
  */
 public class Cart {
 
+    @EJB
+    private BookAccessorLocal bookAccessor;
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     
     ArrayList<CartItem> contents;
     int numbersOfItems;
-    double total;
+    float total;
 
     public Cart(){
         this.contents = new ArrayList<CartItem>();
@@ -33,7 +37,12 @@ public class Cart {
             if(item.getBook().getBookId() == book.getBookId()){
                 newItem = false;
                 item.setQuantity( item.quantity + quantity );
+                
+                if(item.getQuantity() <= 0){
+                    item = null;
+                }
             }
+            
         }
         if(newItem){
             CartItem item = new CartItem(book, quantity);
@@ -43,7 +52,7 @@ public class Cart {
     
     
     public void updateBook(Book book, int qty) {
-        if(qty >= 0){
+        if(qty != 0){
             CartItem item = null;
             
             for(CartItem cartItem : contents){
@@ -79,9 +88,9 @@ public class Cart {
     }
 
     
-    public double getSubtotal() {
+    public float getSubtotal() {
         
-        double amount = 0;
+        float amount = 0;
         
         for(CartItem item : contents){
             Book book = (Book) item.getBook();
@@ -93,9 +102,9 @@ public class Cart {
     
     
     public void calculateTotal(String surcharge) {
-        double amount = 0;
+        float amount = 0;
         
-        double s = Double.parseDouble(surcharge);
+        float s = Float.parseFloat(surcharge);
         
         amount = this.getSubtotal();
         amount += s;
@@ -104,7 +113,7 @@ public class Cart {
     }
 
     
-    public double getTotal() {
+    public float getTotal() {
         return total;
     }
 

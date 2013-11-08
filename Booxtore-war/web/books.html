@@ -44,7 +44,7 @@
 
         <ul class="thumbnails withHover" id="portfolios1">
             <c:forEach items="#{testManagedBean.listBooks()}" var="b">
-                <li class="span3" data-id="#{b.bookId}" data-filter="#{b.categoryCategoryId.categoryName}">
+                <li class="span3" datar-id="#{b.bookId}" data-filter="#{b.categoryCategoryId.categoryName}">
                     <a href="read.html?id=#{b.bookId}" class="thumbnail corner">
                         <span class="topCorner"></span>
                         <img src="img/books_thmb/#{b.bookId}.jpg" alt=""/>
