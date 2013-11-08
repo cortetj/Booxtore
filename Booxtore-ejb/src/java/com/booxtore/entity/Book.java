@@ -7,6 +7,7 @@
 package com.booxtore.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -17,7 +18,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -38,11 +38,11 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b"),
     @NamedQuery(name = "Book.findByBookId", query = "SELECT b FROM Book b WHERE b.bookId = :bookId"),
-    @NamedQuery(name = "Book.findByCategoryId", query = "SELECT b FROM Book b WHERE b.categoryCategoryId.categoryId = :categoryId"),
     @NamedQuery(name = "Book.findByBookName", query = "SELECT b FROM Book b WHERE b.bookName = :bookName"),
     @NamedQuery(name = "Book.findByBookSummary", query = "SELECT b FROM Book b WHERE b.bookSummary = :bookSummary"),
     @NamedQuery(name = "Book.findByBookReleaseDate", query = "SELECT b FROM Book b WHERE b.bookReleaseDate = :bookReleaseDate"),
     @NamedQuery(name = "Book.findByBookQuantity", query = "SELECT b FROM Book b WHERE b.bookQuantity = :bookQuantity"),
+    @NamedQuery(name = "Book.findByBookThreshold", query = "SELECT b FROM Book b WHERE b.bookThreshold = :bookThreshold"),
     @NamedQuery(name = "Book.findByBookState", query = "SELECT b FROM Book b WHERE b.bookState = :bookState"),
     @NamedQuery(name = "Book.findByBookPrice", query = "SELECT b FROM Book b WHERE b.bookPrice = :bookPrice")})
 public class Book implements Serializable {
@@ -73,16 +73,18 @@ public class Book implements Serializable {
     private int bookQuantity;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "book_threshold")
+    private int bookThreshold;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "book_state")
     private short bookState;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Column(name = "book_price")
     private float bookPrice;
-    @JoinTable(name = "book_has_author", joinColumns = {
-        @JoinColumn(name = "book_book_id", referencedColumnName = "book_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "author_author_id", referencedColumnName = "author_id")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "bookCollection")
     private Collection<Author> authorCollection;
     @JoinColumn(name = "editor_editor_id", referencedColumnName = "editor_id")
     @ManyToOne(optional = false)
@@ -100,12 +102,13 @@ public class Book implements Serializable {
         this.bookId = bookId;
     }
 
-    public Book(Integer bookId, String bookName, String bookSummary, Date bookReleaseDate, int bookQuantity, short bookState, float bookPrice) {
+    public Book(Integer bookId, String bookName, String bookSummary, Date bookReleaseDate, int bookQuantity, int bookThreshold, short bookState, float bookPrice) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.bookSummary = bookSummary;
         this.bookReleaseDate = bookReleaseDate;
         this.bookQuantity = bookQuantity;
+        this.bookThreshold = bookThreshold;
         this.bookState = bookState;
         this.bookPrice = bookPrice;
     }
@@ -148,6 +151,14 @@ public class Book implements Serializable {
 
     public void setBookQuantity(int bookQuantity) {
         this.bookQuantity = bookQuantity;
+    }
+
+    public int getBookThreshold() {
+        return bookThreshold;
+    }
+
+    public void setBookThreshold(int bookThreshold) {
+        this.bookThreshold = bookThreshold;
     }
 
     public short getBookState() {

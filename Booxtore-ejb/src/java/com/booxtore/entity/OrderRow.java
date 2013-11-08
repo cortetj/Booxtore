@@ -7,6 +7,7 @@
 package com.booxtore.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +30,8 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name = "OrderRow.findAll", query = "SELECT o FROM OrderRow o"),
     @NamedQuery(name = "OrderRow.findByOrderRowId", query = "SELECT o FROM OrderRow o WHERE o.orderRowId = :orderRowId"),
-    @NamedQuery(name = "OrderRow.findByOrderRowQuantity", query = "SELECT o FROM OrderRow o WHERE o.orderRowQuantity = :orderRowQuantity")})
+    @NamedQuery(name = "OrderRow.findByOrderRowQuantity", query = "SELECT o FROM OrderRow o WHERE o.orderRowQuantity = :orderRowQuantity"),
+    @NamedQuery(name = "OrderRow.findByOrderRowPrice", query = "SELECT o FROM OrderRow o WHERE o.orderRowPrice = :orderRowPrice")})
 public class OrderRow implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,12 +43,17 @@ public class OrderRow implements Serializable {
     @NotNull
     @Column(name = "order_row_quantity")
     private int orderRowQuantity;
-    @JoinColumn(name = "book_book_id", referencedColumnName = "book_id")
-    @ManyToOne(optional = false)
-    private Book bookBookId;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "order_row_price")
+    private BigDecimal orderRowPrice;
     @JoinColumn(name = "order_order_id", referencedColumnName = "order_id")
     @ManyToOne(optional = false)
     private Orders orderOrderId;
+    @JoinColumn(name = "book_book_id", referencedColumnName = "book_id")
+    @ManyToOne(optional = false)
+    private Book bookBookId;
 
     public OrderRow() {
     }
@@ -55,14 +62,15 @@ public class OrderRow implements Serializable {
         this.orderRowId = orderRowId;
     }
 
-    public OrderRow(Integer orderRowId, int orderRowQuantity) {
+    public OrderRow(Integer orderRowId, int orderRowQuantity, BigDecimal orderRowPrice) {
         this.orderRowId = orderRowId;
         this.orderRowQuantity = orderRowQuantity;
+        this.orderRowPrice = orderRowPrice;
     }
     
-    public OrderRow(Book book, int quantity) {
+    public OrderRow(Book book, int orderRowQuantity){
         this.bookBookId = book;
-        this.orderRowQuantity = quantity;
+        this.orderRowQuantity = orderRowQuantity;
     }
 
     public Integer getOrderRowId() {
@@ -81,12 +89,12 @@ public class OrderRow implements Serializable {
         this.orderRowQuantity = orderRowQuantity;
     }
 
-    public Book getBookBookId() {
-        return bookBookId;
+    public BigDecimal getOrderRowPrice() {
+        return orderRowPrice;
     }
 
-    public void setBookBookId(Book bookBookId) {
-        this.bookBookId = bookBookId;
+    public void setOrderRowPrice(BigDecimal orderRowPrice) {
+        this.orderRowPrice = orderRowPrice;
     }
 
     public Orders getOrderOrderId() {
@@ -95,6 +103,14 @@ public class OrderRow implements Serializable {
 
     public void setOrderOrderId(Orders orderOrderId) {
         this.orderOrderId = orderOrderId;
+    }
+
+    public Book getBookBookId() {
+        return bookBookId;
+    }
+
+    public void setBookBookId(Book bookBookId) {
+        this.bookBookId = bookBookId;
     }
 
     @Override

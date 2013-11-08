@@ -31,7 +31,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Editor.findAll", query = "SELECT e FROM Editor e"),
     @NamedQuery(name = "Editor.findByEditorId", query = "SELECT e FROM Editor e WHERE e.editorId = :editorId"),
-    @NamedQuery(name = "Editor.findByEditorName", query = "SELECT e FROM Editor e WHERE e.editorName LIKE :editorName"),
+    @NamedQuery(name = "Editor.findByEditorName", query = "SELECT e FROM Editor e WHERE e.editorName = :editorName"),
     @NamedQuery(name = "Editor.findByEditorSummary", query = "SELECT e FROM Editor e WHERE e.editorSummary = :editorSummary")})
 public class Editor implements Serializable {
     private static final long serialVersionUID = 1L;

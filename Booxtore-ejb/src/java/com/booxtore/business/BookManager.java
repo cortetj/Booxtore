@@ -37,18 +37,20 @@ public class BookManager implements BookManagerLocal {
      * @param bookName titre du livre
      * @param bookPrice prix unitaire HT du livre
      * @param bookQuantity quantité de livre en stock
+     * @param bookThreshold seuil critique du stock de livre
      * @param bookReleaseDate date de parution du livre
      * @param bookState Etat du livre (nouveauté, en stock, à venir, en réaprovisionnement et indisponible)
      * @param bookSummary Résumé, description du livre
      * @return Id du livre ajouté
      */
     @Override
-    public int addBook(String categoryName, ArrayList<String> authorNameList, String editorName, String bookName, float bookPrice, int bookQuantity, Date bookReleaseDate, short bookState, String bookSummary) {
+    public int addBook(String categoryName, ArrayList<String> authorNameList, String editorName, String bookName, float bookPrice, int bookQuantity, int bookThreshold, Date bookReleaseDate, short bookState, String bookSummary) {
         
         Book book = new Book();
         book.setBookName(bookName);
         book.setBookPrice(bookPrice);
         book.setBookQuantity(bookQuantity);
+        book.setBookThreshold(bookThreshold);
         book.setBookReleaseDate(bookReleaseDate);
         book.setBookState(bookState);
         book.setBookSummary(bookSummary);
@@ -94,18 +96,20 @@ public class BookManager implements BookManagerLocal {
      * @param bookName titre du livre
      * @param bookPrice prix unitaire HT du livre
      * @param bookQuantity quantité de livre en stock
+     * @param bookThreshold seuil critique du stock de livre
      * @param bookReleaseDate date de parution du livre
      * @param bookState Etat du livre (nouveauté, en stock, à venir, en réaprovisionnement et indisponible)
      * @param bookSummary Résumé, description du livre
      * @return Id du livre mis à jour
      */
     @Override
-    public int updateBook(String categoryName, ArrayList<String> authorNameList, String editorName, int bookId, String bookName, float bookPrice, int bookQuantity, Date bookReleaseDate, short bookState, String bookSummary) {
+    public int updateBook(String categoryName, ArrayList<String> authorNameList, String editorName, int bookId, String bookName, float bookPrice, int bookQuantity, int bookThreshold, Date bookReleaseDate, short bookState, String bookSummary) {
         
         Book book = em.createNamedQuery("Book.findByBookId", Book.class).setParameter("bookId", bookId).getSingleResult();
         book.setBookName(bookName);
         book.setBookPrice(bookPrice);
         book.setBookQuantity(bookQuantity);
+        book.setBookThreshold(bookThreshold);
         book.setBookReleaseDate(bookReleaseDate);
         book.setBookState(bookState);
         book.setBookSummary(bookSummary);
