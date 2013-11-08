@@ -34,7 +34,9 @@ public class LibraireFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = ((HttpServletRequest) request).getSession(false);
+
         Auth user = (session != null) ? (Auth) session.getAttribute("auth") : null;
         if( user != null) {
             if( user.isConnected() && user.isAdministrator() ) {
