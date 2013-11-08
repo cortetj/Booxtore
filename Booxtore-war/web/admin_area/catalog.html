@@ -11,7 +11,27 @@
     </head>
     <body>
         <!-- Start Main Menu and Logo-->
-        <ui:include src="navigation.html" />
-        <h:datatable 
+        <ui:include src="/admin_area/navigation.html" />
+        <table>
+            <thead>
+                <tr>
+                    <th>Livre</th>
+                    <th>Prix</th>
+                    <th>Qte / Seuil</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="#{catalogManagement.listBooks()}" var="b">
+                    <tr>
+                        <td>
+                            <a href="book.html?id=#{b.getBookId()}" class="thumbnail corner">#{b.bookName}</a>
+                        </td>
+                        <td>#{b.bookPrice} €</td>
+                        <td>#{b.bookQuantity} / #{b.bookThreshold}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
     </body>
 </html>

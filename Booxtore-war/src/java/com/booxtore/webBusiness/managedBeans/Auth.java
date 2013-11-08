@@ -82,11 +82,16 @@ public class Auth implements Serializable {
      */
     public String  login() {
         ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();
-        String url = "/login.html?failed=1";
+        String url = "/index.html?failed=1";
         user = null;
-        System.out.println("///"+username+"///"+password+"///");
         if( username.isEmpty() || username == null || password.isEmpty() || password == null ) {
-            url = "/login.html?failed=0";
+            url = "/index.html?failed=0";
+            try {
+                context.redirect(context.getRequestContextPath()+url);
+            } catch (IOException ex) {
+                Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null;
         }
         MessageDigest mDigest;
         try {
@@ -102,7 +107,12 @@ public class Auth implements Serializable {
                 password = null;
                 //TODO: link vers page compte / un message d'accueil / etc.
                 context.getSessionMap().put("user", user);
-                url = "/index.html?faces-redirect=true";
+                if ( isAdministrator() ) {
+                    url = "/admin_area/";
+                } else {
+                    url = "/secured_area/";
+                }
+                
             }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);

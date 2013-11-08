@@ -6,6 +6,11 @@
 
 package com.booxtore.webBusiness.managedBeans;
 
+import com.booxtore.business.BookAccessorLocal;
+import com.booxtore.business.BookManagerLocal;
+import com.booxtore.entity.Book;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -16,11 +21,31 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class CatalogManagement {
+    
+    @EJB
+    private BookManagerLocal bookManager;
+    @EJB
+    private BookAccessorLocal bookAccessor;
 
+    
     /**
      * Creates a new instance of CatalogManagement
      */
     public CatalogManagement() {
     }
     
+    
+    public List<Book> listBooks() {
+        System.out.println("test");
+        return bookAccessor.getBooks(0);
+    }
+    
+    public Book getBook(int id) {
+        return bookAccessor.getBook(id);
+    }
+    
+    public String updateBook() {
+        //TODO: gestion de l'update
+        return null;
+    }
 }

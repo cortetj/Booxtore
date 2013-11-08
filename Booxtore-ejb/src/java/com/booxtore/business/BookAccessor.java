@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -36,7 +37,7 @@ public class BookAccessor implements BookAccessorLocal {
      * Renvoie une liste de livres selon une catégorie
      * 
      * @param category id de la catégorie de livres // Entier de 1 à n
-     * @param index numéro de la page de résultats à récupérer // Entier de 1 à n
+     * @param index numéro de la page de résultats à récupérer // Entier de 1 à n. Si 0, alors tous les résultats sont récupérés
      * @return Liste de livre selon la catégorie et l'index précisé
      */
     @Override
@@ -44,11 +45,13 @@ public class BookAccessor implements BookAccessorLocal {
         
         // Création de l'e.m.
         EntityManager em = emf.createEntityManager();
-        return  em.createNamedQuery("Book.findByCategoryId")
-                                   .setParameter("categoryId", category)
-                                   .setFirstResult( ((index-1) * number_books_displayed))
-                                   .setMaxResults(number_books_displayed)
-                                   .getResultList();
+        Query q = em.createNamedQuery("Book.findByCategoryId");
+        q.setParameter("categoryId", category);
+        if(index > 0 ) { 
+            q.setFirstResult( ((index-1) * number_books_displayed));
+            q.setMaxResults(number_books_displayed);
+        }
+        return q.getResultList();
     }
 
     /**
@@ -74,9 +77,7 @@ public class BookAccessor implements BookAccessorLocal {
     public Book getBook(int id) {
         // Création de l'e.m.
         EntityManager em = emf.createEntityManager();
-        return em.createNamedQuery("Book.findByBookId", Book.class)
-                   .setParameter("bookId", id)
-                   .getSingleResult();
+        return em.find(Book.class, id);
     }
     
     
@@ -91,7 +92,7 @@ public class BookAccessor implements BookAccessorLocal {
     public List<Book> getBooksByKeywords(String keywords, int index) {
         // Création de l'e.m.
         EntityManager em = emf.createEntityManager();
-        return em.createQuery("SELECT b FROM Book b WHERE b.categoryCategoryId.categoryName LIKE '%:keywords%'"
+        Query q = em.createQuery("SELECT b FROM Book b WHERE b.categoryCategoryId.categoryName LIKE '%:keywords%'"
                 + " OR b.categoryCategoryId.categoryKeywords LIKE '%:keywords%'"
                 + " OR b.categoryCategoryId.categorySummary LIKE '%:keywords%'"
                 + " OR b.authorCollection.authorName LIKE '%:keywords%'"
@@ -100,10 +101,12 @@ public class BookAccessor implements BookAccessorLocal {
                 + " OR b.editorEditorId.editorSummary LIKE '%:keywords%'"
                 + " OR b.bookName LIKE '%:keywords%'"
                 + " OR b.bookSummary LIKE '%:keywords%'")
-                .setParameter("keywords", keywords)
-                .setFirstResult( ((index-1) * number_books_displayed))
-                .setMaxResults(number_books_displayed)
-                .getResultList();
+                .setParameter("keywords", keywords);
+        if(index > 0 ) { 
+            q.setFirstResult( ((index-1) * number_books_displayed));
+            q.setMaxResults(number_books_displayed);
+        }
+        return q.getResultList();
     }
     
     /**
@@ -115,9 +118,12 @@ public class BookAccessor implements BookAccessorLocal {
     @Override
     public List<Book> getBooks(int index) {
         EntityManager em = emf.createEntityManager();
-        return  em.createNamedQuery("Book.findAll")
-                  .setFirstResult( ((index-1) * number_books_displayed))
-                  .setMaxResults(number_books_displayed)
-                  .getResultList();
+        
+        Query q = em.createNamedQuery("Book.findAll");
+        if(index > 0 ) { 
+            q.setFirstResult( ((index-1) * number_books_displayed));
+            q.setMaxResults(number_books_displayed);
+        }
+        return q.getResultList();
     }
 }
