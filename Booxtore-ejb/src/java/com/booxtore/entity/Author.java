@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -30,7 +32,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Author.findAll", query = "SELECT a FROM Author a"),
     @NamedQuery(name = "Author.findByAuthorId", query = "SELECT a FROM Author a WHERE a.authorId = :authorId"),
-    @NamedQuery(name = "Author.findByAuthorName", query = "SELECT a FROM Author a WHERE a.authorName LIKE :authorName"),
+    @NamedQuery(name = "Author.findByAuthorName", query = "SELECT a FROM Author a WHERE a.authorName = :authorName"),
     @NamedQuery(name = "Author.findByAuthorSummary", query = "SELECT a FROM Author a WHERE a.authorSummary = :authorSummary")})
 public class Author implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -49,7 +51,10 @@ public class Author implements Serializable {
     @Size(min = 1, max = 1024)
     @Column(name = "author_summary")
     private String authorSummary;
-    @ManyToMany(mappedBy = "authorCollection")
+    @JoinTable(name = "book_has_author", joinColumns = {
+        @JoinColumn(name = "author_author_id", referencedColumnName = "author_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "book_book_id", referencedColumnName = "book_id")})
+    @ManyToMany
     private Collection<Book> bookCollection;
 
     public Author() {

@@ -43,9 +43,6 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "User.findByUserPassword", query = "SELECT u FROM User u WHERE u.userPassword = :userPassword"),
     @NamedQuery(name = "User.findByUserState", query = "SELECT u FROM User u WHERE u.userState = :userState")})
 public class User implements Serializable {
-    @JoinColumn(name = "user_group_user_group_id", referencedColumnName = "user_group_id")
-    @ManyToOne(optional = false)
-    private UserGroup userGroupUserGroupId;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -98,6 +95,9 @@ public class User implements Serializable {
     private short userState;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userUserId")
     private Collection<Orders> ordersCollection;
+    @JoinColumn(name = "user_group_user_group_id", referencedColumnName = "user_group_id")
+    @ManyToOne(optional = false)
+    private UserGroup userGroupUserGroupId;
 
     public User() {
     }
@@ -207,6 +207,14 @@ public class User implements Serializable {
         this.ordersCollection = ordersCollection;
     }
 
+    public UserGroup getUserGroupUserGroupId() {
+        return userGroupUserGroupId;
+    }
+
+    public void setUserGroupUserGroupId(UserGroup userGroupUserGroupId) {
+        this.userGroupUserGroupId = userGroupUserGroupId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -230,14 +238,6 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.booxtore.entity.User[ userId=" + userId + " ]";
-    }
-
-    public UserGroup getUserGroupUserGroupId() {
-        return userGroupUserGroupId;
-    }
-
-    public void setUserGroupUserGroupId(UserGroup userGroupUserGroupId) {
-        this.userGroupUserGroupId = userGroupUserGroupId;
     }
     
 }

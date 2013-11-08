@@ -7,7 +7,9 @@
 package com.booxtore.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -38,6 +41,8 @@ public class UserGroup implements Serializable {
     @Size(max = 45)
     @Column(name = "user_group_name")
     private String userGroupName;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userGroupUserGroupId")
+    private Collection<User> userCollection;
 
     public UserGroup() {
     }
@@ -60,6 +65,14 @@ public class UserGroup implements Serializable {
 
     public void setUserGroupName(String userGroupName) {
         this.userGroupName = userGroupName;
+    }
+
+    public Collection<User> getUserCollection() {
+        return userCollection;
+    }
+
+    public void setUserCollection(Collection<User> userCollection) {
+        this.userCollection = userCollection;
     }
 
     @Override
