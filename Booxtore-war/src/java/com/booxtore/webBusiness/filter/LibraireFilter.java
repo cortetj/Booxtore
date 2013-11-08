@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package com.booxtore.webBusiness;
+package com.booxtore.webBusiness.filter;
 
+import com.booxtore.webBusiness.managedBeans.Auth;
 import java.io.IOException;
 import javax.servlet.Filter;
 

@@ -23,7 +23,7 @@ public interface BookAccessorLocal {
 
     Book getBook(int id);
 
-    List<Book> getBooksByKeywords(String keywords);
+    List<Book> getBooksByKeywords(String keywords, int index);
     
-    List<Book> getBooks();
+    List<Book> getBooks(int index);
 }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.booxtore.webBusiness;
+package com.booxtore.webBusiness.managedBeans;
 
 import com.booxtore.business.AccountManagerLocal;
 import com.booxtore.entity.User;
@@ -75,6 +75,11 @@ public class Auth implements Serializable {
         return user;
     }
     
+    
+    /**
+     * Tente la connexion de l'utilisateur 
+     * @return url de redirection
+     */
     public String  login() {
         user = null;
         MessageDigest mDigest;
