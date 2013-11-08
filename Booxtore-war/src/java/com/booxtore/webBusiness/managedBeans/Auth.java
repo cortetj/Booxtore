@@ -81,7 +81,13 @@ public class Auth implements Serializable {
      * @return url de redirection
      */
     public String  login() {
+        ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();
+        String url = "/login.html?failed=1";
         user = null;
+        System.out.println("///"+username+"///"+password+"///");
+        if( username.isEmpty() || username == null || password.isEmpty() || password == null ) {
+            url = "/login.html?failed=0";
+        }
         MessageDigest mDigest;
         try {
             mDigest = MessageDigest.getInstance("SHA1");
@@ -95,21 +101,18 @@ public class Auth implements Serializable {
                 // Password est inutile, donc supprimé
                 password = null;
                 //TODO: link vers page compte / un message d'accueil / etc.
-                FacesContext context = FacesContext.getCurrentInstance();
-                context.getExternalContext().getSessionMap().put("user", user);
-                return "/index?faces-redirect=true";
+                context.getSessionMap().put("user", user);
+                url = "/index.html?faces-redirect=true";
             }
-            ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();
-            try {
-                context.redirect(context.getRequestContextPath()+"/login.html?failed=true");
-            } catch (IOException ex) {
-                Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "/login?failed=true";
+        try {
+            context.redirect(context.getRequestContextPath()+url);
+        } catch (IOException ex) {
+            Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     public String logout(){
@@ -134,8 +137,11 @@ public class Auth implements Serializable {
         FacesContext context =  FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         // Erreur de login?
-        if("true".equals((String)request.getParameter("failed"))) {
-           error = "Login / Mot de passe incorrecte!";
+        if("0".equals((String)request.getParameter("failed"))) {
+           error = "Login / Mot de passe manquant !";
+        }
+        if("1".equals((String)request.getParameter("failed"))) {
+           error = "Login / Mot de passe incorrecte !";
         }
         // Erreur de timed out session?
         else if(request.getRequestedSessionId() !=  null && !request.isRequestedSessionIdValid()) {

@@ -32,7 +32,11 @@ public class AccountManager implements AccountManagerLocal {
      */
     @Override
     public User getUserByLogin(String login) {
-        return em.createNamedQuery("User.findByUserLogin", User.class).setParameter("userLogin", login).getSingleResult();
+        try {
+            return em.createNamedQuery("User.findByUserLogin", User.class).setParameter("userLogin", login).getSingleResult();
+        } catch(NoResultException e) {
+            return null;
+        }
     }
 
     /**
@@ -45,11 +49,15 @@ public class AccountManager implements AccountManagerLocal {
     @Override
     public boolean isUser(String login, String password) {
         User usr = null;
-        usr = em.createQuery("SELECT u FROM User u WHERE (u.userLogin = :userLogin OR u.userMail = :userMail) AND u.userPassword = :userPassword", User.class)
-                     .setParameter("userLogin", login)
-                     .setParameter("userMail", login)
-                     .setParameter("userPassword", password)
-                     .getSingleResult();
+        try{
+            usr = em.createQuery("SELECT u FROM User u WHERE (u.userLogin = :userLogin OR u.userMail = :userMail) AND u.userPassword = :userPassword", User.class)
+                         .setParameter("userLogin", login)
+                         .setParameter("userMail", login)
+                         .setParameter("userPassword", password)
+                         .getSingleResult();
+        } catch(NoResultException e) {
+            return false;
+        }
         // Utilisateur existant - renvoyer True
         if( usr != null ) {
             return true;
