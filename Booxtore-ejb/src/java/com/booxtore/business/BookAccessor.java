@@ -45,7 +45,7 @@ public class BookAccessor implements BookAccessorLocal {
         
         // Création de l'e.m.
         EntityManager em = emf.createEntityManager();
-        Query q = em.createNamedQuery("Book.findByCategoryId");
+        Query q = em.createQuery("SELECT b FROM Book b LEFT JOIN b.categoryCategoryId c WHERE c.categoryId = :categoryId");
         q.setParameter("categoryId", category);
         if(index > 0 ) { 
             q.setFirstResult( ((index-1) * number_books_displayed));

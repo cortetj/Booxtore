@@ -38,11 +38,15 @@ public class testManagedBean implements Serializable {
     }
     
     public List<Book> listBooks() {
-        return bookAccessor.getBooks(1);
+        return bookAccessor.getBooks(0);
     }
     
     public List<Book> listBooksByKeywords(){
         return bookAccessor.getBooksByKeywords("author4",1);
+    }
+    
+    public List<Book> listBooksByCategory(int id){
+        return bookAccessor.getBooksByCategory(id,0);
     }
     
     public Book bookWithId(int id){

@@ -18,7 +18,7 @@
                             <li id="nav-books" class="dropdown"><a href="books.html" class="dropdown-toggle" >Livres</a>
                                 <ul class="dropdown-menu unstyled">
                                     <c:forEach items="#{testManagedBean.listCategories()}" var="c">
-                                        <li><a href="#"> ${c.categoryName} </a></li>
+                                        <li><a href="books.html?category=${c.categoryId}"> ${c.categoryName} </a></li>
                                     </c:forEach>
                                 </ul>
                             </li>
