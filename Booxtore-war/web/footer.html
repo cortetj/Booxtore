@@ -93,12 +93,16 @@
         <!-- End Footer -->
         
         <div id="login-content" class="hide">
-            <form class="form-horizontal login-form control-group success">
-                    <input type="text" placeholder="Nom d'utilisateur"/>
-                    <input type="password" placeholder="Mot de passe"/>
-                    <button type="submit" class="btn btn-danger btn-small pull-left">Créer un compte</button>
-                    <button type="submit" class="btn btn-success btn-small pull-right">Se connecter</button>
-            </form>
+            <h3>#{auth.isConnected()}</h3>
+            <h:form method="POST" action="#{auth.login()}" class="form-horizontal login-form control-group success">
+                    <f:event listener="#{auth.checkError()}" type="preRenderView"/>
+                    <h:inputText name="login" value="#{auth.username}" type="text" placeholder="Nom d'utilisateur"/>
+                    <h:inputSecret name="password" value="#{auth.password}" type="password" placeholder="Mot de passe"/>
+                    <button class="btn btn-danger btn-small pull-left">Créer un compte</button>
+                    <button onclick="$('#subform').click();" type="submit" class="btn btn-success btn-small pull-right">Se connecter</button>
+                    <h:commandButton id="subform" action="#{auth.login()}" class="btn btn-success btn-small pull-right" value="Se connecter"/>
+            </h:form>
+
         </div>
         
         <script>

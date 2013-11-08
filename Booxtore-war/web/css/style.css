@@ -555,12 +555,12 @@ html[xmlns] .slides{ display: block; }
 
 
 #workGallery {text-align:center; margin:40px 0;}
-#workGallery h3 {text-transform: uppercase; text-align: center; font-size:16px; margin:0; line-height: 18px; padding: 7px 0; }
+#workGallery h3 {text-transform: uppercase; text-align: left; max-width: 200px; font-size:16px; margin:0; line-height: 18px; padding: 7px 0; }
 #workGallery h3 a {color:#404040;}
 #workGallery h3 a:hover {color:#c8584c;}
-#workGallery p {text-align: center; font-size: 12px; line-height:17px;}
+#workGallery p {text-align: left; font-size: 12px; line-height:17px;}
 #workGallery .thumbnails > li {margin-bottom:50px;}
-#workGallery .thumbnails > li h4 {clear: both; font-size: 11px; margin: 0; text-align: left;}
+#workGallery .thumbnails > li h4 {clear: both; font-size: 11px; margin: 0; text-align: right;}
 /**  PAGE 6 - Project Work **/
 
 .projectNavig h2 {background: transparent url(../img/proj-nav-bg2.png) repeat-x 0 50%; color: #fff; font-weight: 900; font-size: 18px; color: #93b2a0; margin:10px 0 35px 0; }
@@ -925,4 +925,4 @@ span.dividers {color:#d7d4c7;}
 }
 
 .login-form {height: 122px;}
-.login-form.control-group.success input {border: 2px solid #BCD2C5;}
+.login-form.control-group.success input {border: 1px solid #BCD2C5;}
