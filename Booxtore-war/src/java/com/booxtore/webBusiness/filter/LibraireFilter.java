@@ -9,8 +9,6 @@ package com.booxtore.webBusiness.filter;
 import com.booxtore.webBusiness.managedBeans.Auth;
 import java.io.IOException;
 import javax.servlet.Filter;
-
-import javax.faces.context.FacesContext;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -39,10 +37,11 @@ public class LibraireFilter implements Filter {
         HttpSession session = ((HttpServletRequest) request).getSession(false);
         Auth user = (session != null) ? (Auth) session.getAttribute("auth") : null;
         if( user != null) {
-            System.out.println(user.isConnected());
             if( user.isConnected() && user.isAdministrator() ) {
                 chain.doFilter(request, response);
             } else if ( user.isConnected() ) {
+                String path;
+                
                 //default handling - do nothing and forward request to filter chain
                 HttpServletResponse res = (HttpServletResponse)response;
                 res.sendRedirect(fc.getServletContext().getContextPath()+"/index.html");
@@ -50,7 +49,7 @@ public class LibraireFilter implements Filter {
         } else {
             //default handling - do nothing and forward reqeust to filter chain
             HttpServletResponse res = (HttpServletResponse)response;
-            res.sendRedirect(fc.getServletContext().getContextPath()+"/login.html");
+            res.sendRedirect(fc.getServletContext().getContextPath()+"/index.html");
         }
     }
     

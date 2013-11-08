@@ -1,16 +1,32 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <ui:param name="bookId" value="#{param.id}" />
+        <f:event listener="#{bookManagement.loadBook(bookId)}" type="preRenderView"/>
+        <title>Booxtore</title>
     </head>
     <body>
-        <div>TODO write content</div>
+        <h:form>
+            <h:inputText value="#{bookManagement.name}" />
+            <h:inputText value="#{bookManagement.summary}" />
+            <h:inputText value="#{bookManagement.price}" />
+            <h:inputText value="#{bookManagement.quantity}" />
+            <h:inputText value="#{bookManagement.threshold}" />
+            <h:inputText value="#{bookManagement.date_release}">
+                <f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:inputText>
+            <h:inputText value="#{bookManagement.state}" />
+            <h:inputText value="#{bookManagement.author}" />
+            <h:inputText value="#{bookManagement.category}" />
+            <h:inputText value="#{bookManagement.editor}" />
+            
+            <h:commandButton action="#{bookManagement.updateBook(bookId)}" value="Enregistrer les modifications" />
+        </h:form>
     </body>
 </html>

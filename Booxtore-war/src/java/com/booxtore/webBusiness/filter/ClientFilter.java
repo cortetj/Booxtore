@@ -40,7 +40,7 @@ public class ClientFilter implements Filter {
         } else {
             //default handling - do nothing and forward reqeust to filter chain
             HttpServletResponse res = (HttpServletResponse)response;
-            res.sendRedirect(fc.getServletContext().getContextPath()+"/login.html");
+            res.sendRedirect(fc.getServletContext().getContextPath()+"/index.html");
         }
     }
     @Override

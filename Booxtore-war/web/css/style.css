@@ -132,7 +132,7 @@ a.twitterBtn:hover {background-position: -1px -1px; background-color: transparen
 .navbar .pull-right > li > .dropdown-menu::before, .navbar .nav > li > .dropdown-menu.pull-right::before {border:none;}
 .navbar .pull-right > li > .dropdown-menu, .navbar .nav > li > .dropdown-menu.pull-right {left:-36px; right:auto;}
 .navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner {box-shadow:none;}
-.navbar .navbar-inner .container .nav li a {padding: 0 10px; font-size: 14px; color: #bcd2c5; text-shadow: none; font-weight: 900; text-transform: uppercase;}
+.navbar .navbar-inner .container .nav li a:not(.btn) {padding: 0 10px; font-size: 14px; color: #bcd2c5; text-shadow: none; font-weight: 900; text-transform: uppercase;}
 .navbar .navbar-inner .container .nav li.active > a {background: transparent url(../img/tip-active-menu.png) no-repeat center bottom; box-shadow:none; color:#fff;}
 .navbar .nav li.dropdown > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle {color: #bcd2c5;}
 .navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle {background:transparent; color:#fff; }
@@ -555,12 +555,12 @@ html[xmlns] .slides{ display: block; }
 
 
 #workGallery {text-align:center; margin:40px 0;}
-#workGallery h3 {text-transform: uppercase; text-align: center; font-size:16px; margin:0; line-height: 18px; padding: 7px 0; }
+#workGallery h3 {text-transform: uppercase; text-align: left; max-width: 200px; font-size:16px; margin:0; line-height: 18px; padding: 7px 0; }
 #workGallery h3 a {color:#404040;}
 #workGallery h3 a:hover {color:#c8584c;}
-#workGallery p {text-align: center; font-size: 12px; line-height:17px;}
+#workGallery p {text-align: left; font-size: 12px; line-height:17px;}
 #workGallery .thumbnails > li {margin-bottom:50px;}
-#workGallery .thumbnails > li h4 {clear: both; font-size: 11px; margin: 0; text-align: left;}
+#workGallery .thumbnails > li h4 {clear: both; font-size: 11px; margin: 0; text-align: right;}
 /**  PAGE 6 - Project Work **/
 
 .projectNavig h2 {background: transparent url(../img/proj-nav-bg2.png) repeat-x 0 50%; color: #fff; font-weight: 900; font-size: 18px; color: #93b2a0; margin:10px 0 35px 0; }
@@ -925,4 +925,4 @@ span.dividers {color:#d7d4c7;}
 }
 
 .login-form {height: 122px;}
-.login-form.control-group.success input {border: 2px solid #BCD2C5;}
+.login-form.control-group.success input {border: 1px solid #BCD2C5;}

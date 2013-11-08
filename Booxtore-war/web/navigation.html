@@ -24,7 +24,23 @@
                             </li>
                             <li id="nav-about"><a href="about.html">A propos</a></li>
                             <li id="nav-contact"><a href="contact.html">Contact</a></li>
-                            <li id="nav-login"><a href="#" id="login">Connect</a></li>
+                                    
+<h:panelGroup rendered="#{auth.isConnected() == 'false'}">
+    <li id="nav-login"><a href="#" id="login">Espace client &#160;&#160; 
+    <img style="vertical-align: baseline;" src="img/dot2-bg.png"/></a></li>
+</h:panelGroup>
+<h:panelGroup rendered="#{auth.isConnected() == 'true'}">
+    <li id="nav-client" class="dropdown"><a href="#" class="dropdown-toggle">Espace client &#160;&#160; 
+    <img style="vertical-align: baseline;" src="img/dot1-bg.png"/></a>
+        <ul class="dropdown-menu unstyled">
+            <li><a href="#">Panier</a></li>
+            <li><a href="#">Editer compte</a></li>
+            <li><a href="#" onclick="$('.subdeco').click();">Se Deconnecter</a></li>
+        </ul>
+    </li>
+</h:panelGroup>                             
+                                    
+                                
                         </ul>
                     </div>
                 </div>

@@ -7,7 +7,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <ui:param name="book" value="#{testManagedBean.bookWithId(param.id)}" />
         <title>Booxtore</title>
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
         <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
@@ -19,6 +18,8 @@
     <body>
         <!-- Start Main Menu and Logo-->
         <ui:include src="navigation.html" />
+        <ui:param name="book" value="#{testManagedBean.bookWithId(param.id)}" />
+
         <!-- End Main Menu and Logo -->
         <div id="titleRow">
             <div class="container">
@@ -32,7 +33,7 @@
         <div class="projectNavig">
             <div class="container">
                 <h2>
-                    <a href="#" class="lft"></a><span class="mid">#{book.bookName}</span><a href="#" class="rt"></a>
+                    <span class="lft"></span><span class="mid">#{book.bookName}</span><span class="rt"></span>
                 </h2>
             </div>
         </div>
@@ -65,26 +66,28 @@
                     </div>
                     <div class="span4">
                         <div class="projDescription">
-                            <span>Client<br/>
-                                <strong>Themeforest.net</strong>
+                            <span>Auteur<br/>
+                                <strong><c:forEach items="#{book.authorCollection}" var="a">#{a.authorName} </c:forEach></strong>
                             </span><br/>
 
-                            <span>Services<br/>
-                                <strong>Design<br/>Development</strong>
+                            <span>Catégorie<br/>
+                                <strong>#{book.categoryCategoryId.categoryName}</strong>
                             </span><br/>
 
-                            <span>Year<br/>
-                                <strong>2012</strong>
+                            <span>Date<br/>
+                                <strong>
+                                    <h:outputText value="#{book.bookReleaseDate}" >
+                                                 <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                    </strong>
                             </span><br/><br/>
 
-                            <p>Nulla nisl est, gravida vel iaculis vel, porttitor a eros. Sed laoreet sagittis nisi ut eleifend. Sed aliquet rutrum mi a molestie. Proin convallis posuere aliquet. Donec sagittis, sapien
-                                sed tincidunt tristique, justo mauris imperdiet turpis, at facilisis purus nulla id dui. Maecenas non lacus sit amet diam fermentum pellentesque nec non ligula. Sed eleifend tristique
-                                neque quis congue. Cras in ligula at eros fringilla elementum a sed per arcu.</p>
+                            <p>#{book.bookSummary}</p>
 
 
                             <br/><br/>
 
-                            <a href="06work-project.html" class="btn red-btn">Launch Project</a>
+                            <a href="06work-project.html" class="btn red-btn">Ajouter au panier</a>
                         </div>
 
                     </div>
