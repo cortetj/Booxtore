@@ -41,9 +41,7 @@ public class CartItem {
         quantity--;
     }
     
-    public double getTotal(){
-        double amount = 0;
-        amount = (this.getQuantity() * book.getBookPrice());
-        return amount;
+    public float getTotal(){
+        return (this.getQuantity() * book.getBookPrice());
     }
 }
