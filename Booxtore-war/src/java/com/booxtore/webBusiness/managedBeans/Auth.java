@@ -128,7 +128,7 @@ public class Auth implements Serializable {
     public String logout(){
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         user = null;
-        return "login";
+        return "index.html?faces-redirect=true";
     }
     
     public boolean isConnected(){
