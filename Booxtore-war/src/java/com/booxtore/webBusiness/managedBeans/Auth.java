@@ -82,11 +82,11 @@ public class Auth implements Serializable {
      */
     public String  login() {
         ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();
-        String url = "/login.html?failed=1";
+        String url = "/index.html?failed=1";
         user = null;
         System.out.println("///"+username+"///"+password+"///");
         if( username.isEmpty() || username == null || password.isEmpty() || password == null ) {
-            url = "/login.html?failed=0";
+            url = "/index.html?failed=0";
         }
         MessageDigest mDigest;
         try {
@@ -118,7 +118,7 @@ public class Auth implements Serializable {
     public String logout(){
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         user = null;
-        return "login";
+        return "index.html?faces-redirect=true";
     }
     
     public boolean isConnected(){
