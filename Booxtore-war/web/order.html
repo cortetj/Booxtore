@@ -21,7 +21,6 @@
             <h:commandButton action="#{shoppingCart.addBook(1,1)}" value="ajouter book 1" />
             <h:commandButton action="#{shoppingCart.addBook(2,1)}" value="ajouter book 2" />
             <h:commandButton action="#{shoppingCart.clearCart()}" value="vider panier" />
-        
             <table>
             <tr>
                 <td>Nom du Livre</td>
@@ -40,5 +39,15 @@
         <p>vous avez #{shoppingCart.countCartItem()} article dans votre panier</p>
        
         <p>Total du panier: #{shoppingCart.priceCart()} €</p>
+        <c:choose>
+            <c:when test="#{auth.isConnected() and shoppingCart.priceCart() > 0}">
+                <h:form>
+                    <h:commandButton action="/secured_area/payment.html" value="Passer la commande !" />
+                </h:form>
+            </c:when>
+            <c:when test="#{not auth.isConnected()}">
+                Connectez vous pour accéder au paiement !
+            </c:when>
+        </c:choose>
     </body>
 </html>

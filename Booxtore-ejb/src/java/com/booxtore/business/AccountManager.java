@@ -55,7 +55,7 @@ public class AccountManager implements AccountManagerLocal {
                          .setParameter("userMail", login)
                          .setParameter("userPassword", password)
                          .getSingleResult();
-        } catch(NoResultException e) {
+        } catch(Exception e) {
             return false;
         }
         // Utilisateur existant - renvoyer True

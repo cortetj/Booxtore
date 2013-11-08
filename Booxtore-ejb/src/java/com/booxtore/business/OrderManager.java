@@ -11,6 +11,8 @@ import com.booxtore.entity.Orders;
 import com.booxtore.entity.User;
 import com.booxtore.model.Cart;
 import com.booxtore.model.CartItem;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -44,15 +46,20 @@ public class OrderManager implements OrderManagerLocal {
         order.setOrderDate(date_ajout);
         order.setOrderState((short)0);
         order.setOrderDateState(date_ajout);
-        order.setOrderCreditCard(credit_card);
+        order.setOrderCreditCard(credit_card.substring(credit_card.length()-3, credit_card.length()));
         order.setUserUserId(user);
-        
-        Collection<OrderRow> clctn = order.getOrderRowCollection();
+        em.persist(order);
+        ArrayList<OrderRow> clctn = new ArrayList();
         for(CartItem item : shoppingCart.getItems()) {
-            clctn.add(new OrderRow(item.getBook(),item.getQuantity()));
+            OrderRow row = new OrderRow();
+            row.setBookBookId(item.getBook());
+            row.setOrderOrderId(order);
+            row.setOrderRowQuantity(item.getQuantity());
+            row.setOrderRowPrice(item.getTotal());
+            clctn.add(row);
         }
         order.setOrderRowCollection(clctn);
-        em.persist(order);
+        em.merge(order);
     }
 
     /**

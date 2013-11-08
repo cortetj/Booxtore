@@ -1,16 +1,65 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Booxtore</title>
     </head>
     <body>
-        <div>TODO write content</div>
+        <div>
+            <c:choose>
+                <c:when test="#{empty param.state}">
+                    <p>
+                        Détail:
+                    </p>
+                    <table>
+                        <tr>
+                            <td>Nom du Livre</td>
+                            <td>Quantité</td>
+                            <td>Prix</td>                
+                        </tr>
+                        <c:forEach items="#{shoppingCart.listCartBook()}" var="s">
+                            <tr>
+                                <td>#{s.getBook().bookName}</td>
+                                <td>#{s.getQuantity()}</td>
+                                <td>#{s.getTotal()} €</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    <h:form method="POST">
+                        <p>
+                            Adresse de livraison :
+                        </p>
+                        <p>
+                            <label>Prénom : </label><h:inputText value="#{auth.user.userFirstname}">#{auth.user.userFirstname}</h:inputText><br />
+                            <label>Nom : </label><h:inputText value="#{auth.user.userLastname}">#{auth.user.userLastname}</h:inputText><br />
+                            #{auth.user.userAddress }<br />
+                            #{auth.user.userCityNumber} - #{auth.user.userCity}
+                        </p>
+                        <p>
+                            Informations de paiement :
+                        </p>
+                        <p>
+                            <label>Code de carte bancaire : </label><h:inputText value="#{shoppingCart.creditcard}"/><br />
+                            <label>Code de sécurité : </label><h:inputText value="#{shoppingCart.code}"/><br />
+                            <label>Date d'expiration :</label>
+                            <h:inputText value="#{shoppingCart.date}">
+                                <f:convertDateTime pattern="MM/yyyy"/>
+                            </h:inputText><br />
+                        </p>
+                        <h:commandButton action="#{shoppingCart.buyCart()}" value="Passer la commande"/>
+                    </h:form>
+                </c:when>
+                <c:when test="#{not empty  param.state }">
+                    <p>Hop! la commande est terminée !</p>
+                    <p>Merci pour votre fidélité, et à bientôt !</p><p>- <a href="http://localhost:8080/Booxtore-war/index.html" >revenir sur la page d'accueil</a> -</p>
+                    
+                </c:when>
+            </c:choose>
+        </div>
     </body>
 </html>

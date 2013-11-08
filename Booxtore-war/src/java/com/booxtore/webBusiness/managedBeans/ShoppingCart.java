@@ -7,12 +7,19 @@
 package com.booxtore.webBusiness.managedBeans;
 
 import com.booxtore.business.BookAccessorLocal;
+import com.booxtore.business.OrderManagerLocal;
 import com.booxtore.model.Cart;
 import com.booxtore.model.CartItem;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -22,9 +29,42 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class ShoppingCart {
     @EJB
+    private OrderManagerLocal orderManager;
+    @EJB
     private BookAccessorLocal bookAccessor;
     
+    
     Cart shoppingCart;
+    
+    String creditcard;
+    String code;
+    Date date;
+
+    public String getCreditcard() {
+        return creditcard;
+    }
+
+    public void setCreditcard(String creditcard) {
+        this.creditcard = creditcard;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
+    
     
     /**
      * Creates a new instance of ShoppingCart
@@ -56,7 +96,11 @@ public class ShoppingCart {
     }
     
     public String clearCart() {
-        shoppingCart.clear();
+        shoppingCart = new Cart();
+        creditcard = null;
+        code = null;
+        date = null;
+            
         return null;
     }
     
@@ -66,5 +110,27 @@ public class ShoppingCart {
      */
     public float updateCartinfos() {
         return shoppingCart.getSubtotal();
+    }
+    
+    
+    /**
+     * 
+     */
+    public String buyCart() {
+        Auth user = (Auth) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("auth"); 
+        if( date.after(new Date()) == true ) {
+            if( creditcard.length() > 9) { 
+                System.out.println("Use : ///"+user.toString()+"\\\\\\ ///"+user.getUser().toString());
+                orderManager.addOrder(user.getUser(), shoppingCart, creditcard);
+                this.clearCart();
+                ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();
+                try {
+                    context.redirect(context.getRequestContextPath()+"/secured_area/payment.html?state=true");
+                } catch (IOException ex) {
+                    Logger.getLogger(ShoppingCart.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return null;
     }
 }

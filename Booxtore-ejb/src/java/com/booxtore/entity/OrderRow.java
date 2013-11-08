@@ -47,7 +47,7 @@ public class OrderRow implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "order_row_price")
-    private BigDecimal orderRowPrice;
+    private float orderRowPrice;
     @JoinColumn(name = "order_order_id", referencedColumnName = "order_id")
     @ManyToOne(optional = false)
     private Orders orderOrderId;
@@ -62,7 +62,7 @@ public class OrderRow implements Serializable {
         this.orderRowId = orderRowId;
     }
 
-    public OrderRow(Integer orderRowId, int orderRowQuantity, BigDecimal orderRowPrice) {
+    public OrderRow(Integer orderRowId, int orderRowQuantity, float orderRowPrice) {
         this.orderRowId = orderRowId;
         this.orderRowQuantity = orderRowQuantity;
         this.orderRowPrice = orderRowPrice;
@@ -89,11 +89,11 @@ public class OrderRow implements Serializable {
         this.orderRowQuantity = orderRowQuantity;
     }
 
-    public BigDecimal getOrderRowPrice() {
+    public float getOrderRowPrice() {
         return orderRowPrice;
     }
 
-    public void setOrderRowPrice(BigDecimal orderRowPrice) {
+    public void setOrderRowPrice(float orderRowPrice) {
         this.orderRowPrice = orderRowPrice;
     }
 
