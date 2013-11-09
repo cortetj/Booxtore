@@ -51,6 +51,12 @@ public class ShoppingCart {
         return null;
     }
     
+    public String delBook(int id) {
+        shoppingCart.delBook(id);
+        return null;
+    }
+    
+    
     public float priceCart(){
         return shoppingCart.getSubtotal();
     }
