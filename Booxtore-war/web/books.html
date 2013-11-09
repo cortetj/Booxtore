@@ -8,6 +8,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <c:choose>
+            <c:when test="#{empty param.category}">
+                <ui:param name="books" value="#{testManagedBean.listBooks()}" />
+            </c:when>
+            <c:when test="#{not empty param.category}">
+                <ui:param name="books" value="#{testManagedBean.listBooksByCategory(param.category)}" />
+            </c:when>    
+        </c:choose>
         <title>Booxtore</title>
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
         <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
@@ -43,7 +51,8 @@
     <div class="container">
 
         <ul class="thumbnails withHover" id="portfolios1">
-            <c:forEach items="#{testManagedBean.listBooks()}" var="b">
+            
+            <c:forEach items="#{books}" var="b">
                 <li class="span3" datar-id="#{b.bookId}" data-filter="#{b.categoryCategoryId.categoryName}">
                     <a href="read.html?id=#{b.bookId}" class="thumbnail corner">
                         <span class="topCorner"></span>
@@ -52,7 +61,6 @@
                         <div class="contenthover"></div>
                         <span class="bottomCorner"></span>
                     </a>
-
                     <div class="caption">
                         <h3 class="floleft"><a href="read.html?id=#{b.bookId}">#{b.bookName}</a></h3>
                         <h3 class="floright">#{b.bookPrice} €</h3>

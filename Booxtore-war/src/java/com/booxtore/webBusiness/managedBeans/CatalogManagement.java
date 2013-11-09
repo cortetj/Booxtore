@@ -36,7 +36,6 @@ public class CatalogManagement {
     
     
     public List<Book> listBooks() {
-        System.out.println("test");
         return bookAccessor.getBooks(0);
     }
     

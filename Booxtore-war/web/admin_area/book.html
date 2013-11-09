@@ -13,6 +13,7 @@
     </head>
     <body>
         <h:form>
+            <h:inputText class="hide" value="#{bookManagement.id}" />
             <h:inputText value="#{bookManagement.name}" />
             <h:inputText value="#{bookManagement.summary}" />
             <h:inputText value="#{bookManagement.price}" />
@@ -26,7 +27,7 @@
             <h:inputText value="#{bookManagement.category}" />
             <h:inputText value="#{bookManagement.editor}" />
             
-            <h:commandButton action="#{bookManagement.updateBook(bookId)}" value="Enregistrer les modifications" />
+            <h:commandButton action="#{bookManagement.updateBook()}" value="Enregistrer les modifications" />
         </h:form>
     </body>
 </html>

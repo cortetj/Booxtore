@@ -51,7 +51,7 @@ public class BookManagement {
     }
     
     
-    
+    private int id;
     private String name;
     private String summary;
     private float price;
@@ -63,12 +63,21 @@ public class BookManagement {
     private String category;
     private String editor;
 
+    
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getSummary() {
@@ -151,11 +160,12 @@ public class BookManagement {
     public BookManagement() {
     
     }
-    public void loadBook(int id) {
+    public void loadBook(int idBook) {
         Book b = null;
-        b = bookAccessor.getBook(id);
+        b = bookAccessor.getBook(idBook);
         
         if(b != null) {
+            id = idBook;
             name = b.getBookName();
             summary = b.getBookSummary();
             price = b.getBookPrice();
@@ -175,14 +185,14 @@ public class BookManagement {
         }
     }
     
-    public String updateBook(int id) {
+    public String updateBook() {
         
         ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();
         
         ArrayList arl = new ArrayList(Arrays.asList(author.split(",")));
         System.out.println(id);
         
-        //bookManager.updateBook(category, arl, editor, id, name, price, quantity, threshold, date_release, state, summary);
+        bookManager.updateBook(category, arl, editor, id, name, price, quantity, threshold, date_release, state, summary);
         
         try {
             if(id == 0) {

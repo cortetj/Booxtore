@@ -6,6 +6,11 @@
 
 package com.booxtore.webBusiness.managedBeans;
 
+import com.booxtore.business.OrderManagerLocal;
+import com.booxtore.entity.Orders;
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -16,6 +21,8 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class OrdersManagement {
+    @EJB
+    private OrderManagerLocal orderManager;
 
     /**
      * Creates a new instance of OrdersManagement
@@ -23,4 +30,8 @@ public class OrdersManagement {
     public OrdersManagement() {
     }
     
+    
+    public List<Orders> listOrdersByState( short state ) {
+        return orderManager.getOrdersByState(state);
+    }
 }

@@ -65,7 +65,7 @@ public class Orders implements Serializable {
     @Column(name = "order_credit_card")
     private String orderCreditCard;
     @JoinColumn(name = "user_user_id", referencedColumnName = "user_id")
-    @ManyToOne(optional = false)
+    @ManyToOne()
     private User userUserId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderOrderId")
     private Collection<OrderRow> orderRowCollection;
