@@ -13,21 +13,28 @@
     </head>
     <body>
         <h:form>
-            <h:inputText class="hide" value="#{bookManagement.id}" />
-            <h:inputText value="#{bookManagement.name}" />
-            <h:inputText value="#{bookManagement.summary}" />
-            <h:inputText value="#{bookManagement.price}" />
-            <h:inputText value="#{bookManagement.quantity}" />
-            <h:inputText value="#{bookManagement.threshold}" />
-            <h:inputText value="#{bookManagement.date_release}">
-                <f:convertDateTime pattern="dd/MM/yyyy"/>
-            </h:inputText>
-            <h:inputText value="#{bookManagement.state}" />
-            <h:inputText value="#{bookManagement.author}" />
-            <h:inputText value="#{bookManagement.category}" />
-            <h:inputText value="#{bookManagement.editor}" />
-            
-            <h:commandButton action="#{bookManagement.updateBook()}" value="Enregistrer les modifications" />
+            <h:inputHidden name="id" value="#{bookManagement.id}" />
+            <h:panelGrid colunms="2" border="0">
+                <h:outputLabel value="Nom :"/><h:inputText name="nom" value="#{bookManagement.name}" />
+                <h:outputLabel value="Résumé :"/><h:inputText name="resume" value="#{bookManagement.summary}" />
+                <h:outputLabel value="Prix :"/><h:inputText name="prix" value="#{bookManagement.price}" />
+                <h:outputLabel value="Quantity :"/><h:inputText name="quantite" value="#{bookManagement.quantity}" />
+                <h:outputLabel value="Seuil :"/><h:inputText name="seuil" value="#{bookManagement.threshold}" />
+                <h:outputLabel value="Date de parution :"/><h:inputText name="date" value="#{bookManagement.date_release}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:inputText>
+                <h:outputLabel value="Etat :"/><h:selectOneRadio name="state" value="#{bookManagement.state}">
+                    <f:selectItem itemValue="0" itemLabel="Nouveauté"/>
+                    <f:selectItem itemValue="1" itemLabel="En stock"/>
+                    <f:selectItem itemValue="2" itemLabel="A venir"/>
+                    <f:selectItem itemValue="3" itemLabel="En réapprovisionnement"/>
+                    <f:selectItem itemValue="4" itemLabel="Indisponible"/>
+                </h:selectOneRadio>
+                <h:outputLabel value="Auteur :"/><h:inputText name="auteur" value="#{bookManagement.author}" />
+                <h:outputLabel value="Catégorie :"/><h:inputText name="categorie" value="#{bookManagement.category}" />
+                <h:outputLabel value="Editeur :"/><h:inputText name="editeur" value="#{bookManagement.editor}" />
+                <h:commandButton action="#{bookManagement.updateBook()}" value="Enregistrer les modifications" />
+            </h:panelGrid> 
         </h:form>
     </body>
 </html>

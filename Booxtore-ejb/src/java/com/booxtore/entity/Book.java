@@ -23,6 +23,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -78,6 +79,7 @@ public class Book implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "book_state")
+    // 0 : nouveauté, 1 : en stock, 2 : à venir, 3 : en réapprovisionnement, 4 : indisponible
     private short bookState;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
@@ -234,4 +236,10 @@ public class Book implements Serializable {
         return "com.booxtore.entity.Book[ bookId=" + bookId + " ]";
     }
     
+    @PreUpdate
+    public void preUpdate() {
+        if( this.bookQuantity == 0 && this.bookState != 4 && this.bookState != 3 ) {
+            this.bookState = 3;
+        }
+    }
 }
