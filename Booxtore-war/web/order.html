@@ -16,56 +16,38 @@
         <link href='http://fonts.googleapis.com/css?family=Lato:400,900,900italic,400italic' rel='stylesheet' type='text/css'/>
     </head>
     <body>
-        <!-- Start Main Menu and Logo-->
-        <ui:include src="navigation.html" />
-        <!-- End Main Menu and Logo -->
-        <div id="titleRow">
-            <div class="container">
-                <h1>
-                    <span class="lft"></span><span class="mid">Panier</span><span class="rt"></span>
-                </h1>
-            </div>
-        </div>
-        <div id="workGallery">
-            <div class="container">
-                <h:form method="POST">
-                    <h:commandButton action="#{shoppingCart.addBook(1,1)}" value="ajouter book 1" />
-                    <h:commandButton action="#{shoppingCart.addBook(2,1)}" value="ajouter book 2" />
-                    <h:commandButton action="#{shoppingCart.clearCart()}" value="vider panier" />
-                    <c:if test="#{shoppingCart.countCartItem() >= 1}">
-                        <table>
-                            <tr>
-                                <td></td>
-                                <td>Nom du Livre</td>
-                                <td>Quantité</td>
-                                <td>Prix</td>                
-                            </tr>
-                            <c:forEach items="#{shoppingCart.listCartBook()}" var="s">
-                                <tr>
-                                    <td><img src="img/books_thmb/#{s.getBook().bookId}.jpg" title="#{s.getBook().bookName}" /></td>
-                                    <td>#{s.getBook().bookName}</td>
-                                    <td><c:if test="#{s.getQuantity() > 1}"><h:commandButton action="#{shoppingCart.addBook(s.getBook().bookId,-1)}" value="-" /> </c:if>#{s.getQuantity()} <h:commandButton action="#{shoppingCart.addBook(s.getBook().bookId,1)}" value="+" /></td>
-                                    <td>#{s.getTotal()} €</td>
-                                    <td><h:commandButton action="#{shoppingCart.delBook(s.getBook().bookId)}" value="supp" /> </td>
-                                </tr>
-                            </c:forEach>
-                        </table>
-                        <p>Vous avez #{shoppingCart.countCartItem()} article dans votre panier</p>
-                        <p>Total du panier: #{shoppingCart.priceCart()} €</p>
-                    </c:if>
+        <h1>Cart</h1>
+        <h:form method="POST">
+            <h:commandButton action="#{shoppingCart.addBook(1,1)}" value="ajouter book 1" />
+            <h:commandButton action="#{shoppingCart.addBook(2,1)}" value="ajouter book 2" />
+            <h:commandButton action="#{shoppingCart.clearCart()}" value="vider panier" />
+            <table>
+            <tr>
+                <td>Nom du Livre</td>
+                <td>Quantité</td>
+                <td>Prix</td>                
+            </tr>
+            <c:forEach items="#{shoppingCart.listCartBook()}" var="s">
+                <tr>
+                    <td>#{s.getBook().bookName}</td>
+                    <td><c:if test="#{s.getQuantity() > 0}"><h:commandButton action="#{shoppingCart.addBook(s.getBook().bookId,-1)}" value="-" /> </c:if>#{s.getQuantity()} <h:commandButton action="#{shoppingCart.addBook(s.getBook().bookId,1)}" value="+" /></td>
+                    <td>#{s.getTotal()} €</td>
+                </tr>
+            </c:forEach>
+        </table>
+        </h:form>
+        <p>vous avez #{shoppingCart.countCartItem()} article dans votre panier</p>
+       
+        <p>Total du panier: #{shoppingCart.priceCart()} €</p>
+        <c:choose>
+            <c:when test="#{auth.isConnected() and shoppingCart.priceCart() > 0}">
+                <h:form>
+                    <h:commandButton action="/secured_area/payment.html" value="Passer la commande !" />
                 </h:form>
-
-                <c:choose>
-                    <c:when test="#{auth.isConnected() and shoppingCart.priceCart() > 0}">
-                        <h:form>
-                            <h:commandButton action="/secured_area/payment.html" value="Passer la commande !" />
-                        </h:form>
-                    </c:when>
-                    <c:when test="#{not auth.isConnected()}">
-                        Connectez vous pour accéder au paiement !
-                    </c:when>
-                </c:choose>
-            </div>
-        </div>
+            </c:when>
+            <c:when test="#{not auth.isConnected()}">
+                Connectez vous pour accéder au paiement !
+            </c:when>
+        </c:choose>
     </body>
 </html>
