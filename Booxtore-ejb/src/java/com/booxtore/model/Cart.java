@@ -17,8 +17,6 @@ import javax.ejb.EJB;
  */
 public class Cart {
 
-    @EJB
-    private BookAccessorLocal bookAccessor;
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     
@@ -70,7 +68,18 @@ public class Cart {
             }
         }
     }
-
+    
+    
+    public void delBook(int id) {
+        ArrayList<CartItem> contentsTmp = new ArrayList<CartItem>();
+        for(CartItem item : contents){
+            if(item.getBook().getBookId() != id){
+                contentsTmp.add(item);
+            }
+        }
+        
+        contents = contentsTmp;
+    }
     
     public ArrayList<CartItem> getItems() {
         return contents;
@@ -123,4 +132,5 @@ public class Cart {
         numbersOfItems = 0;
         total = 0;
     }
+
 }
