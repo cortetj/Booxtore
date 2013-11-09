@@ -46,7 +46,7 @@ public class BookManager implements BookManagerLocal {
      */
     @Override
     public void addBook(String categoryName, ArrayList<String> authorNameList, String editorName, String bookName, float bookPrice, int bookQuantity, int bookThreshold, Date bookReleaseDate, short bookState, String bookSummary) {
-        
+        // Book: données contenue dans la table Book
         Book book = new Book();
         book.setBookName(bookName);
         book.setBookPrice(bookPrice);
@@ -56,6 +56,7 @@ public class BookManager implements BookManagerLocal {
         book.setBookState(bookState);
         book.setBookSummary(bookSummary);
         
+        // Lien vers la table Category
         Category category = getCategory(categoryName);
         if(category != null){
             book.setCategoryCategoryId(category);
@@ -63,6 +64,7 @@ public class BookManager implements BookManagerLocal {
             book.setCategoryCategoryId(addCategory(categoryName));
         }
         
+        // Lien vers la table Editor
         Editor editor = getEditor(editorName);
         if(editor != null){
             book.setEditorEditorId(editor);
@@ -70,19 +72,19 @@ public class BookManager implements BookManagerLocal {
             book.setEditorEditorId(addEditor(editorName));
         }
         
+        // Liens entre Author et Book
+        ArrayList<Author> nameList = new ArrayList();
         for (String authorName : authorNameList) {
             Author author = getAuthor(authorName);
-            ArrayList<Author> nameList = new ArrayList<Author>();
-            
             if(author != null){
                 nameList.add(author);
             } else {
                 nameList.add(addAuthor(authorName));
             }
-            
-            book.setAuthorCollection(nameList);
         }
+        book.setAuthorCollection(nameList);
         
+        // Sauvegarde du nouveau livre
         em.persist(book);
     }
     
@@ -103,7 +105,7 @@ public class BookManager implements BookManagerLocal {
      */
     @Override
     public int updateBook(String categoryName, ArrayList<String> authorNameList, String editorName, int bookId, String bookName, float bookPrice, int bookQuantity, int bookThreshold, Date bookReleaseDate, short bookState, String bookSummary) {
-        
+        // Book: données contenue dans la table Book
         Book book = em.createNamedQuery("Book.findByBookId", Book.class).setParameter("bookId", bookId).getSingleResult();
         book.setBookName(bookName);
         book.setBookPrice(bookPrice);
@@ -113,6 +115,7 @@ public class BookManager implements BookManagerLocal {
         book.setBookState(bookState);
         book.setBookSummary(bookSummary);
         
+        // Lien vers la table Category
         Category category = getCategory(categoryName);
         if(category != null){
             book.setCategoryCategoryId(category);
@@ -120,6 +123,7 @@ public class BookManager implements BookManagerLocal {
             book.setCategoryCategoryId(addCategory(categoryName));
         }
         
+        // Lien vers la table Editor
         Editor editor = getEditor(editorName);
         if(editor != null){
             book.setEditorEditorId(editor);
@@ -127,19 +131,24 @@ public class BookManager implements BookManagerLocal {
             book.setEditorEditorId(addEditor(editorName));
         }
         
+        // Liens entre les tables Author et Book
+        System.out.println("Création de la liste ...");
+        ArrayList<Author> nameList = new ArrayList();
         for (String authorName : authorNameList) {
+            System.out.println("Traitement de l'auteur "+authorName);
             Author author = getAuthor(authorName);
-            ArrayList<Author> nameList = new ArrayList<Author>();
-            
             if(author != null){
+                System.out.println("Auteur existant - ajout.");
                 nameList.add(author);
             } else {
+                System.out.println("Création et ajout de l'auteur");
                 nameList.add(addAuthor(authorName));
             }
-            
-            book.setAuthorCollection(nameList);
         }
+        System.out.println("Liste finalisée  - contient "+nameList.toString());
+        book.setAuthorCollection(nameList);
         
+        // Mise à jour du livre
         em.merge(book);
         
         return book.getBookId();
@@ -171,7 +180,7 @@ public class BookManager implements BookManagerLocal {
     public Category addCategory(String name){
         Category category = new Category();
         category.setCategoryName(name);
-        category.setCategorySummary(" ");
+        category.setCategorySummary("...");
         em.persist(category);
         
         return category;
@@ -187,6 +196,7 @@ public class BookManager implements BookManagerLocal {
     public boolean updateCategory(int categoryId, String name) {
         int query = em.createQuery ("UPDATE Category c SET c.categoryName = :name WHERE c.categoryId = :categoryId")
                 .setParameter("name", name)
+                .setParameter("categoryId", categoryId)
                 .executeUpdate ();
         if(query > 0){
             return true;
@@ -220,7 +230,7 @@ public class BookManager implements BookManagerLocal {
     public Author addAuthor(String authorName) {
         Author author = new Author();
         author.setAuthorName(authorName);
-        author.setAuthorSummary(" ");
+        author.setAuthorSummary("...");
         em.persist(author);
         
         return author;
@@ -237,6 +247,7 @@ public class BookManager implements BookManagerLocal {
     public boolean updateAuthor(int authorId, String name) {
         int query = em.createQuery ("UPDATE Author a SET a.authorName = :name WHERE a.authorId = :authorId")
                 .setParameter("name", name)
+                .setParameter("authoriId", authorId)
                 .executeUpdate ();
         if(query > 0){
             return true;
@@ -270,7 +281,7 @@ public class BookManager implements BookManagerLocal {
     public Editor addEditor(String editorName) {
         Editor editor = new Editor();
         editor.setEditorName(editorName);
-        editor.setEditorSummary(" ");
+        editor.setEditorSummary("...");
         em.persist(editor);
         
         return editor;
@@ -287,6 +298,7 @@ public class BookManager implements BookManagerLocal {
     public boolean updateEditor(int editorId, String name) {
         int query = em.createQuery ("UPDATE Editor e SET e.editorName = :name WHERE e.editorId = :editorId")
                 .setParameter("name", name)
+                .setParameter("editorId", editorId)
                 .executeUpdate ();
         if(query > 0){
             return true;
