@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -89,7 +90,11 @@ public class OrderManager implements OrderManagerLocal {
      */
     @Override
     public Orders getOrderById(int id) {
-        return em.createNamedQuery("Orders.findByOrderId", Orders.class).setParameter("orderId", id).getSingleResult();
+        try {
+            return em.createNamedQuery("Orders.findByOrderId", Orders.class).setParameter("orderId", id).getSingleResult();
+        } catch(NoResultException e) {
+            return null;
+        }
     }
 
     /**

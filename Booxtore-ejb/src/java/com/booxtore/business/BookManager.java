@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -44,7 +45,7 @@ public class BookManager implements BookManagerLocal {
      * @return Id du livre ajouté
      */
     @Override
-    public int addBook(String categoryName, ArrayList<String> authorNameList, String editorName, String bookName, float bookPrice, int bookQuantity, int bookThreshold, Date bookReleaseDate, short bookState, String bookSummary) {
+    public void addBook(String categoryName, ArrayList<String> authorNameList, String editorName, String bookName, float bookPrice, int bookQuantity, int bookThreshold, Date bookReleaseDate, short bookState, String bookSummary) {
         
         Book book = new Book();
         book.setBookName(bookName);
@@ -83,8 +84,6 @@ public class BookManager implements BookManagerLocal {
         }
         
         em.persist(book);
-        
-        return book.getBookId();
     }
     
     
@@ -154,9 +153,13 @@ public class BookManager implements BookManagerLocal {
      */
     @Override
     public Category getCategory(String categoryName) {
-        return em.createNamedQuery("Category.findByCategoryName", Category.class)
+        try {
+            return em.createNamedQuery("Category.findByCategoryName", Category.class)
                 .setParameter("categoryName", categoryName)
                 .getSingleResult();
+        } catch(NoResultException e) {
+            return null;
+        }
     }
     
     /**
@@ -168,6 +171,7 @@ public class BookManager implements BookManagerLocal {
     public Category addCategory(String name){
         Category category = new Category();
         category.setCategoryName(name);
+        category.setCategorySummary(" ");
         em.persist(category);
         
         return category;
@@ -198,9 +202,13 @@ public class BookManager implements BookManagerLocal {
      */
     @Override
     public Author getAuthor(String authorName) {
-        return em.createNamedQuery("Author.findByAuthorName", Author.class)
+        try {
+            return em.createNamedQuery("Author.findByAuthorName", Author.class)
                 .setParameter("authorName", authorName)
                 .getSingleResult();
+        } catch(NoResultException e) {
+            return null;
+        }
     }
 
     /**
@@ -212,6 +220,7 @@ public class BookManager implements BookManagerLocal {
     public Author addAuthor(String authorName) {
         Author author = new Author();
         author.setAuthorName(authorName);
+        author.setAuthorSummary(" ");
         em.persist(author);
         
         return author;
@@ -243,9 +252,13 @@ public class BookManager implements BookManagerLocal {
      */
     @Override
     public Editor getEditor(String editorName) {
-        return em.createNamedQuery("Editor.findByEditorName", Editor.class)
+        try {
+            return em.createNamedQuery("Editor.findByEditorName", Editor.class)
                 .setParameter("editorName", editorName)
                 .getSingleResult();
+        } catch(NoResultException e) {
+            return null;
+        }
     }
 
     /**
@@ -257,6 +270,7 @@ public class BookManager implements BookManagerLocal {
     public Editor addEditor(String editorName) {
         Editor editor = new Editor();
         editor.setEditorName(editorName);
+        editor.setEditorSummary(" ");
         em.persist(editor);
         
         return editor;

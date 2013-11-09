@@ -168,7 +168,10 @@ public class BookManagement {
     public void loadBook(int idBook) {
         Book b = null;
         if ( idBook > 0 ) b = bookAccessor.getBook(idBook);
-        else id  = 0;
+        else {
+            id  = 0;
+            date_release = new Date();
+        }
         
         if(b != null) {
             id = idBook;
@@ -199,22 +202,22 @@ public class BookManagement {
     public String updateBook() {
         
         ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();
-        if( id > 0 ) {
-            ArrayList arl = new ArrayList(Arrays.asList(author.split(",")));
-
-            try {
-                if(id == 0) {
-                    if(quantity > threshold) {
-                        bookManager.addBook(category, arl, editor, name, price, quantity, threshold, date_release, (short)0, summary);
-                    }
-                }else {
-                    bookManager.updateBook(category, arl, editor, id, name, price, quantity, threshold, date_release, state, summary);
-                }
-                context.redirect(context.getRequestContextPath()+"/admin_area/catalog.html");
-            } catch (Exception e) {
-                Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, e);
-                System.err.println("Echec de la mise à jour / insertion du livre.");
+        ArrayList arl = new ArrayList(Arrays.asList(author.split(",")));
+        
+        if(id == 0) {
+            if(quantity > threshold) {
+                bookManager.addBook(category, arl, editor, name, price, quantity, threshold, date_release, (short)0, summary);
             }
+        }else {
+            bookManager.updateBook(category, arl, editor, id, name, price, quantity, threshold, date_release, state, summary);
+        }
+        
+        try {
+            
+            context.redirect(context.getRequestContextPath()+"/admin_area/catalog.html");
+        } catch (IOException e) {
+            Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, e);
+            System.err.println("Echec de la mise à jour / insertion du livre.");
         }
         return null;
     }

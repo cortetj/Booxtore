@@ -38,7 +38,7 @@ public interface BookManagerLocal {
 
     boolean updateEditor(int editorId, String name);
 
-    int addBook(String categoryName, ArrayList<String> authorNameList, String editorName, String bookName, float bookPrice, int bookQuantity, int bookThreshold, Date bookReleaseDate, short bookState, String bookSummary);
+    void addBook(String categoryName, ArrayList<String> authorNameList, String editorName, String bookName, float bookPrice, int bookQuantity, int bookThreshold, Date bookReleaseDate, short bookState, String bookSummary);
 
     int updateBook(String categoryName, ArrayList<String> authorNameList, String editorName, int bookId, String bookName, float bookPrice, int bookQuantity, int bookThreshold, Date bookReleaseDate, short bookState, String bookSummary);
 

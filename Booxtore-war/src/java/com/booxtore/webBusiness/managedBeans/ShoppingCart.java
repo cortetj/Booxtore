@@ -126,7 +126,6 @@ public class ShoppingCart {
         Auth user = (Auth) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("auth"); 
         if( date.after(new Date()) == true ) {
             if( creditcard.length() > 9) { 
-                System.out.println("Use : ///"+user.toString()+"\\\\\\ ///"+user.getUser().toString());
                 orderManager.addOrder(user.getUser(), shoppingCart, creditcard);
                 this.clearCart();
                 ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();

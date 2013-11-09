@@ -112,11 +112,11 @@ public class Auth implements Serializable {
                 } else {
                     url = "/secured_area/";
                 }
-                
             }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         try {
             context.redirect(context.getRequestContextPath()+url);
         } catch (IOException ex) {
