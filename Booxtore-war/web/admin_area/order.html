@@ -5,55 +5,109 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Booxtore - administration</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width"/>
+        <link rel="stylesheet" href="css/style.default.css" type="text/css" />
+        <link rel="stylesheet" href="css/style.stickyheader.css" type="text/css" />
+        <link rel="stylesheet" href="prettify/prettify.css" type="text/css" />
+        <script type="text/javascript" src="prettify/prettify.js"></script>
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-migrate-1.1.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.9.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery.flot.min.js"></script>
+        <script type="text/javascript" src="js/jquery.flot.resize.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="js/custom.js"></script>
+        <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
+        
         <ui:param name="orderId" value="#{param.id}" />
         <ui:param name="order" value="#{ordersManagement.getOrderById(param.id)}" />
         <f:event listener="#{ordersManagement.loadOrder(orderId)}" type="preRenderView" /> 
-        <title>Booxtore</title>
     </head>
     <body>
-        <ui:include src="/admin_area/navigation.html" />
-        <h3>Etat de la Commande:</h3>
-        <h:form>
-            <h:inputHidden name="id" value="#{ordersManagement.id}" />
-            <h:selectOneMenu name="state" value="#{ordersManagement.state}">
-                <f:selectItem itemValue="0" itemLabel="Commande à préparer" />
-                <f:selectItem itemValue="1" itemLabel="Commande à envoyer" />
-                <f:selectItem itemValue="2" itemLabel="Commande validée" />
-                <f:selectItem itemValue="3" itemLabel="Commande annulée" />
-            </h:selectOneMenu>
+        <div class="mainwrapper">
             
-            <h:commandButton action="#{ordersManagement.updateOrderState()}" value="Modifier l'état" />
-        </h:form>
-        
-        <h3>Client</h3>
-        Nom: #{ordersManagement.user.getUserFirstname()}<br/>
-        Prénom: #{ordersManagement.user.getUserLastname()}<br/>
-        Mail: #{ordersManagement.user.getUserMail()}<br/>
-        Adresse: #{ordersManagement.user.getUserAddress()} #{ordersManagement.user.getUserCityNumber()} #{ordersManagement.user.getUserCity()}<br/>
-        <a href="">Voir ses autres commandes</a>
-        
-        <h3>Détail Commande</h3>
-        Date de la Commande: <h:outputText value="#{ordersManagement.date}" ><f:convertDateTime pattern="dd/MM/yyyy à hh:mm" /></h:outputText><br/>
-        
-        <table>
-            <tr>
-                <td>Livre</td>
-                <td>Quantité</td>
-                <td>Coût</td>
-            </tr>
-            <c:forEach items="#{order.orderRowCollection}" var="o">
-                <tr>
-                    <td><h:outputText value="#{o.getBookBookId().getBookName()}" /></td>
-                    <td><h:outputText value="#{o.orderRowQuantity}" /></td>
-                    <td><h:outputText value="#{o.orderRowPrice}" /></td>
-                </tr>
-            </c:forEach>
-            <tr>
-                <td colspan="2" style="text-align: right">Coût Total: </td>
-                <td>#{ordersManagement.getTotalPriceOrder(param.id)} €</td>
-            </tr>
-        </table>
+            <!-- START OF LEFT PANEL -->
+            <ui:include src="navigation.html" />
+            <!-- START OF RIGHT PANEL -->
+            
+            <div class="rightpanel">
+                <div class="breadcrumbwidget">
+                    <ul class="skins">
+                        <li><a href="default" class="skin-color default"></a></li>
+                        <li><a href="orange" class="skin-color orange"></a></li>
+                        <li><a href="dark" class="skin-color dark"></a></li>
+                        <li></li>
+                        <li class="fixed"><a href="" class="skin-layout fixed"></a></li>
+                        <li class="wide"><a href="" class="skin-layout wide"></a></li>
+                    </ul><!--skins-->
+                    <ul class="breadcrumb">
+                        <!--<li><a href="index.html">Accueil</a> <span class="divider">/</span></li>
+                        <li class="active"></li>-->
+                    </ul>
+                </div>
+                <div class="pagetitle">
+                    <h1>Détail de la Commande</h1>
+                </div><!--pagetitle-->
+                
+                <div class="maincontent">
+                    <div class="contentinner content-dashboard">
+                        <div class="row-fluid">
+                            <div class="span8">
+                                <h4 class="widgettitle ctitle">Etat de la commande</h4>
+                                <h:form>
+                                    <h:inputHidden name="id" value="#{ordersManagement.id}" />
+                                    <h:selectOneMenu name="state" value="#{ordersManagement.state}">
+                                        <f:selectItem itemValue="0" itemLabel="Commande à préparer" />
+                                        <f:selectItem itemValue="1" itemLabel="Commande à envoyer" />
+                                        <f:selectItem itemValue="2" itemLabel="Commande validée" />
+                                        <f:selectItem itemValue="3" itemLabel="Commande annulée" />
+                                    </h:selectOneMenu>
+
+                                    <h:commandButton action="#{ordersManagement.updateOrderState()}" value="Modifier l'état" />
+                                </h:form>
+                                <br/>
+                                    
+                                <h4 class="widgettitle ctitle">Client</h4>
+                                    Nom: #{ordersManagement.user.getUserFirstname()}<br/>
+                                    Prénom: #{ordersManagement.user.getUserLastname()}<br/>
+                                    Mail: #{ordersManagement.user.getUserMail()}<br/>
+                                    Adresse: #{ordersManagement.user.getUserAddress()} #{ordersManagement.user.getUserCityNumber()} #{ordersManagement.user.getUserCity()}<br/>
+                                    
+                                <br/><br/>
+
+                                <h4 class="widgettitle ctitle">Détail des Produits</h4>
+                                    Date de la Commande: <h:outputText value="#{ordersManagement.date}" ><f:convertDateTime pattern="dd/MM/yyyy à hh:mm" /></h:outputText><br/>
+
+                                <table class="table table-bordered" id="dyntable">
+                                    <thead>
+                                        <tr>
+                                            <th>Livre</th>
+                                            <th>Quantité</th>
+                                            <th>Coût</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="#{order.orderRowCollection}" var="o">
+                                            <tr>
+                                                <td><h:outputText value="#{o.getBookBookId().getBookName()}" /></td>
+                                                <td><h:outputText value="#{o.orderRowQuantity}" /></td>
+                                                <td><h:outputText value="#{o.orderRowPrice}" /></td>
+                                            </tr>
+                                        </c:forEach>
+                                        <tr>
+                                            <td colspan="2" style="text-align: right">Coût Total: </td>
+                                            <td>#{ordersManagement.getTotalPriceOrder(param.id)} €</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

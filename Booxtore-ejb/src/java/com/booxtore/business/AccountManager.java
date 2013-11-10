@@ -125,8 +125,6 @@ public class AccountManager implements AccountManagerLocal {
 
             em.merge(u);
         }
-    }
-    
-    
+    }   
     
 }

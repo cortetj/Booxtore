@@ -6,13 +6,13 @@
 
 package com.booxtore.webBusiness.managedBeans;
 
+import com.booxtore.business.AccountManagerLocal;
 import com.booxtore.business.OrderManagerLocal;
 import com.booxtore.entity.OrderRow;
 import com.booxtore.entity.Orders;
 import com.booxtore.entity.User;
 import java.io.IOException;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -29,6 +29,7 @@ import javax.faces.context.FacesContext;
 public class OrdersManagement {
     @EJB
     private OrderManagerLocal orderManager;
+    private AccountManagerLocal accountManager;
 
     
     private int id;
