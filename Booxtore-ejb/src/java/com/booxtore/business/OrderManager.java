@@ -96,6 +96,8 @@ public class OrderManager implements OrderManagerLocal {
             return null;
         }
     }
+    
+    
 
     /**
      * Met à jour l'état d'une commande (plus date de mise à jour d'état)
@@ -109,6 +111,21 @@ public class OrderManager implements OrderManagerLocal {
         o.setOrderState((short)state);
         o.setOrderDateState(new Date());
         em.merge(o);
+    }
+
+    @Override
+    public float getTotalPriceOrder(int id) {
+        Orders o = em.createNamedQuery("Orders.findByOrderId", Orders.class).setParameter("orderId", id).getSingleResult();
+        float total = 0;
+        for(OrderRow row : o.getOrderRowCollection()){
+            total += row.getOrderRowPrice();
+        }
+        return total;
+    }
+
+    @Override
+    public List<OrderRow> getOrderRow(int id) {
+        return em.createNamedQuery("OrderRow.findByOrderId", OrderRow.class).setParameter("orderOrderId", getOrderById(id)).getResultList();
     }
     
     

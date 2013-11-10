@@ -11,8 +11,30 @@
     </head>
     <body>
         <ui:include src="/admin_area/navigation.html" />
-        <c:forEach items="#{ordersManagement.listOrdersByState(param.state)}" var="c">
-            #{c.orderId}
-        </c:forEach>
+        <table>
+            <tr>
+                <td>Nom</td>
+                <td>Prénom</td>
+                <td>Date de commande</td>
+                <td>Date dernière modification</td>
+            </tr>
+            <c:forEach items="#{ordersManagement.listOrdersByState(param.state)}" var="c">
+                <tr>
+                    <td>#{c.userUserId.getUserFirstname()}</td>
+                    <td>#{c.userUserId.getUserLastname()}</td>
+                    <td>
+                        <h:outputText value="#{c.orderDate}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy à hh:mm" />
+                        </h:outputText>
+                    </td>
+                    <td>
+                        <h:outputText value="#{c.orderDateState}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy à hh:mm" />
+                        </h:outputText>
+                    </td>
+                    <td><a href="order.html?id=#{c.orderId}">Détail</a></td>
+                </tr>
+            </c:forEach>
+        </table>
     </body>
 </html>
