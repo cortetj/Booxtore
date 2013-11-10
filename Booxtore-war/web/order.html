@@ -44,7 +44,7 @@
                                 <tr>
                                     <td><img src="img/books_thmb/#{s.getBook().bookId}.jpg" title="#{s.getBook().bookName}" /></td>
                                     <td>#{s.getBook().bookName}</td>
-                                    <td><c:if test="#{s.getQuantity() > 1}"><h:commandButton action="#{shoppingCart.addBook(s.getBook().bookId,-1)}" value="-" /> </c:if>#{s.getQuantity()} <h:commandButton action="#{shoppingCart.addBook(s.getBook().bookId,1)}" value="+" /></td>
+                                    <td><c:if test="#{s.getQuantity() > 1}"><h:commandButton action="#{shoppingCart.addBook(s.getBook().bookId,-1)}" value="-" /> </c:if>#{s.getQuantity()} <c:if test="#{s.getBook().bookQuantity > s.getQuantity()}"><h:commandButton action="#{shoppingCart.addBook(s.getBook().bookId,1)}" value="+" /></c:if></td>
                                     <td>#{s.getTotal()} €</td>
                                     <td><h:commandButton action="#{shoppingCart.delBook(s.getBook().bookId)}" value="supp" /> </td>
                                 </tr>
