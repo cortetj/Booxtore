@@ -11,6 +11,7 @@ import com.booxtore.entity.Book;
 import com.booxtore.entity.Category;
 import com.booxtore.entity.Editor;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -72,14 +73,20 @@ public class BookManager implements BookManagerLocal {
             book.setEditorEditorId(addEditor(editorName));
         }
         
-        // Liens entre Author et Book
+        // Liens entre les tables Author et Book
         ArrayList<Author> nameList = new ArrayList();
         for (String authorName : authorNameList) {
             Author author = getAuthor(authorName);
             if(author != null){
+                ArrayList<Book> al = new ArrayList();
+                al.add(book);
                 nameList.add(author);
             } else {
-                nameList.add(addAuthor(authorName));
+                Author a = addAuthor(authorName);
+                ArrayList<Book> al = new ArrayList();
+                al.add(book);
+                a.setBookCollection(al);
+                nameList.add(a);
             }
         }
         book.setAuthorCollection(nameList);
@@ -132,20 +139,21 @@ public class BookManager implements BookManagerLocal {
         }
         
         // Liens entre les tables Author et Book
-        System.out.println("Création de la liste ...");
         ArrayList<Author> nameList = new ArrayList();
         for (String authorName : authorNameList) {
-            System.out.println("Traitement de l'auteur "+authorName);
             Author author = getAuthor(authorName);
             if(author != null){
-                System.out.println("Auteur existant - ajout.");
+                ArrayList<Book> al = new ArrayList();
+                al.add(book);
                 nameList.add(author);
             } else {
-                System.out.println("Création et ajout de l'auteur");
-                nameList.add(addAuthor(authorName));
+                Author a = addAuthor(authorName);
+                ArrayList<Book> al = new ArrayList();
+                al.add(book);
+                a.setBookCollection(al);
+                nameList.add(a);
             }
         }
-        System.out.println("Liste finalisée  - contient "+nameList.toString());
         book.setAuthorCollection(nameList);
         
         // Mise à jour du livre
@@ -181,6 +189,7 @@ public class BookManager implements BookManagerLocal {
         Category category = new Category();
         category.setCategoryName(name);
         category.setCategorySummary("...");
+        category.setCategoryKeywords(name);
         em.persist(category);
         
         return category;

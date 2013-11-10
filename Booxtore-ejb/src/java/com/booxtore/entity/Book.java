@@ -54,36 +54,29 @@ public class Book implements Serializable {
     @Column(name = "book_id")
     private Integer bookId;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 125)
     @Column(name = "book_name")
     private String bookName;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 1024)
     @Column(name = "book_summary")
     private String bookSummary;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "book_release_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date bookReleaseDate;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "book_quantity")
     private int bookQuantity;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "book_threshold")
     private int bookThreshold;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "book_state")
     // 0 : nouveauté, 1 : en stock, 2 : à venir, 3 : en réapprovisionnement, 4 : indisponible
     private short bookState;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @NotNull
     @Column(name = "book_price")
     private float bookPrice;
     @ManyToMany(mappedBy = "bookCollection")
@@ -238,8 +231,9 @@ public class Book implements Serializable {
     
     @PreUpdate
     public void preUpdate() {
+        System.out.println("Test.");
         if( this.bookQuantity == 0 && this.bookState != 4 && this.bookState != 3 ) {
-            this.bookState = 3;
+            this.bookState = (short)3;
         }
     }
 }
