@@ -57,6 +57,7 @@
                         <div class="row-fluid">
                             <div class="span8">
                                 <h4 class="widgettitle ctitle">Etat de la commande</h4>
+                                <h:outputText value="Date de dernière modification: " /> <h:outputText value="#{ordersManagement.dateState}" ><f:convertDateTime pattern="dd/MM/yyyy à hh:mm" /></h:outputText>
                                 <h:form>
                                     <h:inputHidden name="id" value="#{ordersManagement.id}" />
                                     <h:selectOneMenu name="state" value="#{ordersManagement.state}">
@@ -71,15 +72,15 @@
                                 <br/>
                                     
                                 <h4 class="widgettitle ctitle">Client</h4>
-                                    Nom: #{ordersManagement.user.getUserFirstname()}<br/>
-                                    Prénom: #{ordersManagement.user.getUserLastname()}<br/>
-                                    Mail: #{ordersManagement.user.getUserMail()}<br/>
-                                    Adresse: #{ordersManagement.user.getUserAddress()} #{ordersManagement.user.getUserCityNumber()} #{ordersManagement.user.getUserCity()}<br/>
+                                    <h:outputText value="Nom: #{ordersManagement.user.getUserFirstname()}" /><br/>
+                                    <h:outputText value="Prénom: #{ordersManagement.user.getUserLastname()}" /><br/>
+                                    <h:outputText value="Mail: #{ordersManagement.user.getUserMail()}" /><br/>
+                                    <h:outputText value="Adresse: #{ordersManagement.user.getUserAddress()} #{ordersManagement.user.getUserCityNumber()} #{ordersManagement.user.getUserCity()}" /><br/>
                                     
                                 <br/><br/>
 
                                 <h4 class="widgettitle ctitle">Détail des Produits</h4>
-                                    Date de la Commande: <h:outputText value="#{ordersManagement.date}" ><f:convertDateTime pattern="dd/MM/yyyy à hh:mm" /></h:outputText><br/>
+                                    <h:outputText value="Date de la Commande: " /> <h:outputText value="#{ordersManagement.date}" ><f:convertDateTime pattern="dd/MM/yyyy à hh:mm" /></h:outputText><br/>
 
                                 <table class="table table-bordered" id="dyntable">
                                     <thead>

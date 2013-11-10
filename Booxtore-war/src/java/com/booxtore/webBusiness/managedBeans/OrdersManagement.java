@@ -35,6 +35,7 @@ public class OrdersManagement {
     private int id;
     private short state;
     private Date date;
+    private Date dateState;
     private List<OrderRow> rowCollection;
     private User user;
 
@@ -60,6 +61,14 @@ public class OrdersManagement {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Date getDateState() {
+        return dateState;
+    }
+
+    public void setDateState(Date dateState) {
+        this.dateState = dateState;
     }
 
     public List<OrderRow> getRowCollection() {
@@ -111,6 +120,7 @@ public class OrdersManagement {
             id = idOrder;
             state = o.getOrderState();
             date = o.getOrderDate();
+            dateState = o.getOrderDateState();
             user = o.getUserUserId();
             rowCollection = (List<OrderRow>) o.getOrderRowCollection();
         }
