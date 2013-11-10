@@ -4,43 +4,71 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:ui="http://java.sun.com/jsf/facelets">
-    <div class="leftpanel">
-                <div class="logopanel">
-                    <h1><a href="index.html" title="Page d'accueil">BOOXTORE</a><span>v1.0</span></h1>
-                </div><!--logopanel-->
-                <div class="datewidget">Administration en ligne</div>
-                <div class="leftmenu">        
-                    <ul class="nav nav-tabs nav-stacked">
-                        <li class="nav-header">Menu de navigation</li>
-                        <li class="dropdown"><a href=""><span class="iconsweets-list"></span> Gestion des commandes</a>
-                            <ul>
+    <div class="stickyheader">
+	<div class="stickyheaderinner">
+	    <div class="leftpanel">
+		<div class="logopanel">
+		    <h1><a href="index.html">Booxtore <span>v1.0</span></a></h1>
+		</div><!--logopanel-->
+	    </div>
+            <div class="rightpanel">
+                <div class="headerpanel">
+                    <a href="" class="showmenu"></a>
+            
+                    <div class="headerright">
+                        <div class="dropdown userinfo">
+                            <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="">Salut, #{auth.user.getUserFirstname()} #{auth.user.getUserLastname()}! <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
                                 <li>
-                                    <a href="/orders.html?state=0" title="Liste des commandes à préparer"> Commandes à préparer</a>
-                                </li>
-                                <li>
-                                    <a href="/orders.html?state=1" title="Liste des commandes à envoyer"> Commandes à envoyer</a>
-                                </li>
-                                <li>
-                                    <a href="/orders.html?state=2" title="Liste des commandes à préparer"> Commandes envoyées</a>
-                                </li>
-                                <li>
-                                    <a href="/orders.html?state=3" title="Liste des commandes à préparer">Commandes annulées</a>
+                                    <a href="#" onclick="$('hidden .subdeco').submit();">
+                                        <span class="icon-off"></span>
+                                        Déconnexion
+                                        <h:form method="POST" class="hidden subdeco" action="#{auth.logout()}">
+                                            <h:commandButton value="Se déconnecter"/>                    
+                                        </h:form>
+                                    </a>
                                 </li>
                             </ul>
+                        </div><!--dropdown-->
+                    </div><!--headerright-->
+                </div><!--headerpanel-->
+            </div>
+        </div>
+    </div>
+    <div class="leftpanel">
+        <div class="datewidget">Administration en ligne</div>
+        <div class="leftmenu">        
+            <ul class="nav nav-tabs nav-stacked">
+                <li class="nav-header">Menu de navigation</li>
+                <li class="dropdown"><a href=""><span class="iconsweets-list"></span> Gestion des commandes</a>
+                    <ul>
+                        <li>
+                            <a href="/orders.html?state=0" title="Liste des commandes à préparer"> Commandes à préparer</a>
                         </li>
                         <li>
-                            <a href="catalog.html">
-                                <span class="iconsweets-book-large"></span>
-                                Catalogue de livres
-                            </a>
+                            <a href="/orders.html?state=1" title="Liste des commandes à envoyer"> Commandes à envoyer</a>
                         </li>
                         <li>
-                            <a href="book.html?id=0">
-                                <span class="iconsweets-book"></span>
-                                Ajouter un livre
-                            </a>
+                            <a href="/orders.html?state=2" title="Liste des commandes à préparer"> Commandes envoyées</a>
+                        </li>
+                        <li>
+                            <a href="/orders.html?state=3" title="Liste des commandes à préparer">Commandes annulées</a>
                         </li>
                     </ul>
-                </div>
-            </div>
+                </li>
+                <li>
+                    <a href="catalog.html">
+                        <span class="iconsweets-book-large"></span>
+                        Catalogue de livres
+                    </a>
+                </li>
+                <li>
+                    <a href="book.html?id=0">
+                        <span class="iconsweets-book"></span>
+                        Ajouter un livre
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </ui:composition>
