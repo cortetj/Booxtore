@@ -80,8 +80,13 @@
                                                  <f:convertDateTime pattern="dd/MM/yyyy" />
                                     </h:outputText>
                                     </strong>
-                            </span><br/><br/>
-
+                            </span><br/>
+                            <c:choose>
+                                <c:when test="#{ book.bookThreshold > book.bookQuantity }">
+                                    <p class="alert">Il reste seulement #{book.bookQuantity} article(s) !</p>
+                                </c:when>
+                            </c:choose>
+                            <br/>
                             <p>#{book.bookSummary}</p>
 
 
