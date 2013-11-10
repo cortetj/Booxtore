@@ -26,4 +26,6 @@ public interface BookAccessorLocal {
     List<Book> getBooksByKeywords(String keywords, int index);
     
     List<Book> getBooks(int index);
+
+    List<Book> getBooksToResupply();
 }
