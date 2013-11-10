@@ -8,11 +8,14 @@ package com.booxtore.webBusiness.managedBeans;
 
 import com.booxtore.business.BookAccessorLocal;
 import com.booxtore.business.OrderManagerLocal;
+import com.booxtore.entity.Book;
 import com.booxtore.model.Cart;
 import com.booxtore.model.CartItem;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -27,7 +30,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class ShoppingCart {
+public class ShoppingCart  implements Serializable{
     @EJB
     private OrderManagerLocal orderManager;
     @EJB
@@ -81,8 +84,11 @@ public class ShoppingCart {
         return shoppingCart.getItems();
     }
     
-    public String addBook(int id, int quantity) {
-        shoppingCart.addBook(bookAccessor.getBook(id), quantity);
+    public String addBook() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+	int id = Integer.parseInt(params.get("id"));
+        shoppingCart.addBook(bookAccessor.getBook(id), 1);
         return null;
     }
     

@@ -140,6 +140,7 @@ a.twitterBtn:hover {background-position: -1px -1px; background-color: transparen
 .navbar .nav-collapse {position: relative;}
 .navbar .nav-collapse .cart {position: absolute; right: 0; top: -11px; width: 93px; z-index: 100;}
 .navbar .nav-collapse .cart a {cursor: pointer;}
+.navbar .nav-collapse .cart-nbr {background-color: #E74C3C; border-radius: 50%; color: white; height: 26px; line-height: 24px; position: absolute;    right: -10px;    text-align: center;    top: 14px;    width: 26px;}
 .navbar .nav-collapse .cart img.cart-img {} 
 .navbar .nav-collapse .cart-list {z-index: 10; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset; border: 1px solid #BCD2C5; background: white; position: absolute; right: 0; top: 50px; width: 370px;}
 .navbar .nav-collapse .cart-list li {list-style: none; padding: 8px;}

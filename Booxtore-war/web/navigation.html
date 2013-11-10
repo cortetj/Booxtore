@@ -41,47 +41,36 @@
                                     </li>
                                 </h:panelGroup>                                       
                         </ul>
-                        <div class="cart"><a><img class="cart-img" src="img/package.png"/></a></div>
+                        <div class="cart"><a><img class="cart-img" src="img/package.png"/></a><span class="cart-nbr">#{shoppingCart.countCartItem()}</span></div>
                             <ul class="cart-list" style="display: none;">
+                    <c:if test="#{shoppingCart.countCartItem() >= 1}">
+                            <c:forEach items="#{shoppingCart.listCartBook()}" var="s">
+                               
                                 <li>
-                                    
                                     <a href="#">
                                         <div class="cl-img">
                                             <span href="06work-project.html" class="thumbnail corner">
                                                 <span class="topCorner"></span>
-                                                <img src="img/books_thmb/1.jpg" alt=""/>
+                                                <img src="img/books_thmb/#{s.getBook().bookId}.jpg" alt="#{s.getBook().bookName}"/>
                                                 <span class="bottomCorner"></span>
                                             </span>
                                         </div>
                                         <div class="cl-book">
-                                            <h4>Nom du livre</h4>
-                                            <h5>Auteur</h5>
-                                            <h4 class="floright">22.00€</h4>
-                                            <h6>Quantité : 1</h6>
+                                            <h4>#{s.getBook().bookName}</h4>
+                                            <h5><c:forEach items="#{s.getBook().authorCollection}" var="a">#{a.authorName} </c:forEach></h5>
+                                            <h4 class="floright">#{s.getTotal()} €</h4>
+                                            <h6>Quantité : #{s.getQuantity()}</h6>
                                             
                                         </div>
                                     </a>
                                 </li>
-                                <li>
-                                    
-                                    <a href="#">
-                                        <div class="cl-img">
-                                            <span href="06work-project.html" class="thumbnail corner">
-                                                <span class="topCorner"></span>
-                                                <img src="img/books_thmb/2.jpg" alt=""/>
-                                                <span class="bottomCorner"></span>
-                                            </span>
-                                        </div>
-                                        <div class="cl-book">
-                                            <h4>Nom du livre</h4>
-                                            <h5>Auteur</h5>
-                                            <h4 class="floright">18.00€</h4>
-                                            <h6>Quantité : 1</h6>
-                                            
-                                        </div>
-                                    </a>
-                                </li>
-                                <li><a href="06work-project.html" class="btn red-btn">Finaliser</a><h4 class="floright">Total : 192.00€</h4></li>
+                            </c:forEach>
+                    </c:if>
+                    <c:if test="#{shoppingCart.countCartItem() == 0}">
+                        <li>Votre panier est vide</li>
+                    </c:if>
+                                
+                                <li><a href="06work-project.html" class="btn red-btn">Finaliser</a><h4 class="floright">Total : #{shoppingCart.priceCart()}€</h4></li>
                             </ul>
                         
                     </div>

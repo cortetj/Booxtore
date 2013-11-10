@@ -19,7 +19,6 @@
         <!-- Start Main Menu and Logo-->
         <ui:include src="navigation.html" />
         <ui:param name="book" value="#{testManagedBean.bookWithId(param.id)}" />
-
         <!-- End Main Menu and Logo -->
         <div id="titleRow">
             <div class="container">
@@ -80,16 +79,25 @@
                                                  <f:convertDateTime pattern="dd/MM/yyyy" />
                                     </h:outputText>
                                     </strong>
-                            </span><br/><br/>
-
+                            </span><br/>
+                            <c:choose>
+                                <c:when test="#{ book.bookThreshold > book.bookQuantity }">
+                                    <p class="alert">Il reste seulement #{book.bookQuantity} article(s) !</p>
+                                </c:when>
+                            </c:choose>
+                            <br/>
                             <p>#{book.bookSummary}</p>
 
 
                             <br/><br/>
-
-                            <a href="06work-project.html" class="btn red-btn">Ajouter au panier</a>
+                            
+                            <h:form>
+                                <h:commandButton action="#{shoppingCart.addBook}" class="btn red-btn" value="Ajouter au panier">
+                                        <f:param name="id" value="#{book.bookId}" />
+                                        <f:param name="qte" value="1" />
+                                </h:commandButton>
+                            </h:form>
                         </div>
-
                     </div>
                 </div>
             </div>

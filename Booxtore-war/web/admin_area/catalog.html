@@ -5,33 +5,130 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Booxtore</title>
+        <title>Booxtore - administration</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width"/>
+        <link rel="stylesheet" href="css/style.default.css" type="text/css" />
+        <link rel="stylesheet" href="css/style.stickyheader.css" type="text/css" />
+        <link rel="stylesheet" href="prettify/prettify.css" type="text/css" />
+        <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
     </head>
     <body>
-        <!-- Start Main Menu and Logo-->
-        <ui:include src="/admin_area/navigation.html" />
-        <table>
-            <thead>
-                <tr>
-                    <th>Livre</th>
-                    <th>Prix</th>
-                    <th>Qte / Seuil</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="#{catalogManagement.listBooks()}" var="b">
-                    <tr>
-                        <td>
-                            <a href="book.html?id=#{b.getBookId()}" class="thumbnail corner">#{b.bookName}</a>
-                        </td>
-                        <td>#{b.bookPrice} €</td>
-                        <td>#{b.bookQuantity} / #{b.bookThreshold}</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+        <div class="mainwrapper">
+            
+            <!-- START OF LEFT PANEL -->
+            <ui:include src="navigation.html" />
+            <!-- START OF RIGHT PANEL -->
+            <div class="rightpanel">
+                <div class="breadcrumbwidget">
+                    <ul class="skins">
+                        <li><a href="default" class="skin-color default"></a></li>
+                        <li><a href="orange" class="skin-color orange"></a></li>
+                        <li><a href="dark" class="skin-color dark"></a></li>
+                        <li></li>
+                        <li class="fixed"><a href="" class="skin-layout fixed"></a></li>
+                        <li class="wide"><a href="" class="skin-layout wide"></a></li>
+                    </ul><!--skins-->
+                    <ul class="breadcrumb">
+                        <!--<li><a href="index.html">Accueil</a> <span class="divider">/</span></li>
+                        <li class="active"></li>-->
+                    </ul>
+                </div>
+            <div class="pagetitle">
+                <c:choose>
+                    <c:when test="#{empty param.to_resupply}">
+                        <h1>Catalogue</h1><span>gestion des livres - cliquez sur un livre pour en afficher le détail!</span>
+                    </c:when>
+                    <c:when test="#{not empty param.to_resupply}">
+                        <h1>Livres en réapprovisionnement</h1><span>gestion des livres - cliquez sur un livre pour en afficher le détail!</span>
+                    </c:when>
+                </c:choose>
+            </div><!--pagetitle-->
+                <div class="maincontent">
+                    <div class="contentinner">
+                        <c:choose>
+                            <c:when test="#{empty param.to_resupply}">
+                                <h4 class="widgettitle ctitle">Catalogue</h4>
+                            </c:when>
+                            <c:when test="#{not empty param.to_resupply}">
+                                <h4 class="widgettitle ctitle">Livres concernés </h4>
+                            </c:when>
+                        </c:choose>
+                        
+                        <table class="table table-bordered" id="dyntable">
+                            <thead>
+                                <tr>
+                                    <th>Livre</th>
+                                    <th>Prix</th>
+                                    <th>Qte / Seuil</th>
+                                    <th>etat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:choose>
+                                    <c:when test="#{empty param.to_resupply}">
+                                        <ui:param name="books" value="#{catalogManagement.listBooks()}"/>
+                                    </c:when>
+                                    <c:when test="#{not empty param.to_resupply}">
+                                        <ui:param name="books" value="#{books.listBooksToResupply()}"/>
+                                    </c:when>
+                                </c:choose>
+                                
+                                
+                                <c:forEach items="#{books}" var="b">
+                                    <tr>
+                                        <td>
+                                            <a href="book.html?id=#{b.getBookId()}" class="">#{b.bookName}</a>
+                                        </td>
+                                        <td>#{b.bookPrice} €</td>
+                                        <td>#{b.bookQuantity} / #{b.bookThreshold}</td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="#{b.bookState == '1'}">
+                                                    En stock
+                                                </c:when>
+                                                <c:when test="#{b.bookState == '2'}">
+                                                    A venir
+                                                </c:when>
+                                                <c:when test="#{b.bookState == '3'}">
+                                                    En réapprovisionnement
+                                                </c:when>
+                                                <c:when test="#{b.bookState == '4'}">
+                                                    Indisponible
+                                                </c:when>
+                                                <c:when test="#{b.bookState == '0'}">
+                                                    Nouveauté
+                                                </c:when>
+                                            </c:choose>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-migrate-1.1.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.9.2.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery.uniform.min.js"></script>
+        <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="prettify/prettify.js"></script>
+        <script type="text/javascript" src="js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="js/custom.js"></script>
+        <script type="text/javascript" >
+            jQuery(document).ready(function() {
+                // dynamic table
+                jQuery('#dyntable').dataTable({
+                    "sPaginationType": "full_numbers",
+                    "aaSortingFixed": [[0,'asc']],
+                    "fnDrawCallback": function(oSettings) {
+                        jQuery.uniform.update();
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

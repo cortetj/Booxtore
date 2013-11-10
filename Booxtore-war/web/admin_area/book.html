@@ -5,36 +5,94 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <ui:param name="bookId" value="#{param.id}" />
-        <f:event listener="#{bookManagement.loadBook(bookId)}" type="preRenderView"/>
-        <title>Booxtore</title>
+        <title>Booxtore - administration</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width"/>
+        <link rel="stylesheet" href="css/style.default.css" type="text/css" />
+        <link rel="stylesheet" href="css/style.stickyheader.css" type="text/css" />
+        <link rel="stylesheet" href="prettify/prettify.css" type="text/css" />
+        <f:event listener="#{bookManagement.loadBook(param.id)}" type="preRenderView"/>
+        <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
     </head>
     <body>
-        <h:form>
-            <h:inputHidden name="id" value="#{bookManagement.id}" />
-            <h:panelGrid colunms="2" border="0">
-                <h:outputLabel value="Nom :"/><h:inputText name="nom" value="#{bookManagement.name}" />
-                <h:outputLabel value="Résumé :"/><h:inputText name="resume" value="#{bookManagement.summary}" />
-                <h:outputLabel value="Prix :"/><h:inputText name="prix" value="#{bookManagement.price}" />
-                <h:outputLabel value="Quantity :"/><h:inputText name="quantite" value="#{bookManagement.quantity}" />
-                <h:outputLabel value="Seuil :"/><h:inputText name="seuil" value="#{bookManagement.threshold}" />
-                <h:outputLabel value="Date de parution :"/><h:inputText name="date" value="#{bookManagement.date_release}">
-                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                </h:inputText>
-                <h:outputLabel value="Etat :"/><h:selectOneRadio name="state" value="#{bookManagement.state}">
-                    <f:selectItem itemValue="0" itemLabel="Nouveauté"/>
-                    <f:selectItem itemValue="1" itemLabel="En stock"/>
-                    <f:selectItem itemValue="2" itemLabel="A venir"/>
-                    <f:selectItem itemValue="3" itemLabel="En réapprovisionnement"/>
-                    <f:selectItem itemValue="4" itemLabel="Indisponible"/>
-                </h:selectOneRadio>
-                <h:outputLabel value="Auteur :"/><h:inputText name="auteur" value="#{bookManagement.author}" />
-                <h:outputLabel value="Catégorie :"/><h:inputText name="categorie" value="#{bookManagement.category}" />
-                <h:outputLabel value="Editeur :"/><h:inputText name="editeur" value="#{bookManagement.editor}" />
-                <h:commandButton action="#{bookManagement.updateBook()}" value="Enregistrer les modifications" />
-            </h:panelGrid> 
-        </h:form>
+        <div class="mainwrapper">
+            
+            <!-- START OF LEFT PANEL -->
+            <ui:include src="navigation.html" />
+            <!-- START OF RIGHT PANEL -->
+            <div class="rightpanel">
+                <div class="breadcrumbwidget">
+                    <ul class="skins">
+                        <li><a href="default" class="skin-color default"></a></li>
+                        <li><a href="orange" class="skin-color orange"></a></li>
+                        <li><a href="dark" class="skin-color dark"></a></li>
+                        <li></li>
+                        <li class="fixed"><a href="" class="skin-layout fixed"></a></li>
+                        <li class="wide"><a href="" class="skin-layout wide"></a></li>
+                    </ul><!--skins-->
+                    <ul class="breadcrumb">
+                        <!--<li><a href="index.html">Accueil</a> <span class="divider">/</span></li>
+                        <li class="active"></li>-->
+                    </ul>
+                </div>
+            <div class="pagetitle">
+                <c:choose>
+                    <c:when test="#{param.id > 0}">
+                        <h1>Livre n°#{bookManagement.id} : #{bookManagement.name}</h1>
+                        <span>N'oubliez pas d'enregistrer vos modifications avant de quitter la page!</span>
+                    </c:when>
+                    <c:when test="#{param.id == '0'}">
+                        <h1>Nouveau livre</h1>
+                        <span>Complétez les informations afin de pouvoir ajouter un livre au catalogue!</span>
+                    </c:when>
+                </c:choose>
+                
+            </div><!--pagetitle-->
+                <div class="maincontent">
+                    <div class="contentinner">
+                        <h:form>
+                            <h:inputHidden name="id" value="#{bookManagement.id}" />
+                            <h:panelGrid colunms="2" border="0">
+                                <h:outputLabel value="Nom :"/><h:inputText name="nom" value="#{bookManagement.name}" />
+                                <h:outputLabel value="Résumé :"/><h:inputTextarea  class="span5" rows="6" cols="80" name="resume" value="#{bookManagement.summary}" />
+                                <h:outputLabel value="Prix :"/><h:inputText name="prix" value="#{bookManagement.price}" />
+                                <h:outputLabel value="Quantity :"/><h:inputText name="quantite" value="#{bookManagement.quantity}" />
+                                <h:outputLabel value="Seuil :"/><h:inputText name="seuil" value="#{bookManagement.threshold}" />
+                                <h:outputLabel value="Date de parution :"/><h:inputText name="date" value="#{bookManagement.date_release}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:inputText>
+                                <h:outputLabel value="Etat :"/><h:selectOneMenu name="state" value="#{bookManagement.state}">
+                                    <f:selectItem itemValue="0" itemLabel="Nouveauté"/>
+                                    <f:selectItem itemValue="1" itemLabel="En stock"/>
+                                    <f:selectItem itemValue="2" itemLabel="A venir"/>
+                                    <f:selectItem itemValue="3" itemLabel="En réapprovisionnement"/>
+                                    <f:selectItem itemValue="4" itemLabel="Indisponible"/>
+                                </h:selectOneMenu>
+                                <h:outputLabel value="Auteur :"/><h:inputText name="auteur" value="#{bookManagement.author}" />
+                                <h:outputLabel value="Catégorie :"/><h:inputText name="categorie" value="#{bookManagement.category}" />
+                                <h:outputLabel value="Editeur :"/><h:inputText name="editeur" value="#{bookManagement.editor}" />
+                                <c:choose>
+                                    <c:when test="#{param.id > 0}">
+                                        <h:commandButton action="#{bookManagement.updateBook()}" value="Enregistrer les modifications" />
+                                    </c:when>
+                                    <c:when test="#{param.id == '0'}">
+                                        <h:commandButton action="#{bookManagement.updateBook()}" value="Ajouter le livre au catalogue" />
+                                    </c:when>
+                                </c:choose>
+                            </h:panelGrid> 
+                        </h:form>
+                       </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-migrate-1.1.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.9.2.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery.uniform.min.js"></script>
+        <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="prettify/prettify.js"></script>
+        <script type="text/javascript" src="js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="js/custom.js"></script>
     </body>
 </html>
