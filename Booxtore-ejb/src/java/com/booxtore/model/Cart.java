@@ -28,6 +28,11 @@ public class Cart {
         this.contents = new ArrayList<CartItem>();
     }
     
+    /**
+     * Ajoute un livre au panier
+     * @param book livre à ajouter
+     * @param quantity quantité à ajouter
+     */
     public void addBook(Book book, int quantity) {
         boolean newItem = true;
         
@@ -48,7 +53,11 @@ public class Cart {
         }
     }
     
-    
+    /**
+     * Met à jour la quantité d'un livre du panier
+     * @param book livre à mettre à jour
+     * @param qty quantité à ajouter
+     */
     public void updateBook(Book book, int qty) {
         if(qty != 0){
             CartItem item = null;
@@ -69,7 +78,10 @@ public class Cart {
         }
     }
     
-    
+    /**
+     * Supprime un livre du panier
+     * @param id id du book à supprimer
+     */
     public void delBook(int id) {
         ArrayList<CartItem> contentsTmp = new ArrayList<CartItem>();
         for(CartItem item : contents){
@@ -81,11 +93,18 @@ public class Cart {
         contents = contentsTmp;
     }
     
+    /**
+     * Renvoie la liste des produits du panier
+     * @return la liste des produits
+     */
     public ArrayList<CartItem> getItems() {
         return contents;
     }
 
-    
+    /**
+     * Renvoie le nombre de produit du panier
+     * @return le nombre de produit
+     */
     public int getNumbersOfItems() {
         numbersOfItems = 0;
         
@@ -121,12 +140,17 @@ public class Cart {
         total = amount;
     }
 
-    
+    /**
+     * Retourne le prix total du panier
+     * @return le prix du panier
+     */
     public float getTotal() {
         return total;
     }
 
-    
+    /**
+     * Vide le panier
+     */
     public void clear() {
         contents.clear();
         numbersOfItems = 0;

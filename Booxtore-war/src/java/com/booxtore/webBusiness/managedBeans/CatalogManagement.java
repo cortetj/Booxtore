@@ -34,17 +34,20 @@ public class CatalogManagement {
     public CatalogManagement() {
     }
     
-    
+    /**
+     * Liste tous les livres du catalogue
+     * @return la liste des livres
+     */
     public List<Book> listBooks() {
         return bookAccessor.getBooks(0);
     }
     
+    /**
+     * Récupère un livre selon son id
+     * @param id id du livre à récupérer
+     * @return le livre trouvé
+     */
     public Book getBook(int id) {
         return bookAccessor.getBook(id);
-    }
-    
-    public String updateBook() {
-        //TODO: gestion de l'update
-        return null;
     }
 }
