@@ -41,6 +41,10 @@ public class testManagedBean implements Serializable {
         return bookAccessor.getBooks(0);
     }
     
+    public List<Book> listTopBooks() {
+        return bookAccessor.getTopBooks();
+    }
+    
     public List<Book> listBooksByKeywords(){
         return bookAccessor.getBooksByKeywords("author4",1);
     }

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -82,8 +83,11 @@ public class ShoppingCart  implements Serializable{
         return shoppingCart.getItems();
     }
     
-    public String addBook(int id, int quantity) {
-        shoppingCart.addBook(bookAccessor.getBook(id), quantity);
+    public String addBook() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+	int id = Integer.parseInt(params.get("id"));
+        shoppingCart.addBook(bookAccessor.getBook(id), 1);
         return null;
     }
     

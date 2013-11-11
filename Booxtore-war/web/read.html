@@ -19,7 +19,6 @@
         <!-- Start Main Menu and Logo-->
         <ui:include src="navigation.html" />
         <ui:param name="book" value="#{testManagedBean.bookWithId(param.id)}" />
-
         <!-- End Main Menu and Logo -->
         <div id="titleRow">
             <div class="container">
@@ -86,11 +85,13 @@
 
 
                             <br/><br/>
-                            #{book.bookId}
-                            <h:form method="POST">
-                                <h:commandButton action="#{shoppingCart.addBook(1,1)}" class="btn red-btn" value="Ajouter au panier" />
+                            
+                            <h:form>
+                                <h:commandButton action="#{shoppingCart.addBook}" class="btn red-btn" value="Ajouter au panier">
+                                        <f:param name="id" value="#{book.bookId}" />
+                                        <f:param name="qte" value="1" />
+                                </h:commandButton>
                             </h:form>
-                            <a href="06work-project.html" class="btn red-btn">Ajouter au panier</a>
                         </div>
                     </div>
                 </div>

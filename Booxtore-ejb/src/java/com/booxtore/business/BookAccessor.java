@@ -126,4 +126,10 @@ public class BookAccessor implements BookAccessorLocal {
         }
         return q.getResultList();
     }
+
+    @Override
+    public List<Book> getTopBooks() {
+        EntityManager em = emf.createEntityManager();
+        return  em.createQuery("SELECT o.bookBookId FROM OrderRow o GROUP BY o.bookBookId ORDER BY SUM(o.orderRowQuantity)").setMaxResults(10).getResultList();
+    }
 }

@@ -63,30 +63,30 @@ jQuery(document).ready(function(){
 				showLeftPanel();
 		}
 		
-		// rearranging widget icons in dashboard
-		if(windowWidth < 768) {
-			if(jQuery('.widgeticons .one_third').length == 0) {
-				var count = 0;
-				jQuery('.widgeticons li').each(function(){
-					jQuery(this).removeClass('one_fifth last').addClass('one_third');
-					if(count == 2) {
-						jQuery(this).addClass('last');
-						count = 0;
-					} else { count++; }
-				});	
-			}
-		} else {
-			if(jQuery('.widgeticons .one_firth').length == 0) {
-				var count = 0;
-				jQuery('.widgeticons li').each(function(){
-					jQuery(this).removeClass('one_third last').addClass('one_fifth');
-					if(count == 4) {
-						jQuery(this).addClass('last');
-						count = 0;
-					} else { count++; }
-				});	
-			}
-		}
+//		// rearranging widget icons in dashboard
+//		if(windowWidth < 768) {
+//			if(jQuery('.widgeticons .one_third').length == 0) {
+//				var count = 0;
+//				jQuery('.widgeticons li').each(function(){
+//					jQuery(this).removeClass('one_fifth last').addClass('one_third');
+//					if(count == 2) {
+//						jQuery(this).addClass('last');
+//						count = 0;
+//					} else { count++; }
+//				});	
+//			}
+//		} else {
+//			if(jQuery('.widgeticons .one_firth').length == 0) {
+//				var count = 0;
+//				jQuery('.widgeticons li').each(function(){
+//					jQuery(this).removeClass('one_third last').addClass('one_fifth');
+//					if(count == 4) {
+//						jQuery(this).addClass('last');
+//						count = 0;
+//					} else { count++; }
+//				});	
+//			}
+//		}
 	}
 	
 	// when resize window event fired
