@@ -28,16 +28,14 @@
         </div>
         <div id="request" class="row">
             <div class="container">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
+                
 
                 <div class="row">
                     <c:choose>
                         <c:when test="#{empty param.state}">
                             <h:form method="POST">
                             <div class="row">
-<h2>
+<h2 class="margin-top: 0;">
             <span class="lft"></span><span class="mid">Informations</span><span class="rt"></span>
         </h2>                 
                                     <p class="span3">
@@ -60,7 +58,7 @@
                                 <h2>
             <span class="lft"></span><span class="mid">Recap commande</span><span class="rt"></span>
         </h2>  
-                                <div id="workGallery">
+                                <div id="workGallery" class="payment">
                                     <div class="container">
 
                                         <ul class="thumbnails withHover" id="portfolios1">
