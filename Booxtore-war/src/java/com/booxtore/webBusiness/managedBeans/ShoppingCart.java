@@ -8,6 +8,7 @@ package com.booxtore.webBusiness.managedBeans;
 
 import com.booxtore.business.BookAccessorLocal;
 import com.booxtore.business.OrderManagerLocal;
+import com.booxtore.entity.Book;
 import com.booxtore.model.Cart;
 import com.booxtore.model.CartItem;
 import java.io.IOException;

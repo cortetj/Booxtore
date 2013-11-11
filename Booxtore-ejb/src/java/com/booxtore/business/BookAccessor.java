@@ -94,13 +94,13 @@ public class BookAccessor implements BookAccessorLocal {
         EntityManager em = emf.createEntityManager();
         Query q = em.createQuery("SELECT b FROM Book b "
                 + " WHERE b.categoryCategoryId.categoryId > 0 "
-                + " AND (b.categoryCategoryId.categoryName LIKE :keywords  "
-                + " OR b.categoryCategoryId.categoryKeywords LIKE :keywords "
-                + " OR b.categoryCategoryId.categorySummary LIKE :keywords "
-                + " OR b.editorEditorId.editorName LIKE :keywords "
-                + " OR b.editorEditorId.editorSummary LIKE :keywords "
-                + " OR b.bookName LIKE :keywords "
-                + " OR b.bookSummary LIKE :keywords )")
+                + " AND (b.categoryCategoryId.categoryName LIKE :keywords"
+                + " OR b.categoryCategoryId.categoryKeywords LIKE :keywords"
+                + " OR b.categoryCategoryId.categorySummary LIKE :keywords"
+                + " OR b.editorEditorId.editorName LIKE :keywords"
+                + " OR b.editorEditorId.editorSummary LIKE :keywords"
+                + " OR b.bookName LIKE :keywords"
+                + " OR b.bookSummary LIKE :keywords)")
                 .setParameter("keywords", "%"+keywords+"%");
         if(index > 0 ) {
             q.setFirstResult( ((index-1) * number_books_displayed));

@@ -75,13 +75,13 @@
                                         <td>
                                             <c:choose>
                                                 <c:when test="#{o.orderState == 0}">
-                                                    validée
-                                                </c:when>
-                                                <c:when test="#{o.orderState == 1}">
                                                     en préparation
                                                 </c:when>
+                                                <c:when test="#{o.orderState == 1}">
+                                                    prête à être envoyée
+                                                </c:when>
                                                 <c:when test="#{o.orderState == 2}">
-                                                    envoyée
+                                                    validée
                                                 </c:when>
                                                 <c:when test="#{o.orderState == 3}">
                                                     annulée
