@@ -22,6 +22,14 @@
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
     <filter>
+        <filter-name>utf8Filter</filter-name>
+        <filter-class>com.booxtore.webBusiness.filter.Utf8Filter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>utf8Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
         <filter-name>clientFilter</filter-name>
         <filter-class>com.booxtore.webBusiness.filter.ClientFilter</filter-class>
     </filter>

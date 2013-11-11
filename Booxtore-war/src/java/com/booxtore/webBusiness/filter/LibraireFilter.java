@@ -34,23 +34,19 @@ public class LibraireFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
-        request.setCharacterEncoding("UTF-8");
         HttpSession session = ((HttpServletRequest) request).getSession(false);
-
+        
         Auth user = (session != null) ? (Auth) session.getAttribute("auth") : null;
+        HttpServletResponse res = (HttpServletResponse)response;
         if( user != null) {
             if( user.isConnected() && user.isAdministrator() ) {
                 chain.doFilter(request, response);
-            } else if ( user.isConnected() ) {
-                String path;
-                
+            } else {
                 //default handling - do nothing and forward request to filter chain
-                HttpServletResponse res = (HttpServletResponse)response;
                 res.sendRedirect(fc.getServletContext().getContextPath()+"/index.html");
             }
         } else {
             //default handling - do nothing and forward reqeust to filter chain
-            HttpServletResponse res = (HttpServletResponse)response;
             res.sendRedirect(fc.getServletContext().getContextPath()+"/index.html");
         }
     }

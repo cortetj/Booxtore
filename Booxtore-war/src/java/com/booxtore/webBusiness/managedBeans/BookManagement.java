@@ -58,7 +58,7 @@ public class BookManagement {
     private int quantity;
     private int threshold;
     private Date date_release;
-    private short state;
+    private int state;
     private String author;
     private String category;
     private String editor;
@@ -120,11 +120,11 @@ public class BookManagement {
         this.date_release = date_release;
     }
 
-    public short getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(short state) {
+    public void setState(int state) {
         this.state = state;
     }
 
@@ -209,7 +209,7 @@ public class BookManagement {
                 bookManager.addBook(category, arl, editor, name, price, quantity, threshold, date_release, (short)0, summary);
             }
         }else {
-            bookManager.updateBook(category, arl, editor, id, name, price, quantity, threshold, date_release, state, summary);
+            bookManager.updateBook(category, arl, editor, id, name, price, quantity, threshold, date_release, (short)state, summary);
         }
         
         try {
