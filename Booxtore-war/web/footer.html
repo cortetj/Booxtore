@@ -95,9 +95,11 @@
         <div id="login-content" class="hide">
             <h:form method="POST" class="form-horizontal login-form control-group success">
                     <f:event listener="#{auth.checkError()}" type="preRenderView"/>
+                    <h6 style='margin: 0;'>Nom d'utilisateur</h6>
                     <h:inputText name="login" value="#{auth.username}" type="text" placeholder="Nom d'utilisateur"/>
+                    <h6 style='margin: 0;'>Mot de passe</h6>
                     <h:inputSecret name="password" value="#{auth.password}" type="password" placeholder="Mot de passe"/>
-                    <a class="btn btn-danger btn-small pull-left">Créer un compte</a>
+                    <a class="btn btn-danger btn-small pull-left" href='suscribe.html'>Créer un compte</a>
                     <a class="btn btn-success btn-small pull-right" onclick="$('.subform').click();">Se connecter</a>
                     <h:commandButton action="#{auth.login()}" class="hide subform" value="Se connecter"/>
                     <h:commandButton action="#{auth.logout()}" class="hide subdeco" value="Se déconnecter"/>
