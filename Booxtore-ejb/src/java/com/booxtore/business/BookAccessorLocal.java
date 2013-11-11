@@ -30,4 +30,10 @@ public interface BookAccessorLocal {
     List<Book> getTopBooks();
     
     List<Book> getBooksToResupply();
+
+    Category getCategoryById(int id);
+
+    void updateCategory(int id, String name, String summary, String keywords);
+    
+    
 }

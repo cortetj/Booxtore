@@ -52,7 +52,13 @@ public class Books {
         this.books = books;
     }
     
+    public Category getCategoryById(int id){
+        return bookAccessor.getCategoryById(id);
+    }
     
+    public void updateCategory(int id, String name, String summary, String keywords){
+        bookAccessor.updateCategory(id, name, summary, keywords);
+    }
     
     /**
      * Récupération des catégories

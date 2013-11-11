@@ -149,4 +149,23 @@ public class BookAccessor implements BookAccessorLocal {
         EntityManager em = emf.createEntityManager();
         return  em.createQuery("SELECT o.bookBookId FROM OrderRow o GROUP BY o.bookBookId ORDER BY SUM(o.orderRowQuantity)").setMaxResults(10).getResultList();
     }
+
+    @Override
+    public Category getCategoryById(int id) {
+        EntityManager em = emf.createEntityManager();
+        return em.createNamedQuery("Category.findByCategoryId", Category.class).setParameter("categoryId", id).getSingleResult();
+    }
+
+    @Override
+    public void updateCategory(int id, String name, String summary, String keywords) {
+        EntityManager em = emf.createEntityManager();
+        em.createQuery ("UPDATE Category c SET c.categoryName = :name, c.categorySummary = :summary, c.categoryKeywords = :keywords WHERE c.categoryId = :id")
+                .setParameter("name", name)
+                .setParameter("summary", summary)
+                .setParameter("keywords", keywords)
+                .setParameter("id", id)
+                .executeUpdate();
+    }
+    
+    
 }
