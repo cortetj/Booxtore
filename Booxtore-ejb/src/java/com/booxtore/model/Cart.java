@@ -56,7 +56,7 @@ public class Cart {
             for(CartItem cartItem : contents){
                 if(cartItem.getBook().getBookId() == book.getBookId()){
                     if(qty != 0){
-                        cartItem.setQuantity(qty);
+                        cartItem.setQuantity(cartItem.quantity + qty);
                     }else{
                         item = cartItem;
                         break;
