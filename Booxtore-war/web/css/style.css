@@ -15,6 +15,17 @@ body {
 
 /** Forms **/
 
+.notification {
+    background-color: #FEFEFE;
+    height: 80px;
+    padding: 15px;
+    position: absolute;
+    right: 20px;
+    text-align: center;
+    top: 20px;
+    width: 250px;
+    z-index: 99999;
+}
 input, button, select, textarea {font-family: 'Lato', sans-serif;}
 
 input.search-query {border:0; height:24px; box-shadow:none; border-radius:50px; }
@@ -27,6 +38,21 @@ textarea:focus {box-shadow:none;}
 .floright {float: right;}
 .floleft {float: left;}
 
+
+.navsearch {float: left; margin-left: 20px; position: relative; width: 345px;}
+.navsearch #search-form {display: inline; margin-left: 22px; -ms-filter: "prodig:DXImageTransform.Microsoft.Alpha(Opacity=25)"; /* Hack IE8 */
+    filter: alpha(opacity = 25); /* Hack IE 5-7 */
+    -webkit-transition: opacity 0.5s ease-in-out;/* transition pour Chrome et Safari */
+    -moz-transition: opacity 0.5s ease-in-out;/* transition pour Firefox */
+    -o-transition: opacity 0.5s ease-in-out;/* transition pour Opéra */
+    transition: opacity 0.5s ease-in-out; /* on écrit cette ligne à la fin de façon à ce que ce soit elle qui soit prise en compte lorsque l'attribut transition sera pris en compte par tous les navigateurs */
+    opacity: 0;
+}
+
+.navsearch:hover #search-form {opacity: 1; /* opacite au survol */
+    -ms-filter:"prodig:DXImageTransform.Microsoft.Alpha(Opacity=100)"; /* Hack IE 8 */
+    filter: alpha(opacity = 100); /* Hack IE 5-7 */}
+.navsearch .search-ico {cursor: pointer; font-size: 12px;}
 /** social icons **/
 
 ul.social {margin:0 0 30px 0;}

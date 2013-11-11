@@ -8,6 +8,7 @@ package com.booxtore.webBusiness.managedBeans;
 
 import com.booxtore.business.AccountManagerLocal;
 import java.beans.*;
+import java.io.IOException;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -56,6 +58,8 @@ public class UserManagement implements Serializable {
     }
 
     public void insert() {
+        ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();
+        String url = "/index.html?create=true";
         MessageDigest mDigest;
         try {
             mDigest = MessageDigest.getInstance("SHA1");
@@ -64,7 +68,12 @@ public class UserManagement implements Serializable {
             for (int i = 0; i < result.length; i++) {
                 sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
             }
-            am.createUser(this.name, this.surname, this.mail, this.adresse, this.city, this.postcode, this.username,sb.toString() );
+            am.createUser(this.name, this.surname, this.mail, this.adresse, this.city, this.postcode, this.username,sb.toString());
+            try {
+                context.redirect(context.getRequestContextPath()+url);
+            } catch (IOException ex) {
+                Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(UserManagement.class.getName()).log(Level.SEVERE, null, ex);
         }

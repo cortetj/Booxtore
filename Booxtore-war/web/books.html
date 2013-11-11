@@ -18,130 +18,132 @@
     </head>
     <body>
         <!-- Start Main Menu and Logo-->
-<ui:include src="navigation.html" />
+        <ui:include src="navigation.html" />
         <!-- End Main Menu and Logo -->
-<div id="titleRow">
-    <div class="container">
-        <h1>
-            <span class="lft"></span><span class="mid">Collection</span><span class="rt"></span>
-        </h1>
-    </div>
-</div>
+        <div id="titleRow">
+            <div class="container">
+                <h1>
+                    <span class="lft"></span><span class="mid">Collection</span><span class="rt"></span>
+                </h1>
+            </div>
+        </div>
 
-<div class="filterMenu">
-    <div class="container">
-        <ul>
-            <li class="active"><a href="#"><span class="lft"></span><span class="mid">Tous</span><span class="rt"></span></a></li>
-            <c:forEach items="#{testManagedBean.listCategories()}" var="c">
-                <li data-filter="${c.categoryName}"><a href="#"><span class="lft"></span><span class="mid">${c.categoryName}</span><span class="rt"></span></a></li>
-            </c:forEach>
-        </ul>
-    </div>
-</div>
+        <h:panelGroup rendered="#{param.category == null}">
+            <div class="filterMenu">
+                <div class="container">
+                    <ul>
+                        <li class="active"><a href="#"><span class="lft"></span><span class="mid">Tous</span><span class="rt"></span></a></li>
+                        <c:forEach items="#{testManagedBean.listCategories()}" var="c">
+                            <li data-filter="${c.categoryName}"><a href="#"><span class="lft"></span><span class="mid">${c.categoryName}</span><span class="rt"></span></a></li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+        </h:panelGroup>
 
-<div id="workGallery">
-    <div class="container">
+        <div id="workGallery">
+            <div class="container">
 
-        <ul class="thumbnails withHover" id="portfolios1">
-            
-            <c:forEach items="#{listbooks}" var="b">
-                <li class="span3" data-id="#{b.bookId}" data-filter="#{b.categoryCategoryId.categoryName}">
-                    <a href="read.html?id=#{b.bookId}" class="thumbnail corner">
-                        <span class="topCorner"></span>
-                        <img src="img/books_thmb/#{b.bookId}.jpg" alt=""/>
+                <ul class="thumbnails withHover" id="portfolios1">
 
-                        <div class="contenthover"></div>
-                        <span class="bottomCorner"></span>
-                    </a>
-                    <div class="caption">
-                        <h3 class="floleft"><a href="read.html?id=#{b.bookId}">#{b.bookName}</a></h3>
-                        <h3 class="floright">#{b.bookPrice} €</h3>
-                        <h4 style="font-weight: normal; text-align: left;"><i>#{b.categoryCategoryId.categoryName}</i></h4>
-                        <p>#{fn:substring(b.bookSummary, 0, 80)}...</p>
-                        <h4> <c:forEach items="#{b.authorCollection}" var="a"> #{a.authorName} </c:forEach></h4>
-                        
-                    </div>
-                </li>
-            </c:forEach>
-            
-        </ul>
-    </div>
-</div>
+                    <c:forEach items="#{listbooks}" var="b">
+                        <li class="span3" data-id="#{b.bookId}" data-filter="#{b.categoryCategoryId.categoryName}">
+                            <a href="read.html?id=#{b.bookId}" class="thumbnail corner">
+                                <span class="topCorner"></span>
+                                <img src="img/books_thmb/#{b.bookId}.jpg" alt=""/>
 
+                                <div class="contenthover"></div>
+                                <span class="bottomCorner"></span>
+                            </a>
+                            <div class="caption">
+                                <h3 class="floleft"><a href="read.html?id=#{b.bookId}">#{b.bookName}</a></h3>
+                                <h3 class="floright">#{b.bookPrice} €</h3>
+                                <h4 style="font-weight: normal; text-align: left;"><i>#{b.categoryCategoryId.categoryName}</i></h4>
+                                <p>#{fn:substring(b.bookSummary, 0, 80)}...</p>
+                                <h4> <c:forEach items="#{b.authorCollection}" var="a"> #{a.authorName} </c:forEach></h4>
 
+                            </div>
+                        </li>
+                    </c:forEach>
 
-
-
-<script src="js/jquery.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<ui:include src="footer.html" />
-<script src="js/jquery.contenthover.min.js"></script>
-<script src="js/jquery.quicksand.js"></script>
-<script src="js/jquery.easing.js"></script>
-
-<script src="js/jquery.colorbox-min.js"></script>
-
-<script type="text/javascript">
-    $(window).load(function () {
-        /***  jQuery ContentHover Plugin ***/
-        $('ul.withHover img').contenthover({
-            overlay_opacity:0.5
-        });
-        /***  Footer Back to Top link ***/
-        $('a.toTop').click(function () {
-            $('html, body').animate({scrollTop:'0px'}, 300);
-            return false;
-        });
-    });
+                </ul>
+            </div>
+        </div>
 
 
 
-    $(document).ready(function () {
 
-        /*** Quicksand ***/
-        var p = $('#portfolios1');
-        var f = $('.filterMenu');
-        var data = p.clone();
-        f.find('a').click(function () {
-            var link = $(this);
-            var li = link.parents('li');
-            if (li.hasClass('active')) {
-                return false;
-            }
 
-            f.find('li').removeClass('active');
-            li.addClass('active');
+        <script src="js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <ui:include src="footer.html" />
+        <script src="js/jquery.contenthover.min.js"></script>
+        <script src="js/jquery.quicksand.js"></script>
+        <script src="js/jquery.easing.js"></script>
 
-            //quicksand
-            var filtered = li.data('filter') ? data.find('li[data-filter~="' + li.data('filter') + '"]') : data.find('li');
+        <script src="js/jquery.colorbox-min.js"></script>
 
-            p.quicksand(filtered, {duration:800,
-                easing:'easeInOutQuad'}, function () { // callback function
-                    $('ul.withHover img').contenthover({
-                        overlay_opacity:0.5
-                    });
-
-                    jQuery('a.colorUp').colorbox({
-                        maxWidth: "95%"
-                    });
+        <script type="text/javascript">
+            $(window).load(function() {
+                /***  jQuery ContentHover Plugin ***/
+                $('ul.withHover img').contenthover({
+                    overlay_opacity: 0.5
+                });
+                /***  Footer Back to Top link ***/
+                $('a.toTop').click(function() {
+                    $('html, body').animate({scrollTop: '0px'}, 300);
+                    return false;
+                });
             });
-            return false;
-        });
-    });
 
 
-    /* colorbox init */
-    jQuery(document).ready(function () {
 
-        jQuery('a.colorUp').colorbox({
-            maxWidth: "95%"
-        });
-        $("#nav-books").addClass("active");
+            $(document).ready(function() {
 
-    });
+                /*** Quicksand ***/
+                var p = $('#portfolios1');
+                var f = $('.filterMenu');
+                var data = p.clone();
+                f.find('a').click(function() {
+                    var link = $(this);
+                    var li = link.parents('li');
+                    if (li.hasClass('active')) {
+                        return false;
+                    }
+
+                    f.find('li').removeClass('active');
+                    li.addClass('active');
+
+                    //quicksand
+                    var filtered = li.data('filter') ? data.find('li[data-filter~="' + li.data('filter') + '"]') : data.find('li');
+
+                    p.quicksand(filtered, {duration: 800,
+                        easing: 'easeInOutQuad'}, function() { // callback function
+                        $('ul.withHover img').contenthover({
+                            overlay_opacity: 0.5
+                        });
+
+                        jQuery('a.colorUp').colorbox({
+                            maxWidth: "95%"
+                        });
+                    });
+                    return false;
+                });
+            });
 
 
-</script>
+            /* colorbox init */
+            jQuery(document).ready(function() {
+
+                jQuery('a.colorUp').colorbox({
+                    maxWidth: "95%"
+                });
+                $("#nav-books").addClass("active");
+
+            });
+
+
+        </script>
 
     </body>
 </html>
