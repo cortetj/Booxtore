@@ -8,9 +8,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Booxtore</title>
-        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="../bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
-        <link href="../css/style.css" rel="stylesheet" />
+        <link href="#{request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="#{request.contextPath}/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+        <link href="#{request.contextPath}/css/style.css" rel="stylesheet" />
 
         <!-- fonts -->
         <link href='http://fonts.googleapis.com/css?family=Lato:400,900,900italic,400italic' rel='stylesheet' type='text/css'/>
@@ -28,16 +28,14 @@
         </div>
         <div id="request" class="row">
             <div class="container">
-                
-
                 <div class="row">
                     <c:choose>
                         <c:when test="#{empty param.state}">
                             <h:form method="POST">
-                            <div class="row">
-<h2 class="margin-top: 0;">
-            <span class="lft"></span><span class="mid">Informations</span><span class="rt"></span>
-        </h2>                 
+                                <div class="row">
+                                    <h2 class="margin-top: 0;">
+                                        <span class="lft"></span><span class="mid">Informations</span><span class="rt"></span>
+                                    </h2>                 
                                     <p class="span3">
                                         <label>Prénom : </label><h:inputText value="#{auth.user.userFirstname}">#{auth.user.userFirstname}</h:inputText><br />
                                         <label>Nom : </label><h:inputText value="#{auth.user.userLastname}">#{auth.user.userLastname}</h:inputText><br />
@@ -52,42 +50,42 @@
                                             <f:convertDateTime pattern="MM/yyyy"/>
                                         </h:inputText><br />
                                     </p>
-                                    
-                            </div>
-                            <div class="row">
-                                <h2>
-            <span class="lft"></span><span class="mid">Recap commande</span><span class="rt"></span>
-        </h2>  
-                                <div id="workGallery" class="payment">
-                                    <div class="container">
 
-                                        <ul class="thumbnails withHover" id="portfolios1">
+                                </div>
+                                <div class="row">
+                                    <h2>
+                                        <span class="lft"></span><span class="mid">Recap commande</span><span class="rt"></span>
+                                    </h2>  
+                                    <div id="workGallery" class="payment">
+                                        <div class="container">
 
-                                            <c:forEach items="#{shoppingCart.listCartBook()}" var="b">
-                                                <li class="span3" datar-id="#{b.getBook().bookId}" data-filter="#{b.getBook().categoryCategoryId.categoryName}">
-                                                    <a href="read.html?id=#{b.getBook().bookId}" class="thumbnail corner">
-                                                        <span class="topCorner"></span>
-                                                        <img src="/Booxtore/img/books_thmb/#{b.getBook().bookId}.jpg" alt=""/>
+                                            <ul class="thumbnails withHover" id="portfolios1">
 
-                                                        <div class="contenthover"></div>
-                                                        <span class="bottomCorner"></span>
-                                                    </a>
-                                                    <div class="caption">
-                                                        <h3 class="floleft"><a href="read.html?id=#{b.getBook().bookId}">#{b.getBook().bookName}</a></h3>
-                                                        <h3 class="floright">#{b.getBook().bookPrice} €</h3>
-                                                        <h4 style="font-weight: normal; text-align: left;"><i>#{b.getBook().categoryCategoryId.categoryName}</i></h4>
-                                                        <h4><c:forEach items="#{b.getBook().authorCollection}" var="a">#{a.authorName} </c:forEach></h4>
+                                                <c:forEach items="#{shoppingCart.listCartBook()}" var="b">
+                                                    <li class="span3" datar-id="#{b.getBook().bookId}" data-filter="#{b.getBook().categoryCategoryId.categoryName}">
+                                                        <a href="#{request.contextPath}/read.html?id=#{b.getBook().bookId}" class="thumbnail corner">
+                                                            <span class="topCorner"></span>
+                                                            <img src="#{request.contextPath}/img/books_thmb/#{b.getBook().bookId}.jpg" alt=""/>
 
-                                                    </div>
-                                                </li>
-                                            </c:forEach>
+                                                            <div class="contenthover"></div>
+                                                            <span class="bottomCorner"></span>
+                                                        </a>
+                                                        <div class="caption">
+                                                            <h3 class="floleft"><a href="#{request.contextPath}/read.html?id=#{b.getBook().bookId}">#{b.getBook().bookName}</a></h3>
+                                                            <h3 class="floright">#{b.getBook().bookPrice} €</h3>
+                                                            <h4 style="font-weight: normal; text-align: left;"><i>#{b.getBook().categoryCategoryId.categoryName}</i></h4>
+                                                            <h4><c:forEach items="#{b.getBook().authorCollection}" var="a">#{a.authorName} </c:forEach></h4>
 
-                                        </ul>
+                                                        </div>
+                                                    </li>
+                                                </c:forEach>
+
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <h:commandButton action="#{shoppingCart.buyCart()}" value="Passer la commande"/>
-                                </h:form>
+                                <h:commandButton action="#{shoppingCart.buyCart()}" value="Passer la commande"/>
+                            </h:form>
                         </c:when>
                         <c:when test="#{not empty  param.state }">
                             <p>Hop! la commande est terminée !</p>
@@ -97,7 +95,6 @@
                 </div>
             </div>
         </div>
-
 
         <script src="../js/jquery.js"></script>
         <script src="../bootstrap/js/bootstrap.min.js"></script>
@@ -124,10 +121,6 @@
                 })
 
             });
-
-
-
-
 
             jQuery(document).ready(function() {
 
