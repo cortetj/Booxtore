@@ -35,11 +35,26 @@
                     </ul>
                 </div>
             <div class="pagetitle">
-                <h1>Catalogue</h1><span>gestion des livres - cliquez sur un livre pour en afficher le détail!</span>
+                <c:choose>
+                    <c:when test="#{empty param.to_resupply}">
+                        <h1>Catalogue</h1><span>gestion des livres - cliquez sur un livre pour en afficher le détail!</span>
+                    </c:when>
+                    <c:when test="#{not empty param.to_resupply}">
+                        <h1>Livres en réapprovisionnement</h1><span>gestion des livres - cliquez sur un livre pour en afficher le détail!</span>
+                    </c:when>
+                </c:choose>
             </div><!--pagetitle-->
                 <div class="maincontent">
                     <div class="contentinner">
-                        <h4 class="widgettitle ctitle">Catalogue</h4>
+                        <c:choose>
+                            <c:when test="#{empty param.to_resupply}">
+                                <h4 class="widgettitle ctitle">Catalogue</h4>
+                            </c:when>
+                            <c:when test="#{not empty param.to_resupply}">
+                                <h4 class="widgettitle ctitle">Livres concernés </h4>
+                            </c:when>
+                        </c:choose>
+                        
                         <table class="table table-bordered" id="dyntable">
                             <thead>
                                 <tr>
@@ -50,7 +65,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="#{catalogManagement.listBooks()}" var="b">
+                                <c:choose>
+                                    <c:when test="#{empty param.to_resupply}">
+                                        <ui:param name="books" value="#{catalogManagement.listBooks()}"/>
+                                    </c:when>
+                                    <c:when test="#{not empty param.to_resupply}">
+                                        <ui:param name="books" value="#{books.listBooksToResupply()}"/>
+                                    </c:when>
+                                </c:choose>
+                                
+                                
+                                <c:forEach items="#{books}" var="b">
                                     <tr>
                                         <td>
                                             <a href="book.html?id=#{b.getBookId()}" class="">#{b.bookName}</a>

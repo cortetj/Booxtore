@@ -79,5 +79,8 @@ public class Books {
     public List<Book> listBooksByCategory(int categoryId, int page) {
         return bookAccessor.getBooksByCategory(categoryId, page);
     }
-    
+ 
+    public List<Book> listBooksToResupply() {
+        return bookAccessor.getBooksToResupply();
+    }
 }
