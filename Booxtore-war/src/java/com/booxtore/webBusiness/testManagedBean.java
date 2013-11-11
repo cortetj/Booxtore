@@ -9,12 +9,15 @@ package com.booxtore.webBusiness;
 import com.booxtore.business.BookAccessorLocal;
 import com.booxtore.entity.Book;
 import com.booxtore.entity.Category;
+import com.booxtore.webBusiness.managedBeans.Books;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 
 /**
@@ -45,8 +48,9 @@ public class testManagedBean implements Serializable {
         return bookAccessor.getTopBooks();
     }
     
-    public List<Book> listBooksByKeywords(){
-        return bookAccessor.getBooksByKeywords("author4",1);
+    public List<Book> listBooksByKeywords(String search){
+        List<Book> l =  bookAccessor.getBooksByKeywords(search,0);
+        return l;
     }
     
     public List<Book> listBooksByCategory(int id){

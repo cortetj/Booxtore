@@ -125,16 +125,28 @@ public class Auth implements Serializable {
         return null;
     }
     
+    /**
+     * Deconnecte la session en court
+     * @return Redirige vers la page d'accueil
+     */
     public String logout(){
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         user = null;
         return "index.html?faces-redirect=true";
     }
     
+    /**
+     * Vérifie si l'utilisateur est connecté
+     * @return true si connecté, false si non connecté
+     */
     public boolean isConnected(){
         return (user != null);
     }
     
+    /**
+     * Vérifie si la session en cours est une session administrateur
+     * @return true si administrateur, false si non administrateur
+     */
     public boolean isAdministrator() {
         if( isConnected() ) {
             return "libraire".equals(user.getUserGroupUserGroupId().getUserGroupName());
@@ -142,6 +154,9 @@ public class Auth implements Serializable {
         return  false;
     }
     
+    /**
+     * Affiche une erreur de connexion selon le paramètre passé dans l'url
+     */
     public void checkError() {
         error = null;
         FacesContext context =  FacesContext.getCurrentInstance();

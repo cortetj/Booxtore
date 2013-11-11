@@ -92,17 +92,17 @@ public class BookAccessor implements BookAccessorLocal {
     public List<Book> getBooksByKeywords(String keywords, int index) {
         // Création de l'e.m.
         EntityManager em = emf.createEntityManager();
-        Query q = em.createQuery("SELECT b FROM Book b WHERE b.categoryCategoryId.categoryName LIKE '%:keywords%'"
-                + " OR b.categoryCategoryId.categoryKeywords LIKE '%:keywords%'"
-                + " OR b.categoryCategoryId.categorySummary LIKE '%:keywords%'"
-                + " OR b.authorCollection.authorName LIKE '%:keywords%'"
-                + " OR b.authorCollection.authorSummary LIKE '%:keywords%'"
-                + " OR b.editorEditorId.editorName LIKE '%:keywords%'"
-                + " OR b.editorEditorId.editorSummary LIKE '%:keywords%'"
-                + " OR b.bookName LIKE '%:keywords%'"
-                + " OR b.bookSummary LIKE '%:keywords%'")
-                .setParameter("keywords", keywords);
-        if(index > 0 ) { 
+        Query q = em.createQuery("SELECT b FROM Book b "
+                + " WHERE b.categoryCategoryId.categoryId > 0 "
+                + " AND (b.categoryCategoryId.categoryName LIKE :keywords"
+                + " OR b.categoryCategoryId.categoryKeywords LIKE :keywords"
+                + " OR b.categoryCategoryId.categorySummary LIKE :keywords"
+                + " OR b.editorEditorId.editorName LIKE :keywords"
+                + " OR b.editorEditorId.editorSummary LIKE :keywords"
+                + " OR b.bookName LIKE :keywords"
+                + " OR b.bookSummary LIKE :keywords)")
+                .setParameter("keywords", "%"+keywords+"%");
+        if(index > 0 ) {
             q.setFirstResult( ((index-1) * number_books_displayed));
             q.setMaxResults(number_books_displayed);
         }
@@ -127,6 +127,10 @@ public class BookAccessor implements BookAccessorLocal {
         return q.getResultList();
     }
 
+    /**
+     * Renvoie une liste de livres qui dont le stock est inférieur au stock critique
+     * @return la liste des livres qui sont à recommander
+     */
     @Override
     public List<Book> getBooksToResupply() {
         // Création de l'e.m.
@@ -135,6 +139,11 @@ public class BookAccessor implements BookAccessorLocal {
                                    .getResultList();
     }
     
+    
+    /**
+     * Renvoie une liste des livres les plus vendus
+     * @return la liste des livres les plus populaires
+     */
     @Override
     public List<Book> getTopBooks() {
         EntityManager em = emf.createEntityManager();

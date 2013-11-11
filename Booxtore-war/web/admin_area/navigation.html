@@ -20,13 +20,18 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="">Salut, #{auth.user.getUserFirstname()} #{auth.user.getUserLastname()}! <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#" onclick="$('hidden .subdeco').submit();">
+                                    <a href="../index.html">
+                                        <span class="iconsweets-home2"></span>Espace magasin
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="jQuery('.subdeco').click();">
                                         <span class="icon-off"></span>
                                         Déconnexion
-                                        <h:form method="POST" class="hidden subdeco" action="#{auth.logout()}">
-                                            <h:commandButton value="Se déconnecter"/>                    
-                                        </h:form>
                                     </a>
+                                    <h:form  method="POST" styleClass="hidden">
+                                        <h:commandButton action="#{auth.logout()}" styleClass="subdeco" value="Se déconnecter"/>                    
+                                    </h:form>
                                 </li>
                             </ul>
                         </div><!--dropdown-->

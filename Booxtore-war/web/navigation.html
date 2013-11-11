@@ -13,6 +13,12 @@
                 <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">menu <span class="caret"></span></a>
                 <div class="nav-collapse">
                     <ul class="nav pull-right">
+                        <li>
+                            <h:form id="search-form">
+                                <h:inputText id="search-box" name="search-box" value="#{books.keywords}" onblur="($(search-box).val()!=='')?$(search-button).click();" class="input-xlarge search-query" />
+                                <h:commandButton class="hidden" id="search-button" name="Go!" action="#{books.searchByKeywords()}" />
+                            </h:form>
+                        </li>
                         <li id="nav-home"><a href="#{request.contextPath}/index.html">Accueil</a></li>
                         <li id="nav-books" class="dropdown"><a href="#{request.contextPath}/books.html" class="dropdown-toggle" >Livres</a>
                             <ul class="dropdown-menu unstyled">

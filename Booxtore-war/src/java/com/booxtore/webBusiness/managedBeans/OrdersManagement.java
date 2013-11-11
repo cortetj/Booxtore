@@ -29,7 +29,6 @@ import javax.faces.context.FacesContext;
 public class OrdersManagement {
     @EJB
     private OrderManagerLocal orderManager;
-    private AccountManagerLocal accountManager;
 
     
     private int id;
@@ -93,22 +92,38 @@ public class OrdersManagement {
     public OrdersManagement() {
     }
     
-    public List<OrderRow> getOrderRow(){
-        return orderManager.getOrderRow(id);
-    }
-    
+    /**
+     * Liste les commandes selon l'état choisi
+     * @param state l'état souhaité
+     * @return La liste des commandes 
+     */
     public List<Orders> listOrdersByState( short state ) {
         return orderManager.getOrdersByState(state);
     }
     
+    /**
+     * Récupère une commande selon un id envoyé
+     * @param id id de la commande que l'on veut récupérer
+     * @return la commande trouvée selon l'id envoyé
+     */
     public Orders getOrderById(int id){
         return orderManager.getOrderById(id);
     }
     
+    /**
+     * Récupère le prix total d'une commande selon un id
+     * @param id id de la commande
+     * @return le prix total de la commande
+     */
     public float getTotalPriceOrder(int id){
         return orderManager.getTotalPriceOrder(id);
     }
     
+    
+    /**
+     * Charge les données relatives à la commande à afficher. 
+     * @param idOrder 
+     */
     public void loadOrder(int idOrder){
         Orders o = null;
         if(idOrder > 0) o = orderManager.getOrderById(idOrder);
@@ -126,6 +141,9 @@ public class OrdersManagement {
         }
     }
     
+    /**
+     * Mise à jour de l'état de la commande chargé sur la page
+     */    
     public void updateOrderState(){
         ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();
         

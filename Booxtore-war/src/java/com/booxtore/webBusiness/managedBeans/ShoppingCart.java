@@ -76,37 +76,75 @@ public class ShoppingCart  implements Serializable{
         shoppingCart = new Cart();
     }
     
+    /**
+     * Compte le nombre de livre dans la panier
+     * 
+     * @return le nombre de livre
+     */    
     public int countCartItem(){
         return shoppingCart.getNumbersOfItems();
     }
     
+    /**
+     * Liste les livres du panier
+     * 
+     * @return la liste des livres
+     */
     public ArrayList<CartItem> listCartBook(){
         return shoppingCart.getItems();
     }
     
+    /**
+     * Ajoute un livre au panier
+     * 
+     * @return null
+     */    
     public String addBook() {
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
 	int id = Integer.parseInt(params.get("id"));
-        shoppingCart.addBook(bookAccessor.getBook(id), 1);
+        Book b = bookAccessor.getBook(id);
+        if(b.getBookQuantity() > 0 ) {
+            shoppingCart.addBook(b, 1);
+        }
         return null;
     }
     
+    /**
+     * Mise à jour de la quantité d'un livre dans le panier
+     * @param id id du livre à mettre à jour
+     * @param quantity la quantité à ajouté
+     * @return null
+     */
     public String updateBook(int id, int quantity) {
         shoppingCart.updateBook(bookAccessor.getBook(id), quantity);
         return null;
     }
     
+    /**
+     * Supprime le livre du panier
+     * @param id id du livre à supprimer
+     * @return null 
+     */
     public String delBook(int id) {
         shoppingCart.delBook(id);
         return null;
     }
     
-    
+    /**
+     * Prix total du panier
+     * 
+     * @return le prix du panier
+     */
     public float priceCart(){
         return shoppingCart.getSubtotal();
     }
     
+    /**
+     * Vide le panier
+     * 
+     * @return null
+     */
     public String clearCart() {
         shoppingCart = new Cart();
         creditcard = null;
@@ -126,7 +164,9 @@ public class ShoppingCart  implements Serializable{
     
     
     /**
+     * Finalise le paiement de la commande et l'ajoute à la base de données
      * 
+     * @return null - Redirige vers le recap de la commande
      */
     public String buyCart() {
         Auth user = (Auth) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("auth"); 

@@ -113,6 +113,11 @@ public class OrderManager implements OrderManagerLocal {
         em.merge(o);
     }
 
+    /**
+     * Renvoie le prix total d'une commande
+     * @param id id de la commande
+     * @return le coût total de la commande
+     */
     @Override
     public float getTotalPriceOrder(int id) {
         Orders o = em.createNamedQuery("Orders.findByOrderId", Orders.class).setParameter("orderId", id).getSingleResult();
@@ -121,12 +126,5 @@ public class OrderManager implements OrderManagerLocal {
             total += row.getOrderRowPrice();
         }
         return total;
-    }
-
-    @Override
-    public List<OrderRow> getOrderRow(int id) {
-        return em.createNamedQuery("OrderRow.findByOrderId", OrderRow.class).setParameter("orderOrderId", getOrderById(id)).getResultList();
-    }
-    
-    
+    }    
 }

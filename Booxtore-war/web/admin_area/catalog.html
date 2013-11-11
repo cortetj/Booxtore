@@ -122,6 +122,24 @@
             jQuery(document).ready(function() {
                 // dynamic table
                 jQuery('#dyntable').dataTable({
+                    "oLanguage": {
+                        "oAria": {
+                            "sSortAscending": "cliquez pour trier dans l'ordre croissant",
+                            "sSortDescending": "cliquez pour trier dans l'ordre décroissant"
+                        },
+                        "oPaginate": {
+                            "sFirst": "Première page",
+                            "sLast": "Dernière page",
+                            "sNext": "Suivant",
+                            "sPrevious": "Précédent"                            
+                        },
+                        "sEmptyTable": "Aucune donnée à afficher !",
+                        "sInfo": "Total de _TOTAL_ lignes (_START_ à _END_)",
+                        "sInfoEmpty": "Pas de lignes à afficher!",
+                        "sLengthMenu": "Afficher _MENU_ par page.",
+                        "sSearch": "Rechercher : _INPUT_",
+                        "sZeroRecords": "Pas de lignes à afficher! "
+                    },
                     "sPaginationType": "full_numbers",
                     "aaSortingFixed": [[0,'asc']],
                     "fnDrawCallback": function(oSettings) {

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Booxtore</title>
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="../bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+        <link href="../css/style.css" rel="stylesheet" />
+        <ui:param name="user" value="#{auth.user}"/>
+        <!-- fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,900,900italic,400italic' rel='stylesheet' type='text/css'/>
+    </head>
+    <body>
+        <!-- Start Main Menu and Logo-->
+        <ui:include src="../navigation.html" />
+        <div id="titleRow">
+            <div class="container">
+                <h1>
+                    <span class="lft"></span><span class="mid">Espace client</span><span class="rt"></span>
+                </h1>
+            </div>
+        </div>
+        <div class="singleProject">
+            <div class="container">
+                <div class="row">
+                    <div class="span12">
+                        <h2>
+                            <span class="lft"></span><span class="mid">Informations personnelles</span><span class="rt"></span>
+                        </h2>
+                        <div class="span6">
+                            <p>
+                                <strong>#{user.userFirstname} #{user.userLastname}</strong><br />
+                                #{user.userAddress},<br />
+                                #{user.userCityNumber} - #{user.userCity}
+                            </p>
+                        </div>
+                        <div class="span4">
+                            <p>
+                                <strong>Email :</strong><br/>
+                                #{user.userMail}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        <h2>
+                            <span class="lft"></span><span class="mid">Commandes</span><span class="rt"></span>
+                        </h2>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Commande n°</th>
+                                    <th>Date de commande</th>
+                                    <th>Coût total</th>
+                                    <th>Etat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="#{user.getOrdersCollection()}" var="o">
+                                    <tr>
+                                        <td>#{o.orderId}</td>
+                                        <td>
+                                            <h:outputText value="#{o.orderDate}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                        </td>
+                                        <td>#{o.getTotal()}</td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="#{o.orderState == 0}">
+                                                    en préparation
+                                                </c:when>
+                                                <c:when test="#{o.orderState == 1}">
+                                                    prête à être envoyée
+                                                </c:when>
+                                                <c:when test="#{o.orderState == 2}">
+                                                    validée
+                                                </c:when>
+                                                <c:when test="#{o.orderState == 3}">
+                                                    annulée
+                                                </c:when>
+                                            </c:choose>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

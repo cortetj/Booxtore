@@ -34,6 +34,4 @@ public interface OrderManagerLocal {
 
     float getTotalPriceOrder(int id);
 
-    List<OrderRow> getOrderRow(int id);
-    
 }
