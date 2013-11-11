@@ -10,12 +10,11 @@
                 <!-- Start Logo -->
                 <a href="#{request.contextPath}/index.html" class="brand active"><img src="#{request.contextPath}/img/logo.png" alt="Booxtore!"/>Booxtore</a>
                 <!-- End Logo -->
-
                 <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">menu <span class="caret"></span></a>
                 <div class="nav-collapse">
                     <ul class="nav pull-right">
                         <li id="nav-home"><a href="#{request.contextPath}/index.html">Accueil</a></li>
-                        <li id="nav-books" class="dropdown"><a href="/Booxtore/books.html" class="dropdown-toggle" >Livres</a>
+                        <li id="nav-books" class="dropdown"><a href="#{request.contextPath}/books.html" class="dropdown-toggle" >Livres</a>
                             <ul class="dropdown-menu unstyled">
                                 <c:forEach items="#{testManagedBean.listCategories()}" var="c">
                                     <li><a href="#{request.contextPath}/books.html?category=${c.categoryId}"> ${c.categoryName} </a></li>
@@ -31,12 +30,12 @@
                         </h:panelGroup>
                         <h:panelGroup rendered="#{auth.isConnected() == 'true'}">
                             <li id="nav-client" class="dropdown"><a href="#" class="dropdown-toggle">Espace client &#160;&#160; 
-                                    <img style="vertical-align: baseline;" src="#{request.contextPath}/img/dot1-bg.png"/></a>
-                                <ul class="dropdown-menu unstyled">
-                                    <li><a href="#">Panier</a></li>
-                                    <li><a href="#">Editer compte</a></li>
-                                    <li><a href="#" onclick="$('.subdeco').click();">Se Deconnecter</a></li>
-                                </ul>
+                                <img style="vertical-align: baseline;" src="#{request.contextPath}/img/dot1-bg.png"/></a>
+                                    <ul class="dropdown-menu unstyled">
+                                        <li><a href="#">Panier</a></li>
+                                        <li><a href="#">Editer compte</a></li>
+                                        <li><a href="#" onclick="$('.subdeco').click();">Se Deconnecter</a></li>
+                                    </ul>
                             </li>
                         </h:panelGroup>                                       
                     </ul>
@@ -44,11 +43,10 @@
                     <ul class="cart-list" style="display: none;">
                         <c:if test="#{shoppingCart.countCartItem() >= 1}">
                             <c:forEach items="#{shoppingCart.listCartBook()}" var="s">
-
                                 <li>
                                     <a href="#">
                                         <div class="cl-img">
-                                            <span href="06work-project.html" class="thumbnail corner">
+                                            <span class="thumbnail corner">
                                                 <span class="topCorner"></span>
                                                 <img src="#{request.contextPath}/img/books_thmb/#{s.getBook().bookId}.jpg" alt="#{s.getBook().bookName}"/>
                                                 <span class="bottomCorner"></span>
@@ -69,7 +67,15 @@
                             <li>Votre panier est vide</li>
                         </c:if>
 
-                        <li><a href="#{request.contextPath}/secured_area/payment.html" class="btn red-btn">Finaliser</a><h4 class="floright">Total : #{shoppingCart.priceCart()}€</h4></li>
+                        <li>
+                            <h:panelGroup rendered="#{auth.isConnected() == 'false'}">
+                                <span>Connectez-vous pour vous finaliser</span>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{auth.isConnected() == 'true'}">
+                                <a href="#{request.contextPath}/secured_area/payment.html" class="btn red-btn">Finaliser</a>
+                            </h:panelGroup> 
+                            <h4 class="floright">Total : #{shoppingCart.priceCart()}€</h4>
+                        </li>
                     </ul>
 
                 </div>
@@ -77,5 +83,4 @@
 
         </div>
     </div>
-
 </ui:composition>

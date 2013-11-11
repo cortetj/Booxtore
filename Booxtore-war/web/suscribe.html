@@ -37,8 +37,8 @@
         </div>
 
         <div class="container">
-            <form class="form-horizontal">
-
+            <h:form method="POST" class="form-horizontal">
+                <f:event type="preRenderView" listener="#{userManagement.checkError()}"/>
                 <div class="filterMenu">
                     <div class="container">
                         <ul class="span">
@@ -52,21 +52,21 @@
                 <div class="row">
                     <div class="span4">
                         <div class="control-group">
-                            <label class="control-label" for="inputEmail">Nom d'utilisateur</label>
+                            <label class="control-label" for="login">Nom d'utilisateur</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="Nom d'utilisateur"/>
+                                <h:inputText value="#{userManagement.username}" name="login" type="text"/>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="inputPassword">Mot de passe</label>
                             <div class="controls">
-                                <input type="text" id="inputPassword" placeholder="Mot de passe"/>
+                                <h:inputText value="#{userManagement.password}" name="passwd" type="text"/>
                             </div>
                         </div>    
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">E-mail</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="johndoe@booxtore.com"/>
+                                <h:inputText value="#{userManagement.mail}" name="mail" type="text"/>
                             </div>
                         </div>
 
@@ -75,37 +75,37 @@
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">Nom</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="Nom"/>
+                                <h:inputText value="#{userManagement.name}" name="name" type="text"/>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="inputPassword">Prenom</label>
                             <div class="controls">
-                                <input type="text" id="inputPassword" placeholder="Prenom"/>
+                                <h:inputText value="#{userManagement.surname}" name="surname" type="text"/>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">Adresse</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="Adresse"/>
+                                <h:inputText value="#{userManagement.adresse}" name="adress" type="text"/>
                             </div>
                         </div> 
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">Ville</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="Ville"/>
+                                <h:inputText value="#{userManagement.city}" name="city" type="text"/>
                             </div>
                         </div> 
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">Code postal</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="CP"/>
+                                <h:inputText value="#{userManagement.postcode}" name="postcode" type="text"/>
                             </div>
                         </div> 
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">Pays</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="Pays"/>
+                                <h:inputText value="#{userManagement.country}" name="country" type="text"/>
                             </div>
                         </div>
 
@@ -117,12 +117,13 @@
                             <span>!</span>
                         </a>
                     </div>
+                    <h:commandButton action="#{userManagement.insert()}" class="" value="Se connecter"/>
                 </div>
 
 
 
 
-            </form>
+            </h:form>
         </div>
 
         <script src="js/jquery.js"></script>
