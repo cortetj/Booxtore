@@ -28,4 +28,6 @@ public interface BookAccessorLocal {
     List<Book> getBooks(int index);
 
     List<Book> getTopBooks();
+    
+    List<Book> getBooksToResupply();
 }

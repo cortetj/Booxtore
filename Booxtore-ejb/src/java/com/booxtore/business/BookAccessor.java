@@ -128,6 +128,14 @@ public class BookAccessor implements BookAccessorLocal {
     }
 
     @Override
+    public List<Book> getBooksToResupply() {
+        // Création de l'e.m.
+        EntityManager em = emf.createEntityManager();
+        return  em.createQuery("SELECT b FROM Book b WHERE b.bookQuantity < b.bookThreshold OR b.bookState = 3")
+                                   .getResultList();
+    }
+    
+    @Override
     public List<Book> getTopBooks() {
         EntityManager em = emf.createEntityManager();
         return  em.createQuery("SELECT o.bookBookId FROM OrderRow o GROUP BY o.bookBookId ORDER BY SUM(o.orderRowQuantity)").setMaxResults(10).getResultList();
