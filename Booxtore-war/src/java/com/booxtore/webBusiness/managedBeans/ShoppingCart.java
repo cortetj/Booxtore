@@ -11,6 +11,7 @@ import com.booxtore.business.OrderManagerLocal;
 import com.booxtore.model.Cart;
 import com.booxtore.model.CartItem;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -27,7 +28,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class ShoppingCart {
+public class ShoppingCart  implements Serializable{
     @EJB
     private OrderManagerLocal orderManager;
     @EJB
