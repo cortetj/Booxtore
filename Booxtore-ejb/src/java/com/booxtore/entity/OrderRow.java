@@ -31,7 +31,8 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "OrderRow.findAll", query = "SELECT o FROM OrderRow o"),
     @NamedQuery(name = "OrderRow.findByOrderRowId", query = "SELECT o FROM OrderRow o WHERE o.orderRowId = :orderRowId"),
     @NamedQuery(name = "OrderRow.findByOrderRowQuantity", query = "SELECT o FROM OrderRow o WHERE o.orderRowQuantity = :orderRowQuantity"),
-    @NamedQuery(name = "OrderRow.findByOrderRowPrice", query = "SELECT o FROM OrderRow o WHERE o.orderRowPrice = :orderRowPrice")})
+    @NamedQuery(name = "OrderRow.findByOrderRowPrice", query = "SELECT o FROM OrderRow o WHERE o.orderRowPrice = :orderRowPrice"),
+    @NamedQuery(name = "OrderRow.findByOrderId", query = "SELECT o FROM OrderRow o WHERE o.orderOrderId = :orderOrderId")})
 public class OrderRow implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

@@ -7,6 +7,7 @@
 package com.booxtore.business;
 
 import com.booxtore.entity.Book;
+import com.booxtore.entity.OrderRow;
 import com.booxtore.entity.Orders;
 import com.booxtore.entity.User;
 import com.booxtore.model.Cart;
@@ -30,5 +31,9 @@ public interface OrderManagerLocal {
     Orders getOrderById(int id);
 
     void updateOrderById(int id, int state);
+
+    float getTotalPriceOrder(int id);
+
+    List<OrderRow> getOrderRow(int id);
     
 }
