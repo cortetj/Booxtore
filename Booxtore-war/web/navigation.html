@@ -4,54 +4,53 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:ui="http://java.sun.com/jsf/facelets">
-        <div class="navbar navbar-static-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <!-- Start Logo -->
-                    <a href="/Booxtore/index.html" class="brand active"><img src="/Booxtore/img/logo.png" alt="Booxtore!"/>Booxtore</a>
-                    <!-- End Logo -->
+    <div class="navbar navbar-static-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <!-- Start Logo -->
+                <a href="#{request.contextPath}/index.html" class="brand active"><img src="#{request.contextPath}/img/logo.png" alt="Booxtore!"/>Booxtore</a>
+                <!-- End Logo -->
 
-                    <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">menu <span class="caret"></span></a>
-                    <div class="nav-collapse">
-                        <ul class="nav pull-right">
-                            <li id="nav-home"><a href="/Booxtore/index.html">Accueil</a></li>
-                            <li id="nav-books" class="dropdown"><a href="/Booxtore/books.html" class="dropdown-toggle" >Livres</a>
+                <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">menu <span class="caret"></span></a>
+                <div class="nav-collapse">
+                    <ul class="nav pull-right">
+                        <li id="nav-home"><a href="#{request.contextPath}/index.html">Accueil</a></li>
+                        <li id="nav-books" class="dropdown"><a href="/Booxtore/books.html" class="dropdown-toggle" >Livres</a>
+                            <ul class="dropdown-menu unstyled">
+                                <c:forEach items="#{testManagedBean.listCategories()}" var="c">
+                                    <li><a href="#{request.contextPath}/books.html?category=${c.categoryId}"> ${c.categoryName} </a></li>
+                                </c:forEach>
+                            </ul>
+                        </li>
+                        <li id="nav-about"><a href="#{request.contextPath}/about.html">A propos</a></li>
+                        <li id="nav-contact"><a href="#{request.contextPath}/contact.html">Contact</a></li>
+                        <li style="color: rgb(238, 238, 238); font-size: 12px;"> | </li>
+                        <h:panelGroup rendered="#{auth.isConnected() == 'false'}">
+                            <li id="nav-login"><a href="#" id="login">Espace client &#160;&#160; 
+                                    <img style="vertical-align: baseline;" src="#{request.contextPath}/img/dot2-bg.png"/></a></li>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{auth.isConnected() == 'true'}">
+                            <li id="nav-client" class="dropdown"><a href="#" class="dropdown-toggle">Espace client &#160;&#160; 
+                                    <img style="vertical-align: baseline;" src="#{request.contextPath}/img/dot1-bg.png"/></a>
                                 <ul class="dropdown-menu unstyled">
-                                    <c:forEach items="#{testManagedBean.listCategories()}" var="c">
-                                        <li><a href="books.html?category=${c.categoryId}"> ${c.categoryName} </a></li>
-                                    </c:forEach>
+                                    <li><a href="#">Panier</a></li>
+                                    <li><a href="#">Editer compte</a></li>
+                                    <li><a href="#" onclick="$('.subdeco').click();">Se Deconnecter</a></li>
                                 </ul>
                             </li>
-                            <li id="nav-about"><a href="/Booxtore/about.html">A propos</a></li>
-                            <li id="nav-contact"><a href="/Booxtore/contact.html">Contact</a></li>
-                            <li style="color: rgb(238, 238, 238); font-size: 12px;"> | </li>
-                                    
-                                <h:panelGroup rendered="#{auth.isConnected() == 'false'}">
-                                    <li id="nav-login"><a href="#" id="login">Espace client &#160;&#160; 
-                                    <img style="vertical-align: baseline;" src="/Booxtore/img/dot2-bg.png"/></a></li>
-                                </h:panelGroup>
-                                <h:panelGroup rendered="#{auth.isConnected() == 'true'}">
-                                    <li id="nav-client" class="dropdown"><a href="#" class="dropdown-toggle">Espace client &#160;&#160; 
-                                    <img style="vertical-align: baseline;" src="/Booxtore/img/dot1-bg.png"/></a>
-                                        <ul class="dropdown-menu unstyled">
-                                            <li><a href="#">Panier</a></li>
-                                            <li><a href="#">Editer compte</a></li>
-                                            <li><a href="#" onclick="$('.subdeco').click();">Se Deconnecter</a></li>
-                                        </ul>
-                                    </li>
-                                </h:panelGroup>                                       
-                        </ul>
-                        <div class="cart"><a><img class="cart-img" src="/Booxtore/img/package.png"/></a><span class="cart-nbr">#{shoppingCart.countCartItem()}</span></div>
-                            <ul class="cart-list" style="display: none;">
-                    <c:if test="#{shoppingCart.countCartItem() >= 1}">
+                        </h:panelGroup>                                       
+                    </ul>
+                    <div class="cart"><a><img class="cart-img" src="#{request.contextPath}/img/package.png"/></a><span class="cart-nbr">#{shoppingCart.countCartItem()}</span></div>
+                    <ul class="cart-list" style="display: none;">
+                        <c:if test="#{shoppingCart.countCartItem() >= 1}">
                             <c:forEach items="#{shoppingCart.listCartBook()}" var="s">
-                               
+
                                 <li>
                                     <a href="#">
                                         <div class="cl-img">
                                             <span href="06work-project.html" class="thumbnail corner">
                                                 <span class="topCorner"></span>
-                                                <img src="/Booxtore/img/books_thmb/#{s.getBook().bookId}.jpg" alt="#{s.getBook().bookName}"/>
+                                                <img src="#{request.contextPath}/img/books_thmb/#{s.getBook().bookId}.jpg" alt="#{s.getBook().bookName}"/>
                                                 <span class="bottomCorner"></span>
                                             </span>
                                         </div>
@@ -60,23 +59,23 @@
                                             <h5><c:forEach items="#{s.getBook().authorCollection}" var="a">#{a.authorName} </c:forEach></h5>
                                             <h4 class="floright">#{s.getTotal()} €</h4>
                                             <h6>Quantité : #{s.getQuantity()}</h6>
-                                            
+
                                         </div>
                                     </a>
                                 </li>
                             </c:forEach>
-                    </c:if>
-                    <c:if test="#{shoppingCart.countCartItem() == 0}">
-                        <li>Votre panier est vide</li>
-                    </c:if>
-                                
-                                <li><a href="/Booxtore/secured_area/payment.html" class="btn red-btn">Finaliser</a><h4 class="floright">Total : #{shoppingCart.priceCart()}€</h4></li>
-                            </ul>
-                        
-                    </div>
+                        </c:if>
+                        <c:if test="#{shoppingCart.countCartItem() == 0}">
+                            <li>Votre panier est vide</li>
+                        </c:if>
+
+                        <li><a href="#{request.contextPath}/secured_area/payment.html" class="btn red-btn">Finaliser</a><h4 class="floright">Total : #{shoppingCart.priceCart()}€</h4></li>
+                    </ul>
+
                 </div>
-                
             </div>
+
         </div>
+    </div>
 
 </ui:composition>
