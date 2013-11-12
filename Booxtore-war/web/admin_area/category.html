@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="prettify/prettify.css" type="text/css" />
         <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
         <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <f:event listener="#{books.loadCategory(param.id)}" type="preRenderView"/>
     </head>
     <body>
         <div class="mainwrapper">
@@ -41,8 +42,8 @@
                 </div><!--pagetitle-->
                 <div class="maincontent">
                     <div class="contentinner">
-                        <c:choose>
-                            <c:when test="#{param.id == 0}">
+                        <h:form>
+                            <h:ouputText rendered="#{param.id == 0}">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -57,24 +58,21 @@
                                             <tr>
                                                 <td><h:outputText value="#{c.categoryName}" /></td>
                                                 <td><h:outputText value="#{fn:substring(c.categorySummary, 0, 80)}..." /></td>
-                                                <td><h:outputText value="#{c.categoryKeywords}" /></td>
+                                                <td><h:outputText value="#{fn:substring(c.categoryKeywords,0,80)}" /></td>
                                                 <td><a href="category.html?id=#{c.categoryId}">Modifier</a></td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>
                                 </table>
-                            </c:when>
-                            <c:when test="#{param.id > 0}">
-                                <h:form method="post">
-                                    <ui:param name="category" value="#{books.getCategoryById(param.id)}" />
-                                    <h:outputLabel value="Nom :"/><h:inputText id="categoryName" name="name" value="#{category.categoryName}" />
-                                    <h:outputLabel value="Description :"/><h:inputTextarea id="categorySummary" rows="10" cols="80" name="summary" value="#{category.categorySummary}" />
-                                    <h:outputLabel value="Mot-Clés :"/><h:inputTextarea id="categoryKeywords" rows="10" cols="80" name="keywords" value="#{category.categoryKeywords}" />
-                                    
-                                    <h:commandButton action="#{books.updateCategory()}" value="Enregistrer" />
-                                </h:form>
-                            </c:when>
-                        </c:choose>
+                            </h:ouputText>
+                            <h:ouputText rendered="#{param.id > 0}">
+                                <inputHidden name="categoryId" value="#{books.categoryId}" />
+                                <h:outputLabel value="Nom :"/><h:inputText name="categoryName" value="#{books.categoryName}" />
+                                <h:outputLabel value="Description :"/><h:inputTextarea rows="10" cols="80" name="categorySummary" value="#{books.categorySummary}" />
+                                <h:outputLabel value="Mot-Clés :"/><h:inputTextarea rows="10" cols="80" name="categoryKeywords" value="#{books.categoryKeywords}" />
+                            </h:ouputText>
+                            <h:commandButton action="#{books.updateCategory()}" value="Enregistrer" rendered="#{param.id > 0}"/>
+                        </h:form>
                     </div>
                 </div>
             </div>
