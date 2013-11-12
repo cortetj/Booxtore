@@ -77,14 +77,7 @@
                                 </h:selectOneMenu>
                                 <input id="newCategory" name="newCategory" value="Nouvelle Catégorie" onclick="this.value = ''" /><a class="btn" onclick="jQuery('.selectCat option:last-of-type').after(jQuery('&#60;option selected&#62;&#60;/option&#62;').attr('value', jQuery('#newCategory').val() ).text(jQuery('#newCategory').val())); return false;" >Ajouter la catégorie</a>
                                 <h:outputLabel value="Editeur :"/><h:inputText name="editeur" value="#{bookManagement.editor}" />
-                                <c:choose>
-                                    <c:when test="#{param.id > 0}">
-                                        <h:commandButton action="#{bookManagement.updateBook()}" value="Enregistrer les modifications" />
-                                    </c:when>
-                                    <c:when test="#{param.id == '0'}">
-                                        <h:commandButton action="#{bookManagement.updateBook()}" value="Ajouter le livre au catalogue" />
-                                    </c:when>
-                                </c:choose>
+                                <h:commandButton action="#{bookManagement.updateBook()}" value="Enregistrer" />
                             </h:panelGrid> 
                         </h:form>
                        </div>

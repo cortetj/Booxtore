@@ -195,15 +195,15 @@ jQuery(document).ready(function(){
 	
 	
 	// dynamic table
-	if(jQuery('#dyntable').length > 0) {
-		jQuery('#dyntable').dataTable({
-			"sPaginationType": "full_numbers",
-			"aaSortingFixed": [[0,'asc']],
-			"fnDrawCallback": function(oSettings) {
-				jQuery.uniform.update();
-			}
-		});
-	}
+	//if(jQuery('#dyntable').length > 0) {
+	//	jQuery('#dyntable').dataTable({
+//			"sPaginationType": "full_numbers",
+//			"aaSortingFixed": [[0,'asc']],
+//			"fnDrawCallback": function(oSettings) {
+//				jQuery.uniform.update();
+//			}
+//		});
+//	}
 	
 	
 	/////////////////////////////// ELEMENTS.HTML //////////////////////////////

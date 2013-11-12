@@ -200,7 +200,6 @@ public class BookManagement {
      * @return null - cette fonction redirige vers le cataloge en cas de succès / retourne la même page en cas d'échec
      */
     public String updateBook() {
-        
         ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();
         ArrayList arl = new ArrayList(Arrays.asList(author.split(",")));
         
@@ -219,6 +218,6 @@ public class BookManagement {
             Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, e);
             System.err.println("Echec de la mise à jour / insertion du livre.");
         }
-        return null;
+        return "book.html?faces-redirect=true&id="+id+"&error=true";
     }
 }

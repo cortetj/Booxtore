@@ -25,13 +25,13 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" onclick="$('hidden .subdeco').submit();">
+                                    <a href="#" onclick="jQuery('.subdeco').click();">
                                         <span class="icon-off"></span>
                                         Déconnexion
-                                        <h:form method="POST" class="hidden subdeco" action="#{auth.logout()}">
-                                            <h:commandButton value="Se déconnecter"/>                    
-                                        </h:form>
                                     </a>
+                                    <h:form  method="POST" styleClass="hidden">
+                                        <h:commandButton action="#{auth.logout()}" styleClass="subdeco" value="Se déconnecter"/>                    
+                                    </h:form>
                                 </li>
                             </ul>
                         </div><!--dropdown-->
