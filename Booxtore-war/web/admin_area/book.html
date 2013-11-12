@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="prettify/prettify.css" type="text/css" />
         <f:event listener="#{bookManagement.loadBook(param.id)}" type="preRenderView"/>
         <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
     </head>
     <body>
         <div class="mainwrapper">
@@ -69,7 +70,12 @@
                                     <f:selectItem itemValue="4" itemLabel="Indisponible"/>
                                 </h:selectOneMenu>
                                 <h:outputLabel value="Auteur :"/><h:inputText name="auteur" value="#{bookManagement.author}" />
-                                <h:outputLabel value="Catégorie :"/><h:inputText name="categorie" value="#{bookManagement.category}" />
+                                <h:outputLabel value="Catégorie :"/><h:selectOneMenu class="selectCat" name="categorie" value="#{bookManagement.category}" >
+                                    <c:forEach items="#{books.listCategories()}" var="c">
+                                        <f:selectItem itemValue="#{c.categoryName}" itemLabel="#{c.categoryName}" />
+                                    </c:forEach>
+                                </h:selectOneMenu>
+                                <input id="newCategory" name="newCategory" value="Nouvelle Catégorie" onclick="this.value = ''" /><a class="btn" onclick="jQuery('.selectCat option:last-of-type').after(jQuery('&#60;option selected&#62;&#60;/option&#62;').attr('value', jQuery('#newCategory').val() ).text(jQuery('#newCategory').val())); return false;" >Ajouter la catégorie</a>
                                 <h:outputLabel value="Editeur :"/><h:inputText name="editeur" value="#{bookManagement.editor}" />
                                 <c:choose>
                                     <c:when test="#{param.id > 0}">
@@ -85,7 +91,7 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        
         <script type="text/javascript" src="js/jquery-migrate-1.1.1.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.2.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>

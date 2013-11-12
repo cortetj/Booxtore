@@ -81,22 +81,30 @@
                                     </strong>
                             </span><br/>
                             <c:choose>
-                                <c:when test="#{ book.bookThreshold > book.bookQuantity }">
+                                <c:when test="#{ book.bookThreshold > book.bookQuantity and book.bookQuantity > 0}">
                                     <p class="alert">Il reste seulement #{book.bookQuantity} article(s) !</p>
                                 </c:when>
                             </c:choose>
                             <br/>
                             <p>#{book.bookSummary}</p>
 
-
+                            <span>Prix<br/>
+                                <strong>#{book.bookPrice} €</strong>
+                            </span>
                             <br/><br/>
-                            
-                            <h:form>
-                                <h:commandButton action="#{shoppingCart.addBook}" class="btn red-btn" value="Ajouter au panier">
-                                        <f:param name="id" value="#{book.bookId}" />
-                                        <f:param name="qte" value="1" />
-                                </h:commandButton>
-                            </h:form>
+                            <c:choose>
+                                <c:when test="#{book.bookQuantity > 0}">
+                                    <h:form>
+                                        <h:commandButton action="#{shoppingCart.addBook}" class="btn red-btn" value="Ajouter au panier">
+                                                <f:param name="id" value="#{book.bookId}" />
+                                                <f:param name="qte" value="1" />
+                                        </h:commandButton>
+                                    </h:form>
+                                </c:when>
+                                <c:when test="#{book.bookQuantity == 0}">
+                                    <p class="alert-error">Produit indisponible</p>
+                                </c:when>
+                            </c:choose>
                         </div>
                     </div>
                 </div>

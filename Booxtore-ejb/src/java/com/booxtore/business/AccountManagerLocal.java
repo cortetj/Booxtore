@@ -23,5 +23,5 @@ public interface AccountManagerLocal {
     User createUser(String userFirstName, String userLastName, String userMail, String userAddress, String userCity, String userCityNumber, String userLogin, String userPassword);
     
     void updateUser(int userId, String userFirstName, String userLastName, String userMail, String userAddress, String userCity, String userCityNumber, String userLogin, String userPassword);
-    
+
 }

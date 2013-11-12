@@ -57,8 +57,8 @@
                         <h3 class="floleft"><a href="read.html?id=#{b.bookId}">#{b.bookName}</a></h3>
                         <h3 class="floright">#{b.bookPrice} €</h3>
                         <h4 style="font-weight: normal; text-align: left;"><i>#{b.categoryCategoryId.categoryName}</i></h4>
-                        <p>#{fn:substring(b.bookSummary, 0, 100)}...</p>
-                        <h4><c:forEach items="#{b.authorCollection}" var="a">#{a.authorName} </c:forEach></h4>
+                        <p>#{fn:substring(b.bookSummary, 0, 80)}...</p>
+                        <h4> <c:forEach items="#{b.authorCollection}" var="a"> #{a.authorName} </c:forEach></h4>
                         
                     </div>
                 </li>

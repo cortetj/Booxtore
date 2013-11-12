@@ -127,6 +127,10 @@ public class BookAccessor implements BookAccessorLocal {
         return q.getResultList();
     }
 
+    /**
+     * Renvoie une liste de livres qui dont le stock est inférieur au stock critique
+     * @return la liste des livres qui sont à recommander
+     */
     @Override
     public List<Book> getBooksToResupply() {
         // Création de l'e.m.
@@ -135,6 +139,11 @@ public class BookAccessor implements BookAccessorLocal {
                                    .getResultList();
     }
     
+    
+    /**
+     * Renvoie une liste des livres les plus vendus
+     * @return la liste des livres les plus populaires
+     */
     @Override
     public List<Book> getTopBooks() {
         EntityManager em = emf.createEntityManager();

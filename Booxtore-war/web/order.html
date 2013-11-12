@@ -29,8 +29,6 @@
         <div id="workGallery">
             <div class="container">
                 <h:form method="POST">
-                    <h:commandButton action="#{shoppingCart.addBook(1,1)}" value="ajouter book 1" />
-                    <h:commandButton action="#{shoppingCart.addBook(2,1)}" value="ajouter book 2" />
                     <h:commandButton action="#{shoppingCart.clearCart()}" value="vider panier" />
                     <c:if test="#{shoppingCart.countCartItem() >= 1}">
                         <table>
@@ -44,7 +42,7 @@
                                 <tr>
                                     <td><img src="img/books_thmb/#{s.getBook().bookId}.jpg" title="#{s.getBook().bookName}" /></td>
                                     <td>#{s.getBook().bookName}</td>
-                                    <td><c:if test="#{s.getQuantity() > 1}"><h:commandButton action="#{shoppingCart.addBook(s.getBook().bookId,-1)}" value="-" /> </c:if>#{s.getQuantity()} <c:if test="#{s.getBook().bookQuantity > s.getQuantity()}"><h:commandButton action="#{shoppingCart.addBook(s.getBook().bookId,1)}" value="+" /></c:if></td>
+                                    <td><c:if test="#{s.getQuantity() > 1}"><h:commandButton action="#{shoppingCart.updateBook(s.getBook().bookId,-1)}" value="-" /> </c:if>#{s.getQuantity()} <c:if test="#{s.getBook().bookQuantity > s.getQuantity()}"><h:commandButton action="#{shoppingCart.updateBook(s.getBook().bookId,1)}" value="+" /></c:if></td>
                                     <td>#{s.getTotal()} €</td>
                                     <td><h:commandButton action="#{shoppingCart.delBook(s.getBook().bookId)}" value="supp" /> </td>
                                 </tr>
