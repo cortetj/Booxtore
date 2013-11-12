@@ -71,7 +71,7 @@
                                     <h:outputLabel value="Description :"/><h:inputTextarea id="categorySummary" rows="10" cols="80" name="summary" value="#{category.categorySummary}" />
                                     <h:outputLabel value="Mot-Clés :"/><h:inputTextarea id="categoryKeywords" rows="10" cols="80" name="keywords" value="#{category.categoryKeywords}" />
                                     
-                                    <h:commandButton action="#{updateCategory()}" value="Enregistrer" />
+                                    <h:commandButton action="#{books.updateCategory()}" value="Enregistrer" />
                                 </h:form>
                             </c:when>
                         </c:choose>
