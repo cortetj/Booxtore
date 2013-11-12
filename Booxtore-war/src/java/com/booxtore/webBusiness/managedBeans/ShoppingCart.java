@@ -38,7 +38,7 @@ public class ShoppingCart  implements Serializable{
     
     
     Cart shoppingCart;
-    
+
     String creditcard;
     String code;
     Date date;
@@ -176,7 +176,7 @@ public class ShoppingCart  implements Serializable{
                 this.clearCart();
                 ExternalContext context =  FacesContext.getCurrentInstance().getExternalContext();
                 try {
-                    context.redirect(context.getRequestContextPath()+"/secured_area/payment.html?state=true");
+                    context.redirect(context.getRequestContextPath()+"/index.html?state=true");
                 } catch (IOException ex) {
                     Logger.getLogger(ShoppingCart.class.getName()).log(Level.SEVERE, null, ex);
                 }

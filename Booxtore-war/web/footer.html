@@ -20,13 +20,11 @@
 
                     </div>
                     <div class="span3">
-
                         <ul class="thumbnails">
                             <li>
-                                <a href="#" class="thumbnail"><img src="http://dummyimage.com/190x130" alt=""/></a>
+                                <a href="#" class="thumbnail"><img width="190px" src="#{request.contextPath}/img/aboutlib.jpg" alt=""/></a>
                             </li>
                         </ul>
-
                     </div>
                     <div class="span3">
                         <p>Vous ne trouvez pas un livre ?</p>
@@ -107,6 +105,13 @@
             </h:form>
         </div>
         
+        <div class="notification alert alert-error hide">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <p style="font-weight: bold; font-size: 1.1em; margin-top: 5px;" class="notif-content">
+                
+            </p>
+        </div>
+        
         <script>
             $(document).ready(function () {
                 $("#login").popover({
@@ -130,6 +135,27 @@
                 $('.cart-list, .cart').click(function(event){
                     event.stopPropagation();
                 }); 
+                
+                if(window.location.href.indexOf("failed=0") > -1 || window.location.href.indexOf("failed=1") > -1) {
+                    $(".notif-content").text("Impossible de se connecter, verifiez votre mot de passe et votre nom d'utilisateur !")
+                    $(".notification").show().delay(4500).fadeOut("slow");
+                }
+                if(window.location.href.indexOf("state=true") > -1) {
+                    $(".notif-content").text("Hop! la commande est terminée ! Merci pour votre fidélité, et à bientôt !")
+                    $(".notification").removeClass("alert-error").addClass("alert-success");
+                    $(".notification").show().delay(4500).fadeOut("slow");
+                }
+                if(window.location.href.indexOf("log=true") > -1) {
+                    $(".notif-content").text("Connection réussi !")
+                    $(".notification").removeClass("alert-error").addClass("alert-success");
+                    $(".notification").show().delay(4500).fadeOut("slow");
+                }
+                if(window.location.href.indexOf("create=true") > -1) {
+                    $(".notif-content").text("Creation de compte réussi")
+                    $(".notification").removeClass("alert-error").addClass("alert-success");
+                    $(".notification").show().delay(4500).fadeOut("slow");
+                }
+                
             })
         
         </script>

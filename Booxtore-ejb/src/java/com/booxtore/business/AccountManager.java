@@ -81,10 +81,11 @@ public class AccountManager implements AccountManagerLocal {
      */
     @Override
     public User createUser(String userFirstName, String userLastName, String userMail, String userAddress, String userCity, String userCityNumber, String userLogin, String userPassword) {
-        User user = null; 
-        // login déjà pris?
+            User user = null;
+           // login déjà pris?
         if( getUserByLogin(userLogin) == null) {
             // non: créer l'utilisateur
+            
             user = new User(null, userFirstName, userLastName, userMail, userAddress, userCity, userCityNumber, userLogin, userPassword, (short)0);
             em.persist(user);
          }

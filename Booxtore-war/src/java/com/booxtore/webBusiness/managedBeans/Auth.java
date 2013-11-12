@@ -107,10 +107,10 @@ public class Auth implements Serializable {
                 password = null;
                 //TODO: link vers page compte / un message d'accueil / etc.
                 context.getSessionMap().put("user", user);
-                if ( isAdministrator() ) {
+                if ( isAdministrator() != false) {
                     url = "/admin_area/";
                 } else {
-                    url = "/secured_area/";
+                    url = "?log=true";
                 }
             }
         } catch (NoSuchAlgorithmException ex) {

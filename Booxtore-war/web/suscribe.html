@@ -26,7 +26,88 @@
     </head>
     <body>
         <!-- Start Main Menu and Logo-->
-        <ui:include src="navigation.html" />
+<div class="navbar navbar-static-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <!-- Start Logo -->
+                <a href="#{request.contextPath}/index.html" class="brand active"><img src="#{request.contextPath}/img/logo.png" alt="Booxtore!"/>Booxtore</a>
+                <!-- End Logo -->
+                
+                
+                <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">menu <span class="caret"></span></a>
+                <div class="nav-collapse">
+                    <ul class="nav pull-right">
+                        
+                        <li id="nav-home"><a href="#{request.contextPath}/index.html">Accueil</a></li>
+                        <li id="nav-books" class="dropdown"><a href="#{request.contextPath}/books.html" class="dropdown-toggle" >Livres</a>
+                            <ul class="dropdown-menu unstyled">
+                                <c:forEach items="#{testManagedBean.listCategories()}" var="c">
+                                    <li><a href="#{request.contextPath}/books.html?category=${c.categoryId}"> ${c.categoryName} </a></li>
+                                </c:forEach>
+                            </ul>
+                        </li>
+                        <li id="nav-about"><a href="#{request.contextPath}/about.html">A propos</a></li>
+                        <li id="nav-contact"><a href="#{request.contextPath}/contact.html">Contact</a></li>
+                        <li style="color: rgb(238, 238, 238); font-size: 12px;"> | </li>
+                        <h:panelGroup rendered="#{auth.isConnected() == 'false'}">
+                            <li id="nav-login"><a href="#" id="login">Espace client &#160;&#160; 
+                                    <img style="vertical-align: baseline;" src="#{request.contextPath}/img/dot2-bg.png"/></a></li>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{auth.isConnected() == 'true'}">
+                            <li id="nav-client" class="dropdown"><a href="#" class="dropdown-toggle">Espace client &#160;&#160; 
+                                <img style="vertical-align: baseline;" src="#{request.contextPath}/img/dot1-bg.png"/></a>
+                                    <ul class="dropdown-menu unstyled">
+                                        <li><a href="#">Panier</a></li>
+                                        <li><a href="#">Editer compte</a></li>
+                                        <li><a href="#" onclick="$('.subdeco').click();">Se Deconnecter</a></li>
+                                    </ul>
+                            </li>
+                        </h:panelGroup>                                       
+                    </ul>
+                    <div class="cart"><a><img class="cart-img" src="#{request.contextPath}/img/package.png"/></a><span class="cart-nbr">#{shoppingCart.countCartItem()}</span></div>
+                    <ul class="cart-list" style="display: none;">
+                        <c:if test="#{shoppingCart.countCartItem() >= 1}">
+                            <c:forEach items="#{shoppingCart.listCartBook()}" var="s">
+                                <li>
+                                    <a href="#">
+                                        <div class="cl-img">
+                                            <span class="thumbnail corner">
+                                                <span class="topCorner"></span>
+                                                <img src="#{request.contextPath}/img/books_thmb/#{s.getBook().bookId}.jpg" alt="#{s.getBook().bookName}"/>
+                                                <span class="bottomCorner"></span>
+                                            </span>
+                                        </div>
+                                        <div class="cl-book">
+                                            <h4>#{s.getBook().bookName}</h4>
+                                            <h5><c:forEach items="#{s.getBook().authorCollection}" var="a">#{a.authorName} </c:forEach></h5>
+                                            <h4 class="floright">#{s.getTotal()} €</h4>
+                                            <h6>Quantité : #{s.getQuantity()}</h6>
+
+                                        </div>
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </c:if>
+                        <c:if test="#{shoppingCart.countCartItem() == 0}">
+                            <li>Votre panier est vide</li>
+                        </c:if>
+
+                        <li>
+                            <h:panelGroup rendered="#{auth.isConnected() == 'false'}">
+                                <span>Connectez-vous pour vous finaliser</span>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{auth.isConnected() == 'true'}">
+                                <a href="#{request.contextPath}/secured_area/payment.html" class="btn red-btn">Finaliser</a>
+                            </h:panelGroup> 
+                            <h4 class="floright">Total : #{shoppingCart.priceCart()}€</h4>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
         <!-- End Main Menu and Logo -->
         <div id="titleRow">
             <div class="container">
@@ -37,8 +118,8 @@
         </div>
 
         <div class="container">
-            <form class="form-horizontal">
-
+            <h:form method="POST" class="form-horizontal">
+                <f:event type="preRenderView" listener="#{userManagement.checkError()}"/>
                 <div class="filterMenu">
                     <div class="container">
                         <ul class="span">
@@ -52,21 +133,21 @@
                 <div class="row">
                     <div class="span4">
                         <div class="control-group">
-                            <label class="control-label" for="inputEmail">Nom d'utilisateur</label>
+                            <label class="control-label" for="login">Nom d'utilisateur</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="Nom d'utilisateur"/>
+                                <h:inputText value="#{userManagement.username}" name="login" type="text"/>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="inputPassword">Mot de passe</label>
                             <div class="controls">
-                                <input type="text" id="inputPassword" placeholder="Mot de passe"/>
+                                <h:inputText value="#{userManagement.password}" name="passwd" type="text"/>
                             </div>
                         </div>    
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">E-mail</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="johndoe@booxtore.com"/>
+                                <h:inputText value="#{userManagement.mail}" name="mail" type="text"/>
                             </div>
                         </div>
 
@@ -75,37 +156,37 @@
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">Nom</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="Nom"/>
+                                <h:inputText value="#{userManagement.name}" name="name" type="text"/>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="inputPassword">Prenom</label>
                             <div class="controls">
-                                <input type="text" id="inputPassword" placeholder="Prenom"/>
+                                <h:inputText value="#{userManagement.surname}" name="surname" type="text"/>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">Adresse</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="Adresse"/>
+                                <h:inputText value="#{userManagement.adresse}" name="adress" type="text"/>
                             </div>
                         </div> 
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">Ville</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="Ville"/>
+                                <h:inputText value="#{userManagement.city}" name="city" type="text"/>
                             </div>
                         </div> 
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">Code postal</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="CP"/>
+                                <h:inputText value="#{userManagement.postcode}" name="postcode" type="text"/>
                             </div>
                         </div> 
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">Pays</label>
                             <div class="controls">
-                                <input type="text" id="inputEmail" placeholder="Pays"/>
+                                <h:inputText value="#{userManagement.country}" name="country" type="text"/>
                             </div>
                         </div>
 
@@ -117,12 +198,13 @@
                             <span>!</span>
                         </a>
                     </div>
+                    <h:commandButton action="#{userManagement.insert()}" class="" value="Se connecter"/>
                 </div>
 
 
 
 
-            </form>
+            </h:form>
         </div>
 
         <script src="js/jquery.js"></script>
