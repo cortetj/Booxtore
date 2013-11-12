@@ -88,7 +88,10 @@ public class ShoppingCart  implements Serializable{
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
 	int id = Integer.parseInt(params.get("id"));
-        shoppingCart.addBook(bookAccessor.getBook(id), 1);
+        Book b = bookAccessor.getBook(id);
+        if(b.getBookQuantity() > 0 ) {
+            shoppingCart.addBook(b, 1);
+        }
         return null;
     }
     

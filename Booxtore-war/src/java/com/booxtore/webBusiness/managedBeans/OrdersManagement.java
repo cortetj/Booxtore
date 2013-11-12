@@ -8,7 +8,6 @@ package com.booxtore.webBusiness.managedBeans;
 
 import com.booxtore.business.OrderManagerLocal;
 import com.booxtore.entity.Orders;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;

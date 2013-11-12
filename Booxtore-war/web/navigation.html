@@ -10,10 +10,15 @@
                     <!-- Start Logo -->
                     <a href="index.html" class="brand active"><img src="img/logo.png" alt="Booxtore!"/>Booxtore</a>
                     <!-- End Logo -->
-
                     <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">menu <span class="caret"></span></a>
                     <div class="nav-collapse">
                         <ul class="nav pull-right">
+                            <li>
+                                <h:form id="search-form">
+                                    <h:inputText id="search-box" name="search-box" value="#{books.keywords}" onblur="($(search-box).val()!=='')?$(search-button).click();" class="input-xlarge search-query" />
+                                    <h:commandButton class="hidden" id="search-button" name="Go!" action="#{books.searchByKeywords()}" />
+                                </h:form>
+                            </li>
                             <li id="nav-home"><a href="index.html">Accueil</a></li>
                             <li id="nav-books" class="dropdown"><a href="books.html" class="dropdown-toggle" >Livres</a>
                                 <ul class="dropdown-menu unstyled">
@@ -36,6 +41,11 @@
                                         <ul class="dropdown-menu unstyled">
                                             <li><a href="#">Panier</a></li>
                                             <li><a href="#">Editer compte</a></li>
+                                            <c:choose>
+                                                <c:when test="#{auth.isAdministrator()}">
+                                                    <li><a href="admin_area/">Espace admin</a></li>
+                                                </c:when>
+                                            </c:choose>
                                             <li><a href="#" onclick="$('.subdeco').click();">Se Deconnecter</a></li>
                                         </ul>
                                     </li>

@@ -165,4 +165,11 @@ public class Orders implements Serializable {
         return "com.booxtore.entity.Orders[ orderId=" + orderId + " ]";
     }
     
+    public float getTotal() {
+       float f = 0;
+       for(OrderRow or : this.orderRowCollection) {
+           f += or.getOrderRowPrice();
+       }
+       return f;
+    }
 }

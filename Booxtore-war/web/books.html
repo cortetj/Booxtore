@@ -6,21 +6,13 @@
       xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <head>
+        <ui:param value="#{books.loadBooks(param)}" name="listbooks"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <c:choose>
-            <c:when test="#{empty param.category}">
-                <ui:param name="books" value="#{testManagedBean.listBooks()}" />
-            </c:when>
-            <c:when test="#{not empty param.category}">
-                <ui:param name="books" value="#{testManagedBean.listBooksByCategory(param.category)}" />
-            </c:when>    
-        </c:choose>
         <title>Booxtore</title>
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
         <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet" />
-
         <!-- fonts -->
         <link href='http://fonts.googleapis.com/css?family=Lato:400,900,900italic,400italic' rel='stylesheet' type='text/css'/>
     </head>
@@ -52,7 +44,7 @@
 
         <ul class="thumbnails withHover" id="portfolios1">
             
-            <c:forEach items="#{books}" var="b">
+            <c:forEach items="#{listbooks}" var="b">
                 <li class="span3" data-id="#{b.bookId}" data-filter="#{b.categoryCategoryId.categoryName}">
                     <a href="read.html?id=#{b.bookId}" class="thumbnail corner">
                         <span class="topCorner"></span>
